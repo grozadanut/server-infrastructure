@@ -1,6 +1,6 @@
 pgbackrest_conf_cluster_stanzas:
   ofbiz:
-    pg_path: '/var/lib/postgresql/15/main'
+    pg1_path: '/var/lib/postgresql/15/main'
   global:
     repo1-path: /var/lib/pgbackrest
     repo1-retention-full: 4
