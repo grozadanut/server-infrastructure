@@ -15,7 +15,7 @@ pgbackrest_configuration_repositories:
     - name: retention-full
       value: 4
     - name: cipher-pass
-      value: "{{ pgbackrest-cipher-pass }}"
+      value: "{{ pgbackrest_cipher_pass }}"
     - name: cipher-type
       value: aes-256-cbc
     - name: block

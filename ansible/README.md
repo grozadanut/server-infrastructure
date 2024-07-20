@@ -10,9 +10,9 @@ Before running the playbook, these variables must be defined:
 1. Host variables
 
 For each database host:
-- pgbackrest-cipher-pass
+- pgbackrest_cipher_pass
 
 example: 
 ansible-vault create host_vars/main_server.yml
-pgbackrest-cipher-pass: "pass"
+pgbackrest_cipher_pass: "pass"
 ansible-vault edit host_vars/main_server.yml
