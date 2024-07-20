@@ -1,40 +1,22 @@
-pgbackrest_version: 2.52.1
-pgbackrest_configuration_stanzas:
-  - name: ofbiz
-    hosts:
-      - options:
-          - name: path
-            value: '/var/lib/postgresql/{{ postgresql_version }}/main'
-pgbackrest_configuration_global_options:
-  - name: start-fast
-    value: y
-pgbackrest_configuration_repositories:
-  - options:
-    - name: path
-      value: /var/lib/pgbackrest
-    - name: retention-full
-      value: 4
-    - name: cipher-pass
-      value: "{{ pgbackrest_cipher_pass }}"
-    - name: cipher-type
-      value: aes-256-cbc
-    - name: block
-      value: y
-    - name : bundle
-      value: y
-pgbackrest_configuration_archive_push_options:
-    - name: compress-level
-      value: 3
-pgbackrest_backup_cron:
-  - stanza: ofbiz
-    type: full
-    weekday: SUN
-    hour: 4
-    minute: 30
-    name: Full backup
-  - stanza: ofbiz
-    type: incr
-    weekday: 'MON-SAT'
-    hour: '9,12,16'
-    minute: 0
-    name: Incremental backup
+pgbackrest_conf_cluster_stanzas:
+  ofbiz:
+    pg_path: '/var/lib/postgresql/15/main'
+  global:
+    repo1-path: /var/lib/pgbackrest
+    repo1-retention-full: 4
+    repo1-block: y
+    repo1-bundle: y
+    repo1-cipher-pass: "{{ pgbackrest_cipher_pass }}"
+    repo1-cipher-type: aes-256-cbc
+    start-fast: y
+pgbackrest_full_cron_schedule: "30 4 * * SUN"
+pgbackrest_incr_cron_schedule: "0 9,12,16 * * MON-SAT"
+pgbackrest_systemd_timer_enabled: false
+pgbackrest_cron_enabled: true
+pgbackrest_postgresql_conf_path: '/etc/postgresql/15/main/postgresql.conf'
+pgbackrest_postgresql_conf:
+  archive_command: "pgbackrest --config={{ pgbackrest_conf_path }} --stanza=ofbiz archive-push %p"
+  archive_mode: "on"
+  log_filename: "postgresql.log"
+  max_wal_senders: 3
+  wal_level: replica
