@@ -1,0 +1,40 @@
+pgbackrest_version: 2.52.1
+pgbackrest_configuration_stanzas:
+  - name: ofbiz
+    hosts:
+      - options:
+          - name: path
+            value: '/var/lib/postgresql/{{ postgresql_version }}/main'
+pgbackrest_configuration_global_options:
+  - name: start-fast
+    value: y
+pgbackrest_configuration_repositories:
+  - options:
+    - name: path
+      value: /var/lib/pgbackrest
+    - name: retention-full
+      value: 4
+    - name: cipher-pass
+      value: {{ pgbackrest-cipher-pass }}
+    - name: cipher-type
+      value: aes-256-cbc
+    - name: block
+      value: y
+    - name : bundle
+      value: y
+pgbackrest_configuration_archive_push_options:
+    - name: compress-level
+      value: 3
+pgbackrest_backup_cron:
+  - stanza: ofbiz
+    type: full
+    weekday: SUN
+    hour: 4
+    minute: 30
+    name: Full backup
+  - stanza: ofbiz
+    type: incr
+    weekday: 'MON-SAT'
+    hour: '9,12,16'
+    minute: 0
+    name: Incremental backup
