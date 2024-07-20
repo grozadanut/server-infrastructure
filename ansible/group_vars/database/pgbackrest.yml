@@ -9,6 +9,8 @@ pgbackrest_conf_cluster_stanzas:
     repo1-cipher-pass: "{{ pgbackrest_cipher_pass }}"
     repo1-cipher-type: aes-256-cbc
     start-fast: y
+  'global:archive-push':
+    compress-level=3
 pgbackrest_full_cron_schedule: "30 4 * * SUN"
 pgbackrest_incr_cron_schedule: "0 9,12,16 * * MON-SAT"
 pgbackrest_systemd_timer_enabled: false
