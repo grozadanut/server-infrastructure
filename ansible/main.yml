@@ -7,3 +7,4 @@
     - dudefellah.pgbackrest
     - stefangweichinger.ansible_rclone
     - database
+    - netdata
