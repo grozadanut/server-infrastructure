@@ -11,7 +11,9 @@ pgbackrest_conf_cluster_stanzas:
     start-fast: y
 pgbackrest_full_cron_schedule: "30 4 * * SUN"
 pgbackrest_incr_cron_schedule: "0 9,12,16,23 * * MON-SAT"
-pgbackrest_systemd_timer_enabled: false
+pgbackrest_full_backup_systemd_timer_oncalendar: null
+pgbackrest_incr_backup_systemd_timer_oncalendar: null
+pgbackrest_diff_backup_systemd_timer_oncalendar: null
 pgbackrest_cron_enabled: true
 pgbackrest_postgresql_conf_path: '/etc/postgresql/15/main/postgresql.conf'
 pgbackrest_postgresql_conf:
