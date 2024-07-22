@@ -10,7 +10,7 @@ pgbackrest_conf_cluster_stanzas:
     repo1-cipher-type: aes-256-cbc
     start-fast: y
 pgbackrest_full_cron_schedule: "30 4 * * SUN"
-pgbackrest_incr_cron_schedule: "0 9,12,16 * * MON-SAT"
+pgbackrest_incr_cron_schedule: "0 9,12,16,23 * * MON-SAT"
 pgbackrest_systemd_timer_enabled: false
 pgbackrest_cron_enabled: true
 pgbackrest_postgresql_conf_path: '/etc/postgresql/15/main/postgresql.conf'

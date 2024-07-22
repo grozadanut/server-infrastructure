@@ -1,0 +1,7 @@
+rclone_configs:
+  - name: DigiStorage
+    properties:
+      type: koofr
+      provider: digistorage
+      user: "{{ digi_storage_user }}"
+      password: "{{ digi_storage_pass }}"

@@ -1,0 +1,9 @@
+---
+
+- hosts: database
+  become: yes
+  roles:
+    - geerlingguy.postgresql
+    - dudefellah.pgbackrest
+    - stefangweichinger.ansible_rclone
+    - database

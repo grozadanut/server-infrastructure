@@ -1,7 +1,7 @@
 If you want to use this ansible playbook you have to first run the script: `scripts/initial-setup.sh`
 
 Then you can run ansible normally, like so:
-`ansible-playbook run.yml -K --ask-vault-pass`
+`ansible-playbook main.yml -K --ask-vault-pass`
 
 ## Mandatory variables
 
@@ -11,8 +11,12 @@ Before running the playbook, these variables must be defined:
 
 For each database host:
 - pgbackrest_cipher_pass
+- digi_storage_user
+- digi_storage_pass
 
 example: 
 ansible-vault create host_vars/main_server.yml
 pgbackrest_cipher_pass: "pass"
+digi_storage_user: "email@domain.com"
+digi_storage_pass: "hardpass"
 ansible-vault edit host_vars/main_server.yml

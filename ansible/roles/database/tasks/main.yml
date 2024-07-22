@@ -1,0 +1,18 @@
+---
+- name: Add rclone full backup cron
+  ansible.builtin.cron:
+    name: "rclone full backup"
+    weekday: "SUN"
+    minute: "5"
+    hour: "5"
+    job: "rclone copy -L /var/lib/pgbackrest DigiStorage:/pgbackrest/ofbiz"
+  when: setup_rclone_config.changed
+
+- name: Add rclone incr backup cron
+  ansible.builtin.cron:
+    name: "rclone incr backup"
+    weekday: "MON-SAT"
+    minute: "15"
+    hour: "9,12,16,23"
+    job: "rclone copy -L /var/lib/pgbackrest DigiStorage:/pgbackrest/ofbiz"
+  when: setup_rclone_config.changed
