@@ -1,2 +1,2 @@
 [database]
-main_server ansible_connection=local
+main_server ansible_connection=local hostname=main-server
