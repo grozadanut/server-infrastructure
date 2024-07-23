@@ -8,3 +8,21 @@
     - stefangweichinger.ansible_rclone
     - database
     - netdata
+
+- hosts: weed_master
+  become: yes
+  roles:
+    - netdata
+    - ansible-role-seaweedfs
+
+- hosts: weed_volume
+  become: yes
+  roles:
+    - netdata
+    - ansible-role-seaweedfs
+
+- hosts: weed_filer
+  become: yes
+  roles:
+    - netdata
+    - ansible-role-seaweedfs

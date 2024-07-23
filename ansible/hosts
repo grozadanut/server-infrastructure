@@ -1,2 +1,11 @@
 [database]
 main_server ansible_connection=local hostname=main-server
+
+[weed_master]
+main_server ansible_connection=local hostname=main-server
+
+[weed_volume]
+main_server ansible_connection=local hostname=main-server
+
+[weed_filer]
+main_server ansible_connection=local hostname=main-server
