@@ -7,22 +7,26 @@
     - dudefellah.pgbackrest
     - stefangweichinger.ansible_rclone
     - database
-    - netdata
+    - role: netdata
+      when: claim_token is defined
 
 - hosts: weed_master
   become: yes
   roles:
-    - netdata
+    - role: netdata
+      when: claim_token is defined
     - ansible-role-seaweedfs
 
 - hosts: weed_volume
   become: yes
   roles:
-    - netdata
+    - role: netdata
+      when: claim_token is defined
     - ansible-role-seaweedfs
 
 - hosts: weed_filer
   become: yes
   roles:
-    - netdata
+    - role: netdata
+      when: claim_token is defined
     - ansible-role-seaweedfs
