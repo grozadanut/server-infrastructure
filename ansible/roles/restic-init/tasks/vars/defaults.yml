@@ -1,0 +1,16 @@
+---
+# we use a platform map to decipher system version
+_platform_map:
+  i386: 386
+  x86_64: amd64
+  aarch64: arm64
+  armv7l: arm
+  armv6l: arm
+
+restic_create_paths:
+  - '{{ restic_script_dir }}'
+  - '{{ restic_log_dir }}'
+
+arch: '{{ ansible_architecture }}'
+restic_platform: '{{ _platform_map[arch] | default(arch) }}'
+restic_system: '{{ ansible_system | lower }}'
