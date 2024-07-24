@@ -1,0 +1,1 @@
+Pulled just the config part from arillso role. See: https://github.com/arillso/ansible.restic/tree/master

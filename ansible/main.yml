@@ -17,16 +17,12 @@
       when: claim_token is defined
     - ansible-role-seaweedfs
 
-- hosts: weed_volume
+- hosts: data
   become: yes
   roles:
     - role: netdata
       when: claim_token is defined
     - ansible-role-seaweedfs
-
-- hosts: weed_filer
-  become: yes
-  roles:
-    - role: netdata
-      when: claim_token is defined
-    - ansible-role-seaweedfs
+    - stefangweichinger.ansible_rclone
+    - andrewrothstein.restic
+    - restic-init

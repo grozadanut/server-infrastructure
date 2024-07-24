@@ -16,9 +16,9 @@ For each database host:
 - pgbackrest_cipher_pass
 
 example: 
-ansible-vault create host_vars/main_server.yml
+ansible-vault create host_vars/main_server/vars.yml
 pgbackrest_cipher_pass: "pass"
-ansible-vault edit host_vars/main_server.yml
+ansible-vault edit host_vars/main_server/vars.yml
 
 2. Group variables
 
@@ -31,6 +31,11 @@ ansible-vault create group_vars/database/vars.yml
 digi_storage_user: "email@domain.com"
 digi_storage_pass: "hardpass"
 
+For data group:
+- digi_storage_user
+- digi_storage_pass
+- restic_repo_pass
+
 3. Global variables
 
 You can set these in group_vars/all.yml
@@ -41,4 +46,3 @@ navigation, then click on `Manage your Space`. Click on the `Nodes` tab in the
 panel that appears, which displays a script with `token` and `room` strings.
 - claim_token: netdata_token
 - claim_rooms: netdata_room
-

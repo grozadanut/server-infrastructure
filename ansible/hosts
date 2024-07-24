@@ -9,3 +9,7 @@ main_server ansible_connection=local hostname=main-server
 
 [weed_filer]
 main_server ansible_connection=local hostname=main-server
+
+[data:children]
+weed_volume
+weed_filer
