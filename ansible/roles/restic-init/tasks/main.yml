@@ -33,7 +33,7 @@
   with_items: '{{ restic_create_paths }}'
 
 - name: Configure restic
-  include: 'configure.yml'
+  include_tasks: 'configure.yml'
 
 - name: include distribution tasks
   include_tasks: '{{ loop_distribution }}'
