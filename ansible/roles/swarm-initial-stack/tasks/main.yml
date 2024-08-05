@@ -1,5 +1,11 @@
 ---
 
+- name: Install requirements
+  package:
+    name: 
+      - python3-jsondiff
+    state: present
+
 - name: configure traefik and portainer
   become: true
   block:
