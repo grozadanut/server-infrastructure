@@ -12,12 +12,15 @@ main_server
 [weed_filer]
 main_server
 
+[weed_mount]
+main_server
+
 [data:children]
 weed_volume
 weed_filer
 
 [docker_swarm_manager]
-main_server swarm_labels=deploy
+main_server
 
 [docker_swarm_worker]
 main_server swarm_labels='["libvirt", "docker"]'
@@ -25,3 +28,7 @@ main_server swarm_labels='["libvirt", "docker"]'
 [manager:children]
 weed_master
 docker_swarm_manager
+
+[worker:children]
+weed_mount
+docker_swarm_worker

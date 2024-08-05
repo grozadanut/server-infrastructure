@@ -27,3 +27,11 @@
     - stefangweichinger.ansible_rclone
     - andrewrothstein.restic
     - restic-init
+
+- hosts: worker
+  become: yes
+  roles:
+    - role: netdata
+      when: claim_token is defined
+    - ansible-role-seaweedfs
+    - ansible-dockerswarm
