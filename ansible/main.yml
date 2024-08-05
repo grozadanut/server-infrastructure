@@ -17,6 +17,7 @@
       when: claim_token is defined
     - ansible-role-seaweedfs
     - ansible-dockerswarm
+    - swarm-initial-stack
 
 - hosts: data
   become: yes

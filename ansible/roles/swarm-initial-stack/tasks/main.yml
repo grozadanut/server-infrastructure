@@ -1,0 +1,26 @@
+---
+
+- name: configure traefik and portainer
+  become: true
+  block:
+    - name: place portainer_traefik.yml file
+      template:
+        src: portainer_traefik.yml.j2
+        dest: /opt/portainer_traefik.yml
+
+    - name: Deploy stack from the compose file
+      community.docker.docker_stack:
+        state: present
+        name: portainer_traefik
+        compose:
+          - /opt/portainer_traefik.yml
+
+    - name: check port 80 is opened
+      wait_for:
+        port: "80"
+        timeout: 30
+
+    - name: check port 443 is opened
+      wait_for:
+        port: "443"
+        timeout: 30
