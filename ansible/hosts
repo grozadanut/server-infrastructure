@@ -1,15 +1,27 @@
-[database]
 main_server ansible_connection=local hostname=main-server
+
+[database]
+main_server
 
 [weed_master]
-main_server ansible_connection=local hostname=main-server
+main_server
 
 [weed_volume]
-main_server ansible_connection=local hostname=main-server
+main_server
 
 [weed_filer]
-main_server ansible_connection=local hostname=main-server
+main_server
 
 [data:children]
 weed_volume
 weed_filer
+
+[docker_swarm_manager]
+main_server swarm_labels=deploy
+
+[docker_swarm_worker]
+main_server swarm_labels='["libvirt", "docker"]'
+
+[manager:children]
+weed_master
+docker_swarm_manager

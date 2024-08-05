@@ -10,12 +10,13 @@
     - role: netdata
       when: claim_token is defined
 
-- hosts: weed_master
+- hosts: manager
   become: yes
   roles:
     - role: netdata
       when: claim_token is defined
     - ansible-role-seaweedfs
+    - atosatto.docker-swarm
 
 - hosts: data
   become: yes

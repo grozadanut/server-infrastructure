@@ -4,3 +4,4 @@ roles:
   - name: dudefellah.pgbackrest
   - name: stefangweichinger.ansible_rclone
   - name: andrewrothstein.restic
+  - name: atosatto.docker-swarm
