@@ -16,7 +16,7 @@
     - role: netdata
       when: claim_token is defined
     - ansible-role-seaweedfs
-    - atosatto.docker-swarm
+    - ansible-dockerswarm
 
 - hosts: data
   become: yes
