@@ -1,1 +1,4 @@
 domain: flexbiz.ro
+
+python_pip_packages:
+  - python3-pip
