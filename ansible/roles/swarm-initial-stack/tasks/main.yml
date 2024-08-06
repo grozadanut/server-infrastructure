@@ -14,6 +14,16 @@
         src: portainer_traefik.yml.j2
         dest: /opt/portainer_traefik.yml
 
+    - name: Create agent_network
+      docker_network:
+        name: agent_network
+        driver: "overlay"
+
+    - name: Create public network
+      docker_network:
+        name: public
+        driver: "overlay"
+
     - name: Deploy stack from the compose file
       community.docker.docker_stack:
         state: present
