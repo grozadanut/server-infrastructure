@@ -24,6 +24,10 @@
         name: public
         driver: "overlay"
 
+    - name: Create portainer data volume
+      docker_volume:
+        name: data
+
     - name: Deploy stack from the compose file
       community.docker.docker_stack:
         state: present
