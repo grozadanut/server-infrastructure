@@ -15,10 +15,10 @@ Before running the playbook, these variables must be defined:
 For each database host:
 - pgbackrest_cipher_pass
 
-example: 
-ansible-vault create host_vars/main_server/vars.yml
-pgbackrest_cipher_pass: "pass"
-ansible-vault edit host_vars/main_server/vars.yml
+example: <br>
+ansible-vault create host_vars/main_server/vars.yml <br>
+pgbackrest_cipher_pass: "pass" <br>
+ansible-vault edit host_vars/main_server/vars.yml <br>
 
 2. Group variables
 
@@ -27,9 +27,9 @@ For database group:
 - digi_storage_pass
 
 example: 
-ansible-vault create group_vars/database/vars.yml
-digi_storage_user: "email@domain.com"
-digi_storage_pass: "hardpass"
+ansible-vault create group_vars/database/vars.yml <br>
+digi_storage_user: "email@domain.com" <br>
+digi_storage_pass: "hardpass" <br>
 
 For data group:
 - digi_storage_user

@@ -6,12 +6,10 @@ services:
     command:
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
-      - --providers.docker=true
+      - --providers.swarm=true
       - --providers.swarm.endpoint=unix:///var/run/docker.sock
       - --providers.swarm.exposedByDefault=false
-      - --providers.docker.exposedbydefault=false
-      - --providers.docker.network=public
-      - --api
+      - --api.dashboard=true
       - --log.level=ERROR
     ports:
       - "80:80"
