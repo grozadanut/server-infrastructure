@@ -19,9 +19,19 @@
         path: /mnt/letsencrypt
         state: directory
 
+    - name: Ensure portainer directory exists
+      ansible.builtin.file:
+        path: /mnt/portainer
+        state: directory
+
     - name: Create web network
       docker_network:
         name: web
+        driver: "overlay"
+
+    - name: Create portainer agent network
+      docker_network:
+        name: agent_network
         driver: "overlay"
 
     - name: Deploy stack from the compose file
