@@ -14,6 +14,11 @@
         src: initial_stack.yml.j2
         dest: /opt/initial_stack.yml
 
+    - name: Create web network
+      docker_network:
+        name: web
+        driver: "overlay"
+
     - name: Deploy stack from the compose file
       community.docker.docker_stack:
         state: present
