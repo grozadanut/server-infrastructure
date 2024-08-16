@@ -32,8 +32,7 @@ services:
         - "traefik.http.routers.dashboard.entrypoints=websecure"
         - "traefik.http.routers.dashboard.middlewares=auth"
         - "traefik.http.routers.dashboard.rule=Host(`traefik.{{ domain }}`)"
-        - "traefik.http.routers.dashboard.service=api@internal"
-        {%if enable_https %}
+        - "traefik.http.routers.dashboard.service=api@internal"{%if enable_https %}
         - "traefik.http.routers.http-catchall.entrypoints=web"
         - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
         - "traefik.http.routers.http-catchall.rule=HostRegexp(`.*`)"
