@@ -29,21 +29,13 @@ services:
       labels:
         - "traefik.enable=true"
         - "traefik.docker.network=web"
-        - "traefik.http.middlewares.auth.basicauth.users={{ traefik_admin_user }}:{{ traefik_admin_pass }}"
-        - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
-        - "traefik.http.routers.dashboard.entrypoints=websecure"
-        - "traefik.http.routers.dashboard.middlewares=auth"
-        - "traefik.http.routers.dashboard.rule=Host(`traefik.{{ domain }}`)"
-        - "traefik.http.routers.dashboard.service=api@internal"{%if enable_https %}
+        - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"{%if enable_https %}
         - "traefik.http.routers.http-catchall.entrypoints=web"
         - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
         - "traefik.http.routers.http-catchall.rule=HostRegexp(`.*`)"
         - "traefik.http.routers.http-catchall.priority=1000"{% endif %}{{''}}
-        - "traefik.http.services.dashboard.loadbalancer.server.port=8080"
-        - "certbot.domain=traefik.{{ domain }}"
     command:
-      - "--log.level=DEBUG"
-      - "--api.dashboard=true"
+      - "--api.dashboard=false"
       - "--providers.swarm.endpoint=unix:///var/run/docker.sock"
       - "--providers.swarm.exposedByDefault=false"
       - "--entrypoints.web.address=:80"
@@ -122,8 +114,3 @@ services:
       - "traefik.http.services.portainer.loadbalancer.server.port=9000"
       - "traefik.http.routers.portainer.service=portainer"
       - "certbot.domain=portainer.{{ domain }}"
-      # Edge
-      - "traefik.http.routers.edge.rule=Host(`edge.{{ domain }}`)"
-      - "traefik.http.routers.edge.entrypoints=web"
-      - "traefik.http.services.edge.loadbalancer.server.port=8000"
-      - "traefik.http.routers.edge.service=edge"

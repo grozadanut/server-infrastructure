@@ -34,8 +34,6 @@ For data group(group_vars/data/vars.yml):
 For manager group(group_vars/manager/vars.yml):
 - `enable_https` - whether to enable https through Let's Encrypt, enable this if you have a valid domain; default false
 - `certbot_email` - email for Let's Encrypt registration
-- `traefik_admin_user` - username to access Traefik dashboard
-- `traefik_admin_pass` - password to access Traefik dashboard
 
 3. Global variables
 
