@@ -6,34 +6,20 @@
       - python3-jsondiff
     state: present
 
-- name: configure traefik and portainer
+- name: configure initial swarm stack
   become: true
   block:
-    - name: place portainer_traefik.yml file
+    - name: place initial_stack.yml file
       template:
-        src: portainer_traefik.yml.j2
-        dest: /opt/portainer_traefik.yml
-
-    - name: Create agent_network
-      docker_network:
-        name: agent_network
-        driver: "overlay"
-
-    - name: Create public network
-      docker_network:
-        name: public
-        driver: "overlay"
-
-    - name: Create portainer data volume
-      docker_volume:
-        name: data
+        src: initial_stack.yml.j2
+        dest: /opt/initial_stack.yml
 
     - name: Deploy stack from the compose file
       community.docker.docker_stack:
         state: present
-        name: portainer_traefik
+        name: initial_stack
         compose:
-          - /opt/portainer_traefik.yml
+          - /opt/initial_stack.yml
 
     - name: check port 80 is opened
       wait_for:

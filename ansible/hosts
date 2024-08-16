@@ -27,6 +27,7 @@ main_server swarm_labels='["libvirt", "docker"]'
 
 [manager:children]
 weed_master
+weed_mount
 docker_swarm_manager
 
 [worker:children]
