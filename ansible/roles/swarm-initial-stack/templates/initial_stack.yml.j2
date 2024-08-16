@@ -9,6 +9,7 @@ services:
     image: traefik:v3.0
     tty: true
     networks:
+      - web
     ports:
       - published: 80
         target: 80
@@ -16,7 +17,6 @@ services:
       - published: 443
         target: 443
         mode: host
-      - web
     deploy:
       replicas: 1
       placement:
