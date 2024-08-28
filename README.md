@@ -28,3 +28,25 @@ The code is structured as follows:
 - Analytics: matomo
 
 ![infrastructure](infrastructure.jpg)
+
+## Data server default mount structure
+
+This serves as the central place about information regarding the standard structure of the folders that are mounted from the data servers.
+
+- mount root path: `/mnt`
+
+### App data folders go in root path
+
+- `/mnt/{appName}`
+
+Examples:
+- `/mnt/ofbiz` - config files, scripts etc.
+- `/mnt/filestash` - config files
+
+### Tenant specific folders go in root path:
+
+- `/mnt/{tenantId}/files` - special folder for storing tenant files, served through Filestash
+- `/mnt/{tenantId}/{appName}`
+
+Examples:
+- `/mnt/flexbiz/ofbiz` - tenant specific Ofbiz resources
