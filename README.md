@@ -34,6 +34,7 @@ The code is structured as follows:
 This serves as the central place about information regarding the standard structure of the folders that are mounted from the data servers.
 
 - mount root path: `/mnt`
+- `/mnt/letsencrypt` - storage of ssl certificates
 
 ### App data folders go in root path
 

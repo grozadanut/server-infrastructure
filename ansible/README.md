@@ -45,3 +45,31 @@ navigation, then click on `Manage your Space`. Click on the `Nodes` tab in the
 panel that appears, which displays a script with `token` and `room` strings.
 - `claim_token`: netdata token
 - `claim_rooms`: netdata room
+
+## Default folder structure
+
+### DB server(1)
+
+- `/var/lib/pgbackrest` - postgresql database local backup location
+- `DigiStorage:/pgbackrest/flexbiz` - postgresql database remote backup location
+
+### Data server(1-n)
+
+- `/opt/seaweedfs/{{ domain }}/volume` - seaweedfs volumes
+- `/opt/seaweedfs/{{ domain }}/filer` - seaweedfs file metadata
+- `DigiStorage:/restic/main_server` - remote backup of `/opt/seaweedfs` folder
+
+Note: default domain is `flexbiz.ro`
+
+### Manager server(1-3)
+
+- `/opt/seaweedfs/{{ domain }}/master` - seaweedfs master data
+
+Note: Currently if the manager and data server are on 2 separate machines, 
+the seaweedfs master data is not backed up on a remote location.
+
+### Worker server(1-n)
+
+Theoretically this should be stateless, as it's used only to run docker containers.
+
+If containers need persistent storage, they can use bind mounts to mount a subfolder inside `/mnt`(see parent README.md for folder structure). The host provides persistent storage in `/mnt` through `seaweedfs mount` command. The actual data is stored in the data server.
