@@ -43,6 +43,11 @@ This serves as the central place about information regarding the standard struct
 Examples:
 - `/mnt/ofbiz` - config files, scripts etc.
 - `/mnt/filestash` - config files
+
+**IMPORTANT: ** currently `/mnt/filestash` is not used because filestash requires `filestash` user to have rw acces to 
+this folder, for which `root` is the owner, so we get a permission error. Instead a `filestash` docker volume is used 
+for config data. This means `filestash` volume needs to be backed up manually, or filestash configuration will be lost on server migrations.
+
 - `/mnt/portainer` - config, database files
 
 ### Tenant specific folders go in root path:

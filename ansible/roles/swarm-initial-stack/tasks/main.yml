@@ -24,16 +24,6 @@
         path: /mnt/portainer
         state: directory
 
-    - name: Ensure filestash user exists
-      ansible.builtin.user:
-        name: filestash
-
-    - name: Ensure filestash directory exists
-      ansible.builtin.file:
-        path: /mnt/filestash
-        state: directory
-        owner: filestash
-
     - name: Create web network
       docker_network:
         name: web
