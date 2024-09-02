@@ -27,14 +27,12 @@
     - name: Ensure filestash user exists
       ansible.builtin.user:
         name: filestash
-        group: filestash
 
     - name: Ensure filestash directory exists
       ansible.builtin.file:
         path: /mnt/filestash
         state: directory
         owner: filestash
-        group: filestash
 
     - name: Create web network
       docker_network:
