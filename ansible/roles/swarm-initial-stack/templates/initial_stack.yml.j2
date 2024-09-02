@@ -118,11 +118,11 @@ services:
   filestash:
     image: machines/filestash
     environment:
-    - APPLICATION_URL=files.{{ domain }}
-    - ONLYOFFICE_URL=http://onlyoffice
+      - APPLICATION_URL=files.{{ domain }}
+      - ONLYOFFICE_URL=http://onlyoffice
     volumes:
-    - filestash:/app/data/state/
-    - /mnt:/mnt
+      - filestash:/app/data/state/
+      - /mnt:/mnt
     networks:
       - web
       - local
@@ -145,3 +145,6 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+
+volumes:
+    filestash: {}
