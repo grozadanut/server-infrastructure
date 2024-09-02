@@ -26,8 +26,10 @@
       when: claim_token is defined
     - ansible-role-seaweedfs
     - stefangweichinger.ansible_rclone
-    - andrewrothstein.restic
-    - restic-init
+    - role: andrewrothstein.restic
+      when: restic_repo_pass is defined
+    - role: restic-init
+      when: restic_repo_pass is defined
 
 - hosts: worker
   become: yes
