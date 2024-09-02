@@ -140,11 +140,29 @@ services:
 
   onlyoffice:
     image: onlyoffice/documentserver:7.1
+    security_opt:
+      - seccomp:unconfined
     networks:
       - local
     deploy:
       mode: replicated
       replicas: 1
+
+  flexbiz:
+    image: grozadanut/flexbiz
+    networks:
+      - web
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.routers.flexbiz.rule=Host(`ofbiz.{{ domain }}`)"
+      - "traefik.http.routers.flexbiz.entrypoints=websecure"
+      - "traefik.http.services.flexbiz.loadbalancer.server.port=8443"
+      - "traefik.http.routers.flexbiz.service=flexbiz"
+      - "certbot.domain=ofbiz.{{ domain }}"
 
 volumes:
     filestash: {}
