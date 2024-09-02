@@ -24,14 +24,19 @@
         path: /mnt/portainer
         state: directory
 
+    - name: Ensure filestash directory exists
+      ansible.builtin.file:
+        path: /mnt/filestash
+        state: directory
+
     - name: Create web network
       docker_network:
         name: web
         driver: "overlay"
 
-    - name: Create portainer agent network
+    - name: Create local network
       docker_network:
-        name: agent_network
+        name: local
         driver: "overlay"
 
     - name: Deploy stack from the compose file

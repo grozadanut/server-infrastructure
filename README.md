@@ -43,6 +43,7 @@ This serves as the central place about information regarding the standard struct
 Examples:
 - `/mnt/ofbiz` - config files, scripts etc.
 - `/mnt/filestash` - config files
+- `/mnt/portainer` - config, database files
 
 ### Tenant specific folders go in root path:
 
