@@ -45,10 +45,11 @@ Examples:
 - `/mnt/filestash` - config files
 
 **IMPORTANT: ** currently `/mnt/filestash` is not used because filestash requires `filestash` user to have rw acces to 
-this folder, for which `root` is the owner, so we get a permission error. Instead a `filestash` docker volume is used 
-for config data. This means `filestash` volume needs to be backed up manually, or filestash configuration will be lost on server migrations.
+this folder, for which `root` is the owner, so we get a permission error. UPDATE: `0777 /mnt/filestash` is used as a bind mount.
 
 - `/mnt/portainer` - config, database files
+- `/mnt/opencms-mysql` - mariadb database files
+- `/mnt/opencms-webapps` - opencms config files, webapps etc.
 
 ### Tenant specific folders go in root path:
 

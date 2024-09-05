@@ -30,6 +30,16 @@
         state: directory
         mode: '0777'
 
+    - name: Ensure mariadb directory exists
+      ansible.builtin.file:
+        path: /mnt/opencms-mysql
+        state: directory
+
+    - name: Ensure opencms directory exists
+      ansible.builtin.file:
+        path: /mnt/opencms-webapps
+        state: directory
+
     - name: Create web network
       docker_network:
         name: web

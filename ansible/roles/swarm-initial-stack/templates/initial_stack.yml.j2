@@ -1,5 +1,3 @@
-version: '3.8'
-
 networks:
   web:
     external: true
@@ -148,6 +146,49 @@ services:
       mode: replicated
       replicas: 1
 
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    init: true
+    restart: always
+    volumes:
+      - /mnt/opencms-mysql:/var/lib/mysql
+    environment:
+      - "MYSQL_ROOT_PASSWORD={{ mysql_pass }}"
+    networks:
+      - local
+    deploy:
+      mode: replicated
+      replicas: 1
+
+  opencms:
+    image: alkacon/opencms-docker:17.0
+    container_name: opencms
+    init: true
+    restart: always
+    depends_on: [ "mariadb" ]
+    links:
+      - "mariadb:mysql"
+    volumes:
+      - /mnt/opencms-webapps:/container/webapps
+    command: ["/root/wait-for.sh", "mysql:3306", "-t", "30", "--", "/root/opencms-run.sh"]
+    environment:
+      - "DB_PASSWD={{ mysql_pass }}"
+    networks:
+      - web
+      - local
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.routers.opencms.rule=Host(`www.{{ domain }}`)"
+      - "traefik.http.routers.opencms.entrypoints=websecure"
+      - "traefik.http.services.opencms.loadbalancer.server.port=8080"
+      - "traefik.http.routers.opencms.service=opencms"
+      - "certbot.domain=www.{{ domain }}"
+
   flexbiz:
     image: grozadanut/flexbiz
     environment:
@@ -165,6 +206,3 @@ services:
       - "traefik.http.services.flexbiz.loadbalancer.server.port=8080"
       - "traefik.http.routers.flexbiz.service=flexbiz"
       - "certbot.domain={{ domain }}"
-
-volumes:
-    filestash: {}
