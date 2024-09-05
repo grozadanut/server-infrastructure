@@ -150,6 +150,8 @@ services:
 
   flexbiz:
     image: grozadanut/flexbiz
+    environment:
+      - OFBIZ_DATA_LOAD=demo
     networks:
       - web
     deploy:
@@ -158,11 +160,11 @@ services:
       labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
-      - "traefik.http.routers.flexbiz.rule=Host(`ofbiz.{{ domain }}`)"
+      - "traefik.http.routers.flexbiz.rule=Host(`{{ domain }}`)"
       - "traefik.http.routers.flexbiz.entrypoints=websecure"
-      - "traefik.http.services.flexbiz.loadbalancer.server.port=8443"
+      - "traefik.http.services.flexbiz.loadbalancer.server.port=8080"
       - "traefik.http.routers.flexbiz.service=flexbiz"
-      - "certbot.domain=ofbiz.{{ domain }}"
+      - "certbot.domain={{ domain }}"
 
 volumes:
     filestash: {}
