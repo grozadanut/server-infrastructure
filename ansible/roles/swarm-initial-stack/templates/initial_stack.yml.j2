@@ -148,7 +148,6 @@ services:
 
   mariadb:
     image: mariadb:latest
-    container_name: mariadb
     init: true
     restart: always
     volumes:
@@ -163,7 +162,6 @@ services:
 
   opencms:
     image: alkacon/opencms-docker:17.0
-    container_name: opencms
     init: true
     restart: always
     depends_on: [ "mariadb" ]
