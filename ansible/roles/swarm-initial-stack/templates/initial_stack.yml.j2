@@ -146,7 +146,7 @@ services:
       mode: replicated
       replicas: 1
 
-  mariadb:
+  mysql:
     image: mariadb:latest
     init: true
     volumes:
@@ -164,7 +164,7 @@ services:
     init: true
     volumes:
       - /mnt/opencms-webapps:/container/webapps
-    command: ["/root/wait-for.sh", "mariadb:3306", "-t", "30", "--", "/root/opencms-run.sh"]
+    command: ["/root/wait-for.sh", "mysql:3306", "-t", "30", "--", "/root/opencms-run.sh"]
     environment:
       - "DB_PASSWD={{ mysql_pass }}"
     networks:
