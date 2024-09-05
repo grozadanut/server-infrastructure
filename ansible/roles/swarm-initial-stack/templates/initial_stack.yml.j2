@@ -149,7 +149,6 @@ services:
   mariadb:
     image: mariadb:latest
     init: true
-    restart: always
     volumes:
       - /mnt/opencms-mysql:/var/lib/mysql
     environment:
@@ -163,13 +162,9 @@ services:
   opencms:
     image: alkacon/opencms-docker:17.0
     init: true
-    restart: always
-    depends_on: [ "mariadb" ]
-    links:
-      - "mariadb:mysql"
     volumes:
       - /mnt/opencms-webapps:/container/webapps
-    command: ["/root/wait-for.sh", "mysql:3306", "-t", "30", "--", "/root/opencms-run.sh"]
+    command: ["/root/wait-for.sh", "mariadb:3306", "-t", "30", "--", "/root/opencms-run.sh"]
     environment:
       - "DB_PASSWD={{ mysql_pass }}"
     networks:
