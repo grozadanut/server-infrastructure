@@ -37,7 +37,7 @@
         state: directory
         mode: '0777'
 
-    - name: Ensure mariadb directory exists
+    - name: Ensure mysql directory exists
       ansible.builtin.file:
         path: /mnt/opencms-mysql
         state: directory
