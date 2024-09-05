@@ -121,7 +121,7 @@ services:
       - APPLICATION_URL=files.{{ domain }}
       - ONLYOFFICE_URL=http://onlyoffice
     volumes:
-      - filestash:/app/data/state/
+      - /mnt/filestash:/app/data/state/
       - /mnt:/mnt
     networks:
       - web

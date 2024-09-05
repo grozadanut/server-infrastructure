@@ -24,6 +24,12 @@
         path: /mnt/portainer
         state: directory
 
+    - name: Ensure filestash directory exists
+      ansible.builtin.file:
+        path: /mnt/filestash
+        state: directory
+        mode: '0777'
+
     - name: Create web network
       docker_network:
         name: web
