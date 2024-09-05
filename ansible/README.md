@@ -1,3 +1,5 @@
+# How to use
+
 If you want to use this ansible playbook you have to first run the script: `scripts/initial-setup.sh`
 
 To make the script executable:
@@ -74,3 +76,11 @@ the seaweedfs master data is not backed up on a remote location.
 Theoretically this should be stateless, as it's used only to run docker containers.
 
 If containers need persistent storage, they can use bind mounts to mount a subfolder inside `/mnt`(see parent README.md for folder structure). The host provides persistent storage in `/mnt` through `seaweedfs mount` command. The actual data is stored in the data server.
+
+# Troubleshooting
+
+1. `ERROR: [087]: archive_mode must be enabled`
+
+You might get the above error the first time you run the playbook on a new installation. For some reason the postgresql service is not reloaded after changing the configuration. The solution is to just reload postgresql, and run the playbook again.
+
+Solution: `systemctl restart postgresql`
