@@ -32,6 +32,8 @@ services:
         - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
         - "traefik.http.routers.http-catchall.rule=HostRegexp(`.*`)"
         - "traefik.http.routers.http-catchall.priority=1000"{% endif %}{{''}}
+        - "traefik.http.middlewares.gzip.compress=true"
+        - "traefik.http.middlewares.gzip.compress.excludedcontenttypes=image/png, image/jpeg, font/woff2"
     command:
       - "--api.dashboard=false"
       - "--providers.swarm.endpoint=unix:///var/run/docker.sock"
@@ -41,10 +43,13 @@ services:
       - "--entrypoints.websecure.http.tls=true"
       - "--accesslog=true"
       - "--accesslog.format=json"
+      - "--accesslog.fields.headers.names.X-Varnish-Routed=keep"
+      - "--accesslog.fields.headers.names.RequestHost=keep"
+      - "--log"
       - "--providers.file.filename=/etc/letsencrypt/traefik.yml"
       - "--providers.file.watch=true"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - /mnt/letsencrypt:/etc/letsencrypt
 
   {%if enable_https %}

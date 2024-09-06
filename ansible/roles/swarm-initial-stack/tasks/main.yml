@@ -1,3 +1,4 @@
 ---
 - import_tasks: init.yml
 - import_tasks: base_stack.yml
+- import_tasks: plone_stack.yml

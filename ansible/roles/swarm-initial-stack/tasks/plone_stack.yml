@@ -1,0 +1,24 @@
+---
+
+- name: Ensure plone directory exists
+  ansible.builtin.file:
+    path: /mnt/plone
+    state: directory
+    mode: '0765' #needed for filestash
+
+- name: Place varnish.vcl file
+  ansible.builtin.copy:
+    src: varnish.vcl
+    dest: /etc/varnish.vcl
+
+- name: Place plone_stack.yml file
+  template:
+    src: plone_stack.yml.j2
+    dest: /opt/plone_stack.yml
+
+- name: Deploy plone_stack.yml
+  community.docker.docker_stack:
+    state: present
+    name: plone_stack
+    compose:
+      - /opt/plone_stack.yml

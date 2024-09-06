@@ -23,12 +23,12 @@
     state: directory
     mode: '0777'
 
-- name: place base_stack.yml file
+- name: Place base_stack.yml file
   template:
     src: base_stack.yml.j2
     dest: /opt/base_stack.yml
 
-- name: Deploy stack from the compose file
+- name: Deploy base_stack.yml
   community.docker.docker_stack:
     state: present
     name: base_stack
