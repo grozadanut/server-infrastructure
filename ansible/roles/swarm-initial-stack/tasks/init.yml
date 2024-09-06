@@ -1,0 +1,17 @@
+---
+
+- name: Install requirements
+  package:
+    name: 
+      - python3-jsondiff
+    state: present
+
+- name: Create web network
+  docker_network:
+    name: web
+    driver: "overlay"
+
+- name: Create local network
+  docker_network:
+    name: local
+    driver: "overlay"
