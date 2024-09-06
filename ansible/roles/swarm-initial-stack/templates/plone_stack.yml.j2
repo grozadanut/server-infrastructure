@@ -14,8 +14,13 @@ services:
       RAZZLE_INTERNAL_API_PATH: http://backend:8080/Flexbiz
       RAZZLE_API_PATH: https://www.{{ domain }}
       DEBUG: superagent
-    labels:
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels:
       - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "certbot.domain=www.{{ domain }}"
       # Service
       - "traefik.http.services.svc-frontend.loadbalancer.server.port=3000"
       # Router: Varnish Public
@@ -37,7 +42,10 @@ services:
       PROFILES: "plone.app.caching:with-caching-proxy"
     volumes:
       - /mnt/plone:/data
-    labels:
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels:
       - traefik.enable=true
       # Service
       - traefik.http.services.svc-backend.loadbalancer.server.port=8080
@@ -50,21 +58,21 @@ services:
       - "traefik.http.middlewares.mw-backend-vhm-ui.replacepathregex.replacement=/VirtualHostBase/http/www.{{ domain }}/Flexbiz/VirtualHostRoot/_vh_ClassicUI$$1"
       # Router: Varnish Public
       ## /++api++/
-      - traefik.http.routers.rt-backend-api-public.rule=Host(`www.{{ domain }}`) && PathPrefix(`/++api++`)
-      - traefik.http.routers.rt-backend-api-public.entrypoints=websecure
-      - traefik.http.routers.rt-backend-api-public.service=svc-varnish
-      - traefik.http.routers.rt-backend-api-public.middlewares=gzip
+      - "traefik.http.routers.rt-backend-api-public.rule=Host(`www.{{ domain }}`) && PathPrefix(`/++api++`)"
+      - "traefik.http.routers.rt-backend-api-public.entrypoints=websecure"
+      - "traefik.http.routers.rt-backend-api-public.service=svc-varnish"
+      - "traefik.http.routers.rt-backend-api-public.middlewares=gzip"
       # Router: Internal
       ## /++api++/
-      - traefik.http.routers.rt-backend-api-internal.rule=Host(`www.{{ domain }}`) && PathPrefix(`/++api++`) && Headers(`X-Varnish-Routed`, `1`)
-      - traefik.http.routers.rt-backend-api-internal.entrypoints=websecure
-      - traefik.http.routers.rt-backend-api-internal.service=svc-backend
-      - traefik.http.routers.rt-backend-api-internal.middlewares=gzip,mw-backend-vhm-api
+      - "traefik.http.routers.rt-backend-api-internal.rule=Host(`www.{{ domain }}`) && PathPrefix(`/++api++`) && Headers(`X-Varnish-Routed`, `1`)"
+      - "traefik.http.routers.rt-backend-api-internal.entrypoints=websecure"
+      - "traefik.http.routers.rt-backend-api-internal.service=svc-backend"
+      - "traefik.http.routers.rt-backend-api-internal.middlewares=gzip,mw-backend-vhm-api"
       ## /ClassicUI/
-      - traefik.http.routers.rt-backend-ui-internal.rule=Host(`www.{{ domain }}`) && PathPrefix(`/ClassicUI`) && Headers(`X-Varnish-Routed`, `1`)
-      - traefik.http.routers.rt-backend-ui-internal.entrypoints=websecure
-      - traefik.http.routers.rt-backend-ui-internal.service=svc-backend
-      - traefik.http.routers.rt-backend-ui-internal.middlewares=gzip,mw-backend-vhm-ui
+      - "traefik.http.routers.rt-backend-ui-internal.rule=Host(`www.{{ domain }}`) && PathPrefix(`/ClassicUI`) && Headers(`X-Varnish-Routed`, `1`)"
+      - "traefik.http.routers.rt-backend-ui-internal.entrypoints=websecure"
+      - "traefik.http.routers.rt-backend-ui-internal.service=svc-backend"
+      - "traefik.http.routers.rt-backend-ui-internal.middlewares=gzip,mw-backend-vhm-ui"
 
   purger:
     image: ghcr.io/kitconcept/cluster-purger:latest
@@ -84,7 +92,10 @@ services:
       - local
     volumes:
       - /etc/varnish.vcl:/etc/varnish/default.vcl
-    labels:
-      - traefik.enable=true
-      # SERVICE
-      - traefik.http.services.svc-varnish.loadbalancer.server.port=80
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=web"
+        - "traefik.http.services.svc-varnish.loadbalancer.server.port=80"
