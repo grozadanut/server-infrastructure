@@ -146,42 +146,6 @@ services:
       mode: replicated
       replicas: 1
 
-  mysql:
-    image: mariadb:latest
-    init: true
-    volumes:
-      - /mnt/opencms-mysql:/var/lib/mysql
-    environment:
-      - "MYSQL_ROOT_PASSWORD={{ mysql_pass }}"
-    networks:
-      - local
-    deploy:
-      mode: replicated
-      replicas: 1
-
-  opencms:
-    image: alkacon/opencms-docker:17.0
-    init: true
-    volumes:
-      - /mnt/opencms-webapps:/container/webapps
-    command: ["/root/wait-for.sh", "mysql:3306", "-t", "30", "--", "/root/opencms-run.sh"]
-    environment:
-      - "DB_PASSWD={{ mysql_pass }}"
-    networks:
-      - web
-      - local
-    deploy:
-      mode: replicated
-      replicas: 1
-      labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=web"
-      - "traefik.http.routers.opencms.rule=Host(`www.{{ domain }}`)"
-      - "traefik.http.routers.opencms.entrypoints=websecure"
-      - "traefik.http.services.opencms.loadbalancer.server.port=8080"
-      - "traefik.http.routers.opencms.service=opencms"
-      - "certbot.domain=www.{{ domain }}"
-
   flexbiz:
     image: grozadanut/flexbiz
     environment:

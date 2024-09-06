@@ -19,9 +19,8 @@ The code is structured as follows:
 - Containerization: docker
 - Orchestration: docker swarm
 - Client filesync: filestash
-- Document management system: papermerge
 - Observability: netdata
-- Landing pages/Blog: opencms
+- Landing pages/Blog: plone
 - Web session recording: Hotjar
 - Knowledge base: tawk.to
 - ERP/CRM: Apache OFBiz
@@ -48,8 +47,6 @@ Examples:
 this folder, for which `root` is the owner, so we get a permission error. UPDATE: `0777 /mnt/filestash` is used as a bind mount.
 
 - `/mnt/portainer` - config, database files
-- `/mnt/opencms-mysql` - mariadb database files
-- `/mnt/opencms-webapps` - opencms config files, webapps etc.
 
 ### Tenant specific folders go in root path:
 
