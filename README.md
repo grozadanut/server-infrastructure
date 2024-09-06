@@ -20,7 +20,7 @@ The code is structured as follows:
 - Orchestration: docker swarm
 - Client filesync: filestash
 - Observability: netdata
-- Landing pages/Blog: plone
+- Landing pages/Blog: wordpress
 - Web session recording: Hotjar
 - Knowledge base: tawk.to
 - ERP/CRM: Apache OFBiz
@@ -47,7 +47,8 @@ Examples:
 this folder, for which `root` is the owner, so we get a permission error. UPDATE: `0777 /mnt/filestash` is used as a bind mount.
 
 - `/mnt/portainer` - config, database files
-- `/mnt/plone` - plone database
+- `/mnt/mysql` - mysql database
+- `/mnt/wordpress` - wordpress public content
 
 ### Tenant specific folders go in root path:
 
