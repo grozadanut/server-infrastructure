@@ -10,12 +10,22 @@
     path: /mnt/portainer
     state: directory
 
+- name: Ensure mysql directory exists
+  ansible.builtin.file:
+    path: /mnt/mysql
+    state: directory
+
+- name: Ensure wordpress directory exists
+  ansible.builtin.file:
+    path: /mnt/wordpress
+    state: directory
+
 - name: Ensure mnt has read permissions for filestash
   ansible.builtin.file:
     path: /mnt
     state: directory
     recurse: yes
-    mode: '0755'
+    mode: '0765'
 
 - name: Ensure filestash directory exists
   ansible.builtin.file:
