@@ -6,11 +6,6 @@
     state: directory
     mode: '0765' #needed for filestash
 
-- name: Place varnish.vcl file
-  ansible.builtin.copy:
-    src: varnish.vcl
-    dest: /etc/varnish.vcl
-
 - name: Place plone_stack.yml file
   template:
     src: plone_stack.yml.j2
