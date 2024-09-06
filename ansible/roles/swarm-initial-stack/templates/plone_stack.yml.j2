@@ -12,7 +12,7 @@ services:
       - local
     environment:
       RAZZLE_INTERNAL_API_PATH: http://backend:8080/Flexbiz
-      RAZZLE_API_PATH: https://www.{{ domain }}
+      RAZZLE_DEV_PROXY_API_PATH: http://backend:8080/Flexbiz
     deploy:
       mode: replicated
       replicas: 1
@@ -39,17 +39,3 @@ services:
     deploy:
       mode: replicated
       replicas: 1
-      labels:
-      - traefik.enable=true
-      # Service
-      - traefik.http.services.svc-backend.loadbalancer.server.port=8080
-      # Middleware
-      ## Virtual Host Monster for /++api++/
-      - "traefik.http.middlewares.mw-backend-vhm-api.replacepathregex.regex=^/\\+\\+api\\+\\+($$|/.*)"
-      - "traefik.http.middlewares.mw-backend-vhm-api.replacepathregex.replacement=/VirtualHostBase/http/www.{{ domain }}/Flexbiz/++api++/VirtualHostRoot$$1"
-      # Router: Internal
-      ## /++api++/
-      - "traefik.http.routers.rt-backend-api-internal.rule=Host(`www.{{ domain }}`) && PathPrefix(`/++api++`)"
-      - "traefik.http.routers.rt-backend-api-internal.entrypoints=websecure"
-      - "traefik.http.routers.rt-backend-api-internal.service=svc-backend"
-      - "traefik.http.routers.rt-backend-api-internal.middlewares=gzip,mw-backend-vhm-api"
