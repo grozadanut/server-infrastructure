@@ -38,9 +38,9 @@ navigation, then click on `Manage your Space`. Click on the `Nodes` tab in the
 panel that appears, which displays a script with `token` and `room` strings.
 
 example: <br>
-`ansible-vault create host_vars/main_server/vars.yml` <br>
+`env EDITOR=nano ansible-vault create host_vars/main_server/vars.yml` <br>
 `pgbackrest_cipher_pass: "pass"` <br>
-`ansible-vault edit host_vars/main_server/vars.yml` <br>
+`env EDITOR=nano ansible-vault edit host_vars/main_server/vars.yml` <br>
 
 # Troubleshooting
 
