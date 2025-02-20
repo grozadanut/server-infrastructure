@@ -8,74 +8,39 @@ To make the script executable:
 Then you can run ansible normally, like so:
 `ansible-playbook main.yml -K --ask-vault-pass`
 
+## Ansible variables
+
+There are 3 type of variables you can define:
+
+1. Host variables - specific to a certain host, they go in 
+`host_vars/{{ inventory_hostname }}/vars.yml` or simply `host_vars/{{ inventory_hostname }}.yml`
+2. Group variables - specific to a group of hosts, they go in 
+`group_vars/{groupname}/vars.yml` or simply `group_vars/{groupname}.yml`
+3. Global variables - valid for all hosts, you can set these in `group_vars/all.yml`
+
+Note: `{{ inventory_hostname }}` is the hostname as defined in hosts, eg. `main_server`
+
 ## Mandatory variables
 
 Before running the playbook, these variables must be defined:
 
-1. Host variables
-
-For each database host:
-- `pgbackrest_cipher_pass`
-
-example: <br>
-ansible-vault create host_vars/main_server/vars.yml <br>
-pgbackrest_cipher_pass: "pass" <br>
-ansible-vault edit host_vars/main_server/vars.yml <br>
-
-2. Group variables
-
-For database group(group_vars/database/vars.yml):
-- `digi_storage_user`
-- `digi_storage_pass`
-
-For data group(group_vars/data/vars.yml):
-- `digi_storage_user`
-- `digi_storage_pass`
-- `restic_repo_pass`
-
-For manager group(group_vars/manager/vars.yml):
-- `enable_https` - whether to enable https through Let's Encrypt, enable this if you have a valid domain; default false
-- `certbot_email` - email for Let's Encrypt registration
-- `mysql_pass` - used in the stack file
-
-3. Global variables
-
-You can set these in group_vars/all.yml
+- `digi_storage_user` - storage.rcs-rds.ro username for remote backup, needed for remote backup of both database and data repos
+- `digi_storage_pass` - storage.rcs-rds.ro password for remote backup, needed for remote backup of both database and data repos
+- `pgbackrest_cipher_pass` - password for the postgresql backup repo, needed to save snapshots of the database locally
+- `restic_repo_pass` - password for the restic backup repo, needed to backup `/data` folder; note that 
+restic also depends on `digi_storage` credentials as the repo is backed up directly on the remote location
+- `claim_token`: netdata token, needed for Netdata monitoring
+- `claim_rooms`: netdata room, needed for Netdata monitoring
 
 Set Netdata Cloud claiming details. To find your `claim_token` and
 `claim_room`, go to Netdata Cloud, then click on your Space's name in the top
 navigation, then click on `Manage your Space`. Click on the `Nodes` tab in the
 panel that appears, which displays a script with `token` and `room` strings.
-- `claim_token`: netdata token
-- `claim_rooms`: netdata room
 
-## Default folder structure
-
-### DB server(1)
-
-- `/var/lib/pgbackrest` - postgresql database local backup location
-- `DigiStorage:/pgbackrest/flexbiz` - postgresql database remote backup location
-
-### Data server(1-n)
-
-- `/opt/seaweedfs/{{ domain }}/volume` - seaweedfs volumes
-- `/opt/seaweedfs/{{ domain }}/filer` - seaweedfs file metadata
-- `DigiStorage:/restic/main_server` - remote backup of `/opt/seaweedfs` folder
-
-Note: default domain is `flexbiz.ro`
-
-### Manager server(1-3)
-
-- `/opt/seaweedfs/{{ domain }}/master` - seaweedfs master data
-
-Note: Currently if the manager and data server are on 2 separate machines, 
-the seaweedfs master data is not backed up on a remote location.
-
-### Worker server(1-n)
-
-Theoretically this should be stateless, as it's used only to run docker containers.
-
-If containers need persistent storage, they can use bind mounts to mount a subfolder inside `/mnt`(see parent README.md for folder structure). The host provides persistent storage in `/mnt` through `seaweedfs mount` command. The actual data is stored in the data server.
+example: <br>
+`ansible-vault create host_vars/main_server/vars.yml` <br>
+`pgbackrest_cipher_pass: "pass"` <br>
+`ansible-vault edit host_vars/main_server/vars.yml` <br>
 
 # Troubleshooting
 

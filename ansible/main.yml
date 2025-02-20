@@ -1,40 +1,15 @@
 ---
 
-- hosts: database
+- hosts: main_server
   become: yes
   roles:
     - geerlingguy.postgresql
     - dudefellah.pgbackrest
     - stefangweichinger.ansible_rclone
     - database
-    - role: netdata
-      when: claim_token is defined
-
-- hosts: manager
-  become: yes
-  roles:
-    - role: netdata
-      when: claim_token is defined
-    - ansible-role-seaweedfs
-    - ansible-dockerswarm
-    - swarm-initial-stack
-
-- hosts: data
-  become: yes
-  roles:
-    - role: netdata
-      when: claim_token is defined
-    - ansible-role-seaweedfs
-    - stefangweichinger.ansible_rclone
     - role: andrewrothstein.restic
       when: restic_repo_pass is defined
     - role: restic-init
       when: restic_repo_pass is defined
-
-- hosts: worker
-  become: yes
-  roles:
     - role: netdata
       when: claim_token is defined
-    - ansible-role-seaweedfs
-    - ansible-dockerswarm

@@ -1,15 +1,15 @@
 ---
 restic_repos:
   remote:
-    location: rclone:DigiStorage:/restic/main_server
+    location: rclone:DigiStorage:/restic/{{ inventory_hostname }}
     password: "{{ restic_repo_pass }}"
     init: true
 
 restic_backups:
-  seaweedfs:
-    name: seaweedfs
+  data:
+    name: data
     repo: remote
-    src: /opt/seaweedfs
+    src: /data
     keep_within: 1y
     scheduled: true
     schedule_hour: 3
