@@ -1,2 +1,2 @@
 #!/bin/bash
-rclone copy -L /var/lib/pgbackrest DigiStorage:/pgbackrest/{{ inventory_hostname }}
+/usr/local/bin/rclone --config="/root/.config/rclone/rclone.conf" --log-file /var/log/rclone.log copy -L /var/lib/pgbackrest DigiStorage:/pgbackrest/{{ inventory_hostname }}
