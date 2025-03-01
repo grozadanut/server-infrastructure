@@ -2,7 +2,7 @@
 - name: Place remote backup script
   template:
     src: remote-backup.sh.j2
-    dest: /opt/remote-backup.sh
+    dest: /usr/local/bin/remote-backup.sh
     mode: '0700'
 
 - name: Add rclone full backup cron
@@ -11,7 +11,7 @@
     weekday: "SUN"
     minute: "5"
     hour: "5"
-    job: "/opt/remote-backup.sh"
+    job: "/usr/local/bin/remote-backup.sh"
   when: setup_rclone_config.changed
 
 - name: Add rclone incr backup cron
@@ -20,5 +20,5 @@
     weekday: "MON-SAT"
     minute: "15"
     hour: "9,12,16,23"
-    job: "/opt/remote-backup.sh"
+    job: "/usr/local/bin/remote-backup.sh"
   when: setup_rclone_config.changed

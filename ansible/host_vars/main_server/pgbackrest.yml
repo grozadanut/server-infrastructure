@@ -21,3 +21,15 @@ pgbackrest_postgresql_conf:
   log_filename: "postgresql.log"
   max_wal_senders: 3
   wal_level: replica
+
+# This is a convenience script included in this role for restoring from
+# backups. You can set this to null to avoid having it installed.
+pgbackrest_restore_script_path: /usr/local/bin/pgbackrest_restore
+
+# This is a convenience script included in this role for making backups
+# with pgbackrest. It mainly simplifies passing multiple stanzas for backup,
+# and is used by the scheduled systemd or cron jobs, so disabling the
+# installation of this file by setting `pgbackrest_backup_script_path` to
+# null should only happen when you're also not using the timer/cron jobs
+# that come with this role.
+pgbackrest_backup_script_path: /usr/local/bin/pgbackrest_backup
