@@ -25,7 +25,8 @@ Note: `{{ inventory_hostname }}` is the hostname as defined in hosts, eg. `main_
 Before running the playbook, these variables must be defined:
 
 - `digi_storage_user` - storage.rcs-rds.ro username for remote backup, needed for remote backup of both database and data repos
-- `digi_storage_pass` - storage.rcs-rds.ro password for remote backup, needed for remote backup of both database and data repos
+- `digi_storage_pass` - storage.rcs-rds.ro password for remote backup, needed for remote backup of both database and data repos.
+NOTE that this password should be obscured as per rclone koofr(aka Digi Storage) requirements, see https://rclone.org/commands/rclone_obscure/
 - `pgbackrest_cipher_pass` - password for the postgresql backup repo, needed to save snapshots of the database locally
 - `restic_repo_pass` - password for the restic backup repo, needed to backup `/data` folder; note that 
 restic also depends on `digi_storage` credentials as the repo is backed up directly on the remote location
