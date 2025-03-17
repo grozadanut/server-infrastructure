@@ -18,7 +18,7 @@ There are 3 type of variables you can define:
 `group_vars/{groupname}/vars.yml` or simply `group_vars/{groupname}.yml`
 3. Global variables - valid for all hosts, you can set these in `group_vars/all.yml`
 
-Note: `{{ inventory_hostname }}` is the hostname as defined in hosts, eg. `main_server`
+Note: `{{ inventory_hostname }}` is the hostname as defined in hosts, eg. `main-server`
 
 ## Mandatory variables
 
@@ -39,9 +39,9 @@ navigation, then click on `Manage your Space`. Click on the `Nodes` tab in the
 panel that appears, which displays a script with `token` and `room` strings.
 
 example: <br>
-`env EDITOR=nano ansible-vault create host_vars/main_server/vars.yml` <br>
+`env EDITOR=nano ansible-vault create host_vars/main-server/vars.yml` <br>
 `pgbackrest_cipher_pass: "pass"` <br>
-`env EDITOR=nano ansible-vault edit host_vars/main_server/vars.yml` <br>
+`env EDITOR=nano ansible-vault edit host_vars/main-server/vars.yml` <br>
 
 # Troubleshooting
 

@@ -1,6 +1,6 @@
 ---
 
-- hosts: main_server
+- hosts: main-server
   become: yes
   roles:
     - geerlingguy.postgresql

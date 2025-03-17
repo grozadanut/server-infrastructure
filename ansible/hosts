@@ -1,1 +1,1 @@
-main_server ansible_connection=local hostname=main_server
+main-server ansible_connection=local hostname=main-server
