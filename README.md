@@ -15,7 +15,7 @@ The code is structured as follows:
 - File cloud sync/copy: rclone
 - Containerization: docker
 
-![infrastructure](infrastructure_v2.jpg)
+![infrastructure](infrastructure_v3.jpg)
 
 ## Default folder structure
 
