@@ -26,16 +26,15 @@ The code is structured as follows:
 
 ### Data
 
-- `/data/coolify` - coolify config data such as compose files and traefik proxy config
-- `/data/app` - application data, see details in the dedicated section below
-- `/data/tenant` - tenant data, see details in the dedicated section below
+- `/data/{appName}` - application data, see details in the dedicated section below
+- `/data/tenant/{tenantId}` - tenant data, see details in the dedicated section below
 - `DigiStorage:/restic/{{ inventory_hostname }}` - remote backup of `/data` folder
 
-Note: `{{ inventory_hostname }}` is the hostname as defined in hosts, eg. `main_server`
+Note: `{{ inventory_hostname }}` is the hostname as defined in hosts, eg. `main-server`
 
 #### Application data
 
-- `/data/app/{appName}`
+- `/data/{appName}`
 
 Contains data specific to a certain application, eg. Moqui, Wordpress etc. 
 Generally this would contain config files applicable to the whole application, not to a 
@@ -45,9 +44,7 @@ For critical tenant data either store it in a Postgresql database per tenant, or
 in `/data/tenant/{tenantId}`.
 
 Examples:
-- `/data/app/moqui` - config files, scripts etc.
-- `/data/app/mysql` - mysql database
-- `/data/app/wordpress` - wordpress public content
+- `/data/coolify` - coolify config data such as compose files and traefik proxy config
 
 #### Tenant data
 
