@@ -13,3 +13,4 @@
       when: restic_repo_pass is defined
     - role: netdata
       when: claim_token is defined
+    - sentry

@@ -30,8 +30,9 @@ NOTE that this password should be obscured as per rclone koofr(aka Digi Storage)
 - `pgbackrest_cipher_pass` - password for the postgresql backup repo, needed to save snapshots of the database locally
 - `restic_repo_pass` - password for the restic backup repo, needed to backup `/data` folder; note that 
 restic also depends on `digi_storage` credentials as the repo is backed up directly on the remote location
-- `claim_token`: netdata token, needed for Netdata monitoring
-- `claim_rooms`: netdata room, needed for Netdata monitoring
+- (optional) `claim_token`: netdata token, needed for Netdata monitoring
+- (optional) `claim_rooms`: netdata room, needed for Netdata monitoring
+- (optional) `sentry_backup_dsn`: sentry dsn of the project where you want to send backup logs
 
 Set Netdata Cloud claiming details. To find your `claim_token` and
 `claim_room`, go to Netdata Cloud, then click on your Space's name in the top

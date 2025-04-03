@@ -1,0 +1,5 @@
+---
+- name: Download and install Sentry CLI
+  shell: curl -sL https://sentry.io/get-cli/ | sh
+  args:
+    creates: /usr/local/bin/sentry-cli  # Prevents reinstallation if already installed
