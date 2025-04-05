@@ -11,7 +11,7 @@
     weekday: "SUN"
     minute: "5"
     hour: "5"
-    job: "/usr/local/bin/remote-backup.sh"
+    job: "/usr/local/bin/remote-backup.sh >> /var/log/cron.log 2>&1"
   when: setup_rclone_config.changed
 
 - name: Add rclone incr backup cron
@@ -20,5 +20,5 @@
     weekday: "MON-SAT"
     minute: "15"
     hour: "9,12,16,23"
-    job: "/usr/local/bin/remote-backup.sh"
+    job: "/usr/local/bin/remote-backup.sh >> /var/log/cron.log 2>&1"
   when: setup_rclone_config.changed

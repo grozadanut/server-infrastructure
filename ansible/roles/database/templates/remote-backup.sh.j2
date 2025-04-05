@@ -8,9 +8,7 @@ EXIT_CODE=$?
 
 # Check if rclone executed successfully
 if [ $EXIT_CODE -eq 0 ]; then
-    echo "rclone execution was successful."
-    sentry-cli send-event -m "{{ inventory_hostname }} pgbackrest OK"
+    /usr/local/bin/sentry-cli send-event -m "{{ inventory_hostname }} pgbackrest OK"
 else
-    echo "rclone execution failed with exit code $EXIT_CODE."
-    sentry-cli send-event -m "{{ inventory_hostname }} pgbackrest failed: $EXIT_CODE" --logfile /var/log/rclone.log
+    /usr/local/bin/sentry-cli send-event -m "{{ inventory_hostname }} pgbackrest failed: $EXIT_CODE" --logfile /var/log/rclone.log
 fi
