@@ -1,0 +1,20 @@
+services:
+  jenkins:
+    image: 'jenkins/jenkins:latest'
+    environment:
+      - 'COOLIFY_URL=https://ci.flexbiz.ro:8080'
+    volumes:
+      - 'jenkins-home:/var/jenkins_home'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+    ports:
+      - 50000:50000
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - '-f'
+        - 'http://localhost:8080/login'
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

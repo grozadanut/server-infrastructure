@@ -1,0 +1,36 @@
+services:
+  app:
+    image: 'assimbly/gateway-full:5.0.4'
+    environment:
+      - 'COOLIFY_URL=https://flux.flexbiz.ro:8088'
+      - '_JAVA_OPTIONS=-Xmx512m -Xms256m'
+      - 'SPRING_PROFILES_ACTIVE=prod,api-docs'
+      - 'SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/${POSTGRESQL_DATABASE:-assimbly}'
+      - 'SPRING_DATASOURCE_USERNAME=${SERVICE_USER_POSTGRESQL}'
+      - 'SPRING_DATASOURCE_PASSWORD=${SERVICE_PASSWORD_POSTGRESQL}'
+      - 'SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect'
+      - 'MANAGEMENT_HEALTH_RABBIT_ENABLED=false'
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - '-f'
+        - 'http://localhost:8088/management/health'
+    depends_on:
+      postgresql:
+        condition: service_healthy
+  postgresql:
+    image: 'postgres:16.1'
+    volumes:
+      - 'assimbly-postgres-data:/var/lib/postgresql/data'
+    environment:
+      - 'POSTGRES_USER=${SERVICE_USER_POSTGRESQL}'
+      - 'POSTGRES_PASSWORD=${SERVICE_PASSWORD_POSTGRESQL}'
+      - 'POSTGRES_DB=${POSTGRESQL_DATABASE:-assimbly}'
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - 'pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}'
+      interval: 5s
+      timeout: 20s
+      retries: 10

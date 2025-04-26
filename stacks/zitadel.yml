@@ -1,0 +1,42 @@
+services:
+  zitadel:
+    restart: always
+    image: 'ghcr.io/zitadel/zitadel:v3.0.0-rc.2'
+    command: 'start-from-init --masterkey "It-must-be-32-bytes!!--needs-to-be-manual-as-SERVICE_PASSWORD-doesnt-work-here" --tlsMode external'
+    environment:
+      COOLIFY_URL: https://auth.flexbiz.ro:8080
+      ZITADEL_EXTERNALDOMAIN: auth.flexbiz.ro
+      ZITADEL_DATABASE_POSTGRES_HOST: db
+      ZITADEL_DATABASE_POSTGRES_PORT: 5432
+      ZITADEL_DATABASE_POSTGRES_DATABASE: ${POSTGRESQL_DATABASE:-zitadel}
+      ZITADEL_DATABASE_POSTGRES_USER_USERNAME: ${SERVICE_USER_POSTGRESQL}
+      ZITADEL_DATABASE_POSTGRES_USER_PASSWORD: ${SERVICE_PASSWORD_POSTGRESQL}
+      ZITADEL_DATABASE_POSTGRES_USER_SSL_MODE: disable
+      ZITADEL_DATABASE_POSTGRES_ADMIN_USERNAME: ${SERVICE_USER_POSTGRESQL_ADMIN}
+      ZITADEL_DATABASE_POSTGRES_ADMIN_PASSWORD: ${SERVICE_PASSWORD_POSTGRESQL_ADMIN}
+      ZITADEL_DATABASE_POSTGRES_ADMIN_SSL_MODE: disable
+      ZITADEL_EXTERNALPORT: 443
+      ZITADEL_EXTERNALSECURE: true
+      ZITADEL_TLS_ENABLED: false
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    restart: always
+    image: 'postgres:17-alpine'
+    environment:
+      PGUSER: ${SERVICE_USER_POSTGRESQL_ADMIN}
+      POSTGRES_PASSWORD: ${SERVICE_PASSWORD_POSTGRESQL_ADMIN}
+      ZITADEL_DATABASE_POSTGRES_DATABASE: ${POSTGRESQL_DATABASE:-zitadel}
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready
+        - '-d'
+        - $${ZITADEL_DATABASE_POSTGRES_DATABASE}
+        - '-U'
+        - $${PGUSER}
+      interval: 10s
+      timeout: 30s
+      retries: 5
+      start_period: 20s

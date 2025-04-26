@@ -1,0 +1,26 @@
+services:
+  meshcentral:
+    restart: always
+    container_name: meshcentral
+    image: 'ghcr.io/ylianst/meshcentral:latest'
+    environment:
+      - COOLIFY_URL=https://mesh.flexbiz.ro
+      - NODE_ENV=production
+      - USE_MONGODB=false
+      - HOSTNAME=mesh.flexbiz.ro
+      - REVERSE_PROXY=true
+      - REVERSE_PROXY_TLS_PORT=443
+      - ALLOW_NEW_ACCOUNTS=false
+      - WEBRTC=false
+      - ALLOWPLUGINS=false
+      - LOCALSESSIONRECORDING=false
+      - MINIFY=true
+      - ALLOWED_ORIGIN=true
+      - TZ=Europe/Bucharest
+    labels:
+       - traefik.http.services.meshcentral.loadbalancer.server.port=443
+    volumes:
+      - 'meshcentral_user_files:/opt/meshcentral/meshcentral-files'
+      - 'meshcentral_backup:/opt/meshcentral/meshcentral-backups'
+      - 'meshcentral_web:/opt/meshcentral/meshcentral-web'
+      - '/data/app/meshcentral/data:/opt/meshcentral/meshcentral-data'

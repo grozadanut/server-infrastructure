@@ -1,0 +1,49 @@
+services:
+  db:
+    image: 'mariadb:10.11'
+    restart: unless-stopped
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: 'true'
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-passbolt}
+      MYSQL_USER: ${SERVICE_USER_MYSQL}
+      MYSQL_PASSWORD: ${SERVICE_PASSWORD_MYSQL}
+    volumes:
+      - 'database_volume:/var/lib/mysql'
+  passbolt:
+    image: 'passbolt/passbolt:4.12.1-1-ce'
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      - COOLIFY_URL=https://seif.flexbiz.ro
+      - 'APP_FULL_BASE_URL=https://seif.flexbiz.ro'
+      - DATASOURCES_DEFAULT_HOST=db
+      - DATASOURCES_DEFAULT_USERNAME=${SERVICE_USER_MYSQL}
+      - DATASOURCES_DEFAULT_PASSWORD=${SERVICE_PASSWORD_MYSQL}
+      - DATASOURCES_DEFAULT_DATABASE=${MYSQL_DATABASE:-passbolt}
+      - 'EMAIL_DEFAULT_FROM_NAME=${EMAIL_DEFAULT_FROM_NAME}'
+      - 'EMAIL_DEFAULT_FROM=${EMAIL_DEFAULT_FROM}'
+      - 'EMAIL_TRANSPORT_DEFAULT_HOST=${EMAIL_TRANSPORT_DEFAULT_HOST}'
+      - 'EMAIL_TRANSPORT_DEFAULT_PORT=${EMAIL_TRANSPORT_DEFAULT_PORT}'
+      - 'EMAIL_TRANSPORT_DEFAULT_USERNAME=${EMAIL_TRANSPORT_DEFAULT_USERNAME}'
+      - 'EMAIL_TRANSPORT_DEFAULT_PASSWORD=${EMAIL_TRANSPORT_DEFAULT_PASSWORD}'
+      - 'EMAIL_TRANSPORT_DEFAULT_TLS=${EMAIL_TRANSPORT_DEFAULT_TLS}'
+    volumes:
+      - 'gpg_volume:/etc/passbolt/gpg'
+      - 'jwt_volume:/etc/passbolt/jwt'
+    command:
+      - /usr/bin/wait-for.sh
+      - '-t'
+      - '0'
+      - 'db:3306'
+      - '--'
+      - /docker-entrypoint.sh
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - '-f'
+        - 'http://127.0.0.1:80'
+      interval: 2s
+      timeout: 10s
+      retries: 15
