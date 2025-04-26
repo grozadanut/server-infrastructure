@@ -40,7 +40,7 @@
 - name: Setup CRON jobs
   cron:
     name: 'arillso.restic backup {{ item.name }}'
-    job: 'CRON=true {{ restic_script_dir }}/backup-{{ item.name }}.sh'
+    job: 'CRON=true {{ restic_script_dir }}/backup-{{ item.name }}.sh >> {{ restic_log_dir }}/cron.log 2>&1'
     minute: '{{ item.schedule_minute | default("*") }}'
     hour: '{{ item.schedule_hour | default("*") }}'
     weekday: '{{ item.schedule_weekday | default("*") }}'

@@ -1,7 +1,7 @@
 ---
 restic_install_path: '/usr/local/bin'
 
-restic_script_dir: '~/restic'
+restic_script_dir: '/root/restic'
 restic_log_dir: '{{ restic_script_dir }}/log'
 restic_repos: {}
 restic_backups: []
