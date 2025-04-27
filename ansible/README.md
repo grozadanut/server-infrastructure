@@ -24,12 +24,16 @@ Note: `{{ inventory_hostname }}` is the hostname as defined in hosts, eg. `main-
 
 Before running the playbook, these variables must be defined:
 
-- `digi_storage_user` - storage.rcs-rds.ro username for remote backup, needed for remote backup of both database and data repos
-- `digi_storage_pass` - storage.rcs-rds.ro password for remote backup, needed for remote backup of both database and data repos.
+- `digi_storage_user` - storage.rcs-rds.ro username for remote backup, needed for remote backup of database
+- `digi_storage_pass` - storage.rcs-rds.ro password for remote backup, needed for remote backup of database.
 NOTE that this password should be obscured as per rclone koofr(aka Digi Storage) requirements, see https://rclone.org/commands/rclone_obscure/
 - `pgbackrest_cipher_pass` - password for the postgresql backup repo, needed to save snapshots of the database locally
-- `restic_repo_pass` - password for the restic backup repo, needed to backup `/data` folder; note that 
-restic also depends on `digi_storage` credentials as the repo is backed up directly on the remote location
+- `restic_repo_pass` - restic repo encryption key, needed to backup `/data` folder; note that 
+restic also depends on `s3` credentials as the repo is backed up directly on the remote location
+- `s3_endpoint` - endpoint of the s3 bucket where the backups should be stored
+- `s3_bucket` - name of the s3 bucket where the backups should be stored
+- `s3_key` - keyID of the application key in case of Backblaze B2
+- `s3_secret` - applicationKey in case of Backblaze B2
 - (optional) `claim_token`: netdata token, needed for Netdata monitoring
 - (optional) `claim_rooms`: netdata room, needed for Netdata monitoring
 - (optional) `sentry_backup_dsn`: sentry dsn of the project where you want to send backup logs

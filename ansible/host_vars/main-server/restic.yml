@@ -1,9 +1,11 @@
 ---
 restic_repos:
   remote:
-    location: rclone:DigiStorage:/restic/{{ inventory_hostname }}
+    location: s3:{{ s3_endpoint }}/{{ s3_bucket }}
     password: "{{ restic_repo_pass }}"
     init: true
+    aws_access_key: "{{ s3_key }}"
+    aws_secret_access_key: "{{ s3_secret }}"
 
 restic_backups:
   data:
