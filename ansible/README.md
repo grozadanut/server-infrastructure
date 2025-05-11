@@ -40,6 +40,9 @@ restic also depends on `s3` credentials as the repo is backed up directly on the
 
 Database:
 - `flexbiz_password` - postgresql password for the user: flexbiz. Used to connect to the host postgres database from docker containers
+Data:
+- `storagebox_user` - user of the Hetzner storage box; for mounting data as a CIFS share
+- `storagebox_password` - password of storage box
 
 Set Netdata Cloud claiming details. To find your `claim_token` and
 `claim_room`, go to Netdata Cloud, then click on your Space's name in the top

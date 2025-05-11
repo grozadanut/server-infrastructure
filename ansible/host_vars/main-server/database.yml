@@ -8,7 +8,7 @@ postgresql_hba_entries:
 
 postgresql_users:
   - name: flexbiz
-    password: {{ flexbiz_password }}
+    password: "{{ flexbiz_password }}"
 
 postgresql_databases:
   - name: nextcloud
