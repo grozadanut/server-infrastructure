@@ -38,6 +38,9 @@ restic also depends on `s3` credentials as the repo is backed up directly on the
 - (optional) `claim_rooms`: netdata room, needed for Netdata monitoring
 - (optional) `sentry_backup_dsn`: sentry dsn of the project where you want to send backup logs
 
+Database:
+- `flexbiz_password` - postgresql password for the user: flexbiz. Used to connect to the host postgres database from docker containers
+
 Set Netdata Cloud claiming details. To find your `claim_token` and
 `claim_room`, go to Netdata Cloud, then click on your Space's name in the top
 navigation, then click on `Manage your Space`. Click on the `Nodes` tab in the
