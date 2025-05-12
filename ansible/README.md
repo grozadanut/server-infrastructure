@@ -6,7 +6,7 @@ To make the script executable:
 `chmod u+x initial-setup.sh`
 
 Then you can run ansible normally, like so:
-`ansible-playbook main.yml -K --ask-vault-pass`
+`ansible-playbook main.yml --ask-vault-pass`
 
 ## Ansible variables
 

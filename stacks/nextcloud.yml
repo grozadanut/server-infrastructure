@@ -2,9 +2,8 @@ services:
   nextcloud:
     image: 'lscr.io/linuxserver/nextcloud:latest'
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - 'host.docker.internal:host-gateway'
     environment:
-      - SERVICE_FQDN_NEXTCLOUD_80
       - PUID=1000
       - PGID=1000
       - 'TZ=${TZ:-Europe/Bucharest}'
@@ -14,6 +13,8 @@ services:
       - POSTGRES_HOST=host.docker.internal
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - 'NEXTCLOUD_ADMIN_PASSWORD=${ADMIN_PASSWORD}'
+      - 'NEXTCLOUD_ADMIN_USER=${ADMIN_USER}'
     volumes:
       - '/data/nextcloud:/config'
       - '/mnt/data/nextcloud:/data'
