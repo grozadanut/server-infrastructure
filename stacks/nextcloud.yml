@@ -42,3 +42,10 @@ services:
       interval: 5s
       timeout: 10s
       retries: 20
+  collabora:
+    image: collabora/code
+    container_name: collabora
+    restart: always
+    environment:
+      - 'extra_params=--o:server_name=docs.flexbiz.ro --o:ssl.enable=false --o:ssl.termination=true --o:user_interface.use_integration_theme=false'
+      - domain=cloud.flexbiz.ro
