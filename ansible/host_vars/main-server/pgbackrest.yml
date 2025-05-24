@@ -8,12 +8,13 @@ pgbackrest_conf_cluster_stanzas:
     repo1-bundle: y
     repo1-cipher-pass: "{{ pgbackrest_cipher_pass }}"
     repo1-cipher-type: aes-256-cbc
-    repo2-path: /pgbackrest
+    repo2-path: /pgbackrest/{{ inventory_hostname }}
     repo2-retention-full: 4
     repo2-s3-bucket: "{{ s3_bucket }}"
     repo2-s3-endpoint: "{{ s3_endpoint }}"
     repo2-s3-key: "{{ s3_key }}"
     repo2-s3-key-secret: "{{ s3_secret }}"
+    repo2-s3-region: eu-central-003
     repo2-type: s3
     start-fast: y
 pgbackrest_systemd_timer_enabled: true
