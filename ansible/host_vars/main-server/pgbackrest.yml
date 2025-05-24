@@ -3,11 +3,18 @@ pgbackrest_conf_cluster_stanzas:
     pg1-path: '/var/lib/postgresql/15/main'
   global:
     repo1-path: /var/lib/pgbackrest
-    repo1-retention-full: 4
+    repo1-retention-full: 1
     repo1-block: y
     repo1-bundle: y
     repo1-cipher-pass: "{{ pgbackrest_cipher_pass }}"
     repo1-cipher-type: aes-256-cbc
+    repo2-path: /pgbackrest
+    repo2-retention-full: 4
+    repo2-s3-bucket: "{{ s3_bucket }}"
+    repo2-s3-endpoint: "{{ s3_endpoint }}"
+    repo2-s3-key: "{{ s3_key }}"
+    repo2-s3-key-secret: "{{ s3_secret }}"
+    repo2-type: s3
     start-fast: y
 pgbackrest_systemd_timer_enabled: true
 pgbackrest_cron_enabled: false
