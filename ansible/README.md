@@ -40,6 +40,8 @@ restic also depends on `s3` credentials as the repo is backed up directly on the
 
 Database:
 - `flexbiz_password` - postgresql password for the user: flexbiz. Used to connect to the host postgres database from docker containers
+- `zitadel_user` - postgresql user for the auth database
+- `zitadel_password` - postgresql password for the auth database
 - `colibri_stat_db_user` - for COLIBRI tenant, database user
 - `colibri_stat_db_password` - for COLIBRI tenant, database password
 Data:

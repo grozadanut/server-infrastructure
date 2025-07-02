@@ -13,11 +13,14 @@ postgresql_hba_entries:
   - {type: host, database: all, user: all, address: '127.0.0.1/32', auth_method: "{{ postgresql_auth_method }}"}
   - {type: host, database: all, user: all, address: '::1/128', auth_method: "{{ postgresql_auth_method }}"}
   - {type: host, database: all, user: flexbiz, address: '172.16.0.0/12', auth_method: "{{ postgresql_auth_method }}"}
+  - {type: host, database: zitadel, user: "{{ zitadel_user }}", address: '172.16.0.0/12', auth_method: "{{ postgresql_auth_method }}"}
   - {type: host, database: colibri_stat_db, user: "{{ colibri_stat_db_user }}", address: '172.18.0.0/12', auth_method: "{{ postgresql_auth_method }}"}
 
 postgresql_users:
   - name: flexbiz
     password: "{{ flexbiz_password }}"
+  - name: "{{ zitadel_user }}"
+    password: "{{ zitadel_password }}"
   - name: "{{ colibri_stat_db_user }}"
     password: "{{ colibri_stat_db_password }}"
 
@@ -25,6 +28,6 @@ postgresql_databases:
   - name: nextcloud
     owner: flexbiz
   - name: zitadel
-    owner: flexbiz
+    owner: "{{ zitadel_user }}"
   - name: colibri_stat_db
     owner: "{{ colibri_stat_db_user }}"
