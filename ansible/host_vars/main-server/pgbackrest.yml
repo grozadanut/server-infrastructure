@@ -16,6 +16,8 @@ pgbackrest_conf_cluster_stanzas:
     repo2-s3-key-secret: "{{ s3_secret }}"
     repo2-s3-region: eu-central-003
     repo2-type: s3
+    repo2-cipher-pass: "{{ pgbackrest_cipher_pass }}"
+    repo2-cipher-type: aes-256-cbc
     start-fast: y
 pgbackrest_systemd_timer_enabled: true
 pgbackrest_cron_enabled: false
