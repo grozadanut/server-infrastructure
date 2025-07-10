@@ -8,14 +8,6 @@ The code is structured as follows:
 # Documentation
 ## Infrastructure
 
-- OS: Debian
-- Automation: Ansible
-- Database: postgres
-- Db backup: pgbackrest
-- File backup: restic
-- File cloud sync/copy: rclone
-- Containerization: docker
-
 ![infrastructure](infrastructure_v3.jpg)
 
 ## Default folder structure
@@ -23,14 +15,14 @@ The code is structured as follows:
 ### Database
 
 - `/var/lib/pgbackrest` - postgresql database local backup location
-- `DigiStorage:/pgbackrest/{{ inventory_hostname }}` - postgresql database remote backup location
+- `s3:/pgbackrest/{{ inventory_hostname }}` - postgresql database remote backup location
 
 ### Data
 
 - `/mnt/data` - mount path of Hetzner Storage Box
 - `/data/{appName}` - application data, see details in the dedicated section below
 - `/data/tenant/{tenantId}` - tenant data, see details in the dedicated section below
-- `DigiStorage:/restic/{{ inventory_hostname }}` - remote backup of `/data` folder
+- `s3:/restic/{{ inventory_hostname }}` - remote backup of `/data` folder
 
 Note: `{{ inventory_hostname }}` is the hostname as defined in hosts, eg. `main-server`
 

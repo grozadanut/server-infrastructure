@@ -1,0 +1,25 @@
+services:
+  mealie:
+    image: 'ghcr.io/mealie-recipes/mealie:latest'
+    environment:
+      - SERVICE_FQDN_MEALIE_9000
+      - 'ALLOW_SIGNUP=${ALLOW_SIGNUP:-false}'
+      - 'PUID=${PUID:-1000}'
+      - 'PGID=${PGID:-1000}'
+      - 'TZ=${TZ:-Europe/Bucharest}'
+      - 'MAX_WORKERS=${MAX_WORKERS:-1}'
+      - 'WEB_CONCURRENCY=${WEB_CONCURRENCY:-1}'
+      - 'SMTP_HOST=${SMTP_HOST}'
+      - 'SMTP_FROM_EMAIL=${SMTP_FROM_EMAIL}'
+      - 'SMTP_USER=${SMTP_USER}'
+      - 'SMTP_PASSWORD=${SMTP_PASSWORD}'
+      - 'BASE_URL=${COOLIFY_URL}'
+    volumes:
+      - '/data/mealie_data:/app/data'
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - "bash -c ':> /dev/tcp/127.0.0.1/9000' || exit 1"
+      interval: 5s
+      timeout: 10s
+      retries: 5
