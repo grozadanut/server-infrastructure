@@ -1,0 +1,12 @@
+services:
+  nginx:
+    image: 'lscr.io/linuxserver/nginx:1.28.0'
+    container_name: nginx
+    environment:
+      - SERVICE_FQDN_P2_80
+      - PUID=200
+      - PGID=200
+      - TZ=Europe/Bucharest
+    volumes:
+      - '/mnt/p2:/config/www'
+    restart: unless-stopped
