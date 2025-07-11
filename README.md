@@ -19,7 +19,7 @@ The code is structured as follows:
 
 ### Data
 
-- `/mnt/data` - mount path of Hetzner Storage Box
+- `/mnt` - mount path of Hetzner Storage Box
 - `/data/{appName}` - application data, see details in the dedicated section below
 - `/data/tenant/{tenantId}` - tenant data, see details in the dedicated section below
 - `s3:/restic/{{ inventory_hostname }}` - remote backup of `/data` folder

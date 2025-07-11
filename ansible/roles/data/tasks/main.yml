@@ -5,9 +5,9 @@
       - cifs-utils
     state: present
 
-- name: Ensure /mnt/data directory exists
+- name: Ensure /mnt directory exists
   ansible.builtin.file:
-    path: /mnt/data
+    path: /mnt
     state: directory
     mode: '0770'
 
@@ -24,14 +24,14 @@
 - name: Ensure mount entry exists in /etc/fstab
   ansible.builtin.lineinfile:
     path: /etc/fstab
-    line: "//{{ storagebox_user }}.your-storagebox.de/backup /mnt/data cifs iocharset=utf8,rw,credentials=/etc/storage-box-credentials.txt,uid=1000,gid=1000,file_mode=0660,dir_mode=0770 0 0"
+    line: "//{{ storagebox_user }}.your-storagebox.de/backup /mnt cifs iocharset=utf8,rw,credentials=/etc/storage-box-credentials.txt,uid=200,gid=200,file_mode=0660,dir_mode=0770 0 0"
     state: present
     create: yes
 
 - name: Mount storage box right now
   ansible.builtin.mount:
-    path: /mnt/data
+    path: /mnt
     src: "//{{ storagebox_user }}.your-storagebox.de/backup"
     fstype: cifs
-    opts: "iocharset=utf8,rw,credentials=/etc/storage-box-credentials.txt,uid=1000,gid=1000,file_mode=0660,dir_mode=0770"
+    opts: "iocharset=utf8,rw,credentials=/etc/storage-box-credentials.txt,uid=200,gid=200,file_mode=0660,dir_mode=0770"
     state: mounted
