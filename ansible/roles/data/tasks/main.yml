@@ -24,7 +24,8 @@
 - name: Ensure mount entry exists in /etc/fstab
   ansible.builtin.lineinfile:
     path: /etc/fstab
-    line: "//{{ storagebox_user }}.your-storagebox.de/backup /mnt cifs iocharset=utf8,rw,credentials=/etc/storage-box-credentials.txt,uid=200,gid=200,file_mode=0660,dir_mode=0770 0 0"
+    regexp: '^//{{ storagebox_user }}\.your-storagebox\.de/backup\s'
+    line: "//{{ storagebox_user }}.your-storagebox.de/backup /mnt cifs iocharset=utf8,rw,credentials=/etc/storage-box-credentials.txt,uid=200,gid=200,file_mode=0664,dir_mode=0775 0 0"
     state: present
     create: yes
 
@@ -33,5 +34,5 @@
     path: /mnt
     src: "//{{ storagebox_user }}.your-storagebox.de/backup"
     fstype: cifs
-    opts: "iocharset=utf8,rw,credentials=/etc/storage-box-credentials.txt,uid=200,gid=200,file_mode=0660,dir_mode=0770"
+    opts: "iocharset=utf8,rw,credentials=/etc/storage-box-credentials.txt,uid=200,gid=200,file_mode=0664,dir_mode=0775"
     state: mounted
