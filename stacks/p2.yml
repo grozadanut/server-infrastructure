@@ -8,5 +8,5 @@ services:
       - PGID=200
       - TZ=Europe/Bucharest
     volumes:
-      - '/mnt/p2:/config/www'
+      - '/mnt/nextcloud/danut/files/p2:/config/www:ro'
     restart: unless-stopped
