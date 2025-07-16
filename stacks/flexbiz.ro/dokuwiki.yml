@@ -1,0 +1,19 @@
+services:
+  dokuwiki:
+    image: 'lscr.io/linuxserver/dokuwiki:version-2025-05-14a'
+    environment:
+      - SERVICE_FQDN_DOKUWIKI
+      - PUID=200
+      - PGID=200
+      - TZ=Europe/Bucharest
+    volumes:
+      - '/data/dokuwiki:/config'
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - '-f'
+        - 'http://127.0.0.1:80'
+      interval: 2s
+      timeout: 10s
+      retries: 15
