@@ -41,6 +41,8 @@ Database:
 - `zitadel_password` - postgresql password for the auth database
 - `colibri_stat_db_user` - for COLIBRI tenant, database user
 - `colibri_stat_db_password` - for COLIBRI tenant, database password
+- `xwiki_db_user` - postgresql user for the xwiki database
+- `xwiki_db_password` - postgresql password for the xwiki database
 Data:
 - `storagebox_user` - user of the Hetzner storage box; for mounting data as a CIFS share
 - `storagebox_password` - password of storage box
