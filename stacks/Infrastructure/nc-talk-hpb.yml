@@ -1,0 +1,18 @@
+services:
+  nc-talk:
+    container_name: talk_hpb
+    image: ghcr.io/nextcloud-releases/aio-talk:latest
+    init: true
+    ports:
+      - 3478:3478/tcp
+      - 3478:3478/udp
+    environment:
+      - SERVICE_FQDN_SIGNAL_8081
+      - NC_DOMAIN=cloud.flexbiz.ro
+      - TALK_HOST=signal.flexbiz.ro
+      - TURN_SECRET=${SERVICE_PASSWORD_TURN}
+      - SIGNALING_SECRET=${SERVICE_PASSWORD_SIGNALING}
+      - TZ=Europe/Bucharest
+      - TALK_PORT=3478
+      - INTERNAL_SECRET=${SERVICE_PASSWORD_INTERNAL}
+    restart: unless-stopped
