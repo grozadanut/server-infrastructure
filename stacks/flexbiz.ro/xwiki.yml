@@ -13,6 +13,8 @@ services:
       - DB_HOST=host.docker.internal
     volumes:
       - '/data/xwiki:/usr/local/xwiki'
+      - '/data/xwiki/xwiki.properties:/usr/local/tomcat/webapps/ROOT/WEB-INF/xwiki.properties'
+      - '/mnt/xwiki:/data/store/file'
     healthcheck:
       test:
         - CMD
