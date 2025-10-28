@@ -1,0 +1,34 @@
+services:
+  server:
+    image: ghcr.io/bluewave-labs/checkmate-backend-mono:v3.2.0
+    pull_policy: always
+    restart: always
+    environment:
+      - SERVICE_FQDN_CHECKMATE_52345
+      - UPTIME_APP_API_BASE_URL=${SERVICE_FQDN_CHECKMATE}/api/v1
+      - UPTIME_APP_CLIENT_HOST=${SERVICE_FQDN_CHECKMATE}
+      - DB_CONNECTION_STRING=mongodb://mongodb:27017/uptime_db
+      - CLIENT_HOST=${SERVICE_FQDN_CHECKMATE}
+      - JWT_SECRET=${SERVICE_PASSWORD_64_JWT}
+    depends_on:
+      - mongodb
+  mongodb:
+    image: ghcr.io/bluewave-labs/checkmate-mongo:v3.2.0
+    restart: always
+    command: ["mongod", "--quiet", "--bind_ip_all"]
+    volumes:
+      - mongodb:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')", "--quiet"]
+      interval: 5s
+      timeout: 30s
+      start_period: 0s
+      start_interval: 1s
+      retries: 30
+  capture:
+    image: ghcr.io/bluewave-labs/capture:v1.3.2
+    restart: always
+    environment:
+      - API_SECRET=${SERVICE_PASSWORD_64_API}
+    volumes:
+      - /etc/os-release:/etc/os-release:ro
