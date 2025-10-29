@@ -1,7 +1,7 @@
 services:
   nc-talk:
     container_name: talk_hpb
-    image: ghcr.io/nextcloud-releases/aio-talk:latest
+    image: ghcr.io/nextcloud-releases/aio-talk:20251015_082711
     init: true
     ports:
       - 3478:3478/tcp

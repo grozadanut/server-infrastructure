@@ -1,6 +1,6 @@
 services:
   pgbackweb:
-    image: 'eduardolat/pgbackweb:latest'
+    image: 'eduardolat/pgbackweb:0.5.1'
     volumes:
       - 'pgbackweb_backups:/backups'
     extra_hosts:

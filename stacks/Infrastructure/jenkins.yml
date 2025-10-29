@@ -1,6 +1,6 @@
 services:
   jenkins:
-    image: 'jenkins/jenkins:latest'
+    image: 'jenkins/jenkins:2.534'
     environment:
       - 'COOLIFY_URL=https://ci.flexbiz.ro:8080'
     volumes:

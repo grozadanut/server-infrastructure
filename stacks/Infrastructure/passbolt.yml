@@ -10,7 +10,7 @@ services:
     volumes:
       - 'database_volume:/var/lib/mysql'
   passbolt:
-    image: 'passbolt/passbolt:5.3.2-1-ce'
+    image: 'passbolt/passbolt:5.6.0-1-ce'
     restart: unless-stopped
     depends_on:
       - db
