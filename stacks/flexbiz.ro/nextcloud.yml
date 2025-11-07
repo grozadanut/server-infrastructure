@@ -31,7 +31,7 @@ services:
       timeout: 10s
       retries: 15
   redis:
-    image: 'redis:7.4-alpine'
+    image: 'redis:8.0.5-alpine'
     volumes:
       - 'nextcloud-redis-data:/data'
     healthcheck:
