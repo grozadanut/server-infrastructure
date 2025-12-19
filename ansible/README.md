@@ -31,8 +31,6 @@ restic also depends on `s3` credentials as the repo is backed up directly on the
 - `s3_bucket` - name of the s3 bucket where the backups should be stored
 - `s3_key` - keyID of the application key in case of Backblaze B2
 - `s3_secret` - applicationKey in case of Backblaze B2
-- (optional) `claim_token`: netdata token, needed for Netdata monitoring
-- (optional) `claim_rooms`: netdata room, needed for Netdata monitoring
 - (optional) `sentry_backup_dsn`: sentry dsn of the project where you want to send backup logs
 
 Database:
@@ -46,11 +44,6 @@ Database:
 Data:
 - `storagebox_user` - user of the Hetzner storage box; for mounting data as a CIFS share
 - `storagebox_password` - password of storage box
-
-Set Netdata Cloud claiming details. To find your `claim_token` and
-`claim_room`, go to Netdata Cloud, then click on your Space's name in the top
-navigation, then click on `Manage your Space`. Click on the `Nodes` tab in the
-panel that appears, which displays a script with `token` and `room` strings.
 
 example: <br>
 `env EDITOR=nano ansible-vault create host_vars/main-server/vars.yml` <br>
