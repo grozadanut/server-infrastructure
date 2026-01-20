@@ -1,7 +1,7 @@
 services:
   zitadel:
     restart: always
-    image: 'ghcr.io/zitadel/zitadel:v4.5.0'
+    image: 'ghcr.io/zitadel/zitadel:v4.9.1'
     command: 'start-from-setup --masterkeyFromEnv --tlsMode external'
     extra_hosts:
       - 'host.docker.internal:host-gateway'

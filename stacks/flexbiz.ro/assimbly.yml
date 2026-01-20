@@ -1,6 +1,6 @@
 services:
   app:
-    image: 'assimbly/gateway-full:5.0.6'
+    image: 'assimbly/gateway-full:5.0.8'
     environment:
       - 'COOLIFY_URL=https://flux.flexbiz.ro:8088'
       - '_JAVA_OPTIONS=-Xmx512m -Xms256m'

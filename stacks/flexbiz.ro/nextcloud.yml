@@ -1,6 +1,6 @@
 services:
   nextcloud:
-    image: 'lscr.io/linuxserver/nextcloud:32.0.1'
+    image: 'lscr.io/linuxserver/nextcloud:32.0.5'
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     environment:
@@ -43,7 +43,7 @@ services:
       timeout: 10s
       retries: 20
   collabora:
-    image: collabora/code:25.04.6.2.1
+    image: collabora/code:25.04.8.1.1
     container_name: collabora
     restart: always
     environment:

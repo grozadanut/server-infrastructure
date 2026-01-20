@@ -1,12 +1,12 @@
 services:
   web:
-    image: 'xwiki:17.9.0-postgres-tomcat'
+    image: 'xwiki:17.10-postgres-tomcat'
     container_name: xwiki-postgres-tomcat-web
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     environment:
       - SERVICE_FQDN_WIKI_8080
-      - XWIKI_VERSION=17.9.0
+      - XWIKI_VERSION=17.10
       - 'DB_USER=${SERVICE_USER_POSTGRESQL}'
       - 'DB_PASSWORD=${SERVICE_PASSWORD_POSTGRESQL}'
       - 'DB_DATABASE=${DATABASE_POSTGRESQL}'
