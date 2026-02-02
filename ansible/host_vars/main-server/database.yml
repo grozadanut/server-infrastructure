@@ -18,6 +18,8 @@ postgresql_hba_entries:
   - {type: host, database: colibri_stat_db, user: "{{ colibri_stat_db_user }}", address: '172.18.0.0/12', auth_method: "{{ postgresql_auth_method }}"}
   - {type: host, database: xwiki, user: "{{ xwiki_db_user }}", address: '172.18.0.0/12', auth_method: "{{ postgresql_auth_method }}"}
   - {type: host, database: xwiki, user: "{{ xwiki_db_user }}", address: '192.168.0.0/16', auth_method: "{{ postgresql_auth_method }}"}
+  - {type: host, database: mediacms, user: "{{ mediacms_db_user }}", address: '172.18.0.0/12', auth_method: "{{ postgresql_auth_method }}"}
+  - {type: host, database: mediacms, user: "{{ mediacms_db_user }}", address: '192.168.0.0/16', auth_method: "{{ postgresql_auth_method }}"}
 
 postgresql_users:
   - name: flexbiz
@@ -28,6 +30,8 @@ postgresql_users:
     password: "{{ colibri_stat_db_password }}"
   - name: "{{ xwiki_db_user }}"
     password: "{{ xwiki_db_password }}"
+  - name: "{{ mediacms_db_user }}"
+    password: "{{ mediacms_db_password }}"
 
 postgresql_databases:
   - name: nextcloud
@@ -38,3 +42,5 @@ postgresql_databases:
     owner: "{{ colibri_stat_db_user }}"
   - name: xwiki
     owner: "{{ xwiki_db_user }}"
+  - name: mediacms
+    owner: "{{ mediacms_db_user }}"

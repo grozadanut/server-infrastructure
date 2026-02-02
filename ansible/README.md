@@ -41,6 +41,8 @@ Database:
 - `colibri_stat_db_password` - for COLIBRI tenant, database password
 - `xwiki_db_user` - postgresql user for the xwiki database
 - `xwiki_db_password` - postgresql password for the xwiki database
+- `mediacms_db_user` - postgresql user for the mediacms database
+- `mediacms_db_password` - postgresql password for the mediacms database
 Data:
 - `storagebox_user` - user of the Hetzner storage box; for mounting data as a CIFS share
 - `storagebox_password` - password of storage box
