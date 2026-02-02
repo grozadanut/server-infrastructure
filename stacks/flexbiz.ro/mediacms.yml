@@ -14,6 +14,9 @@ services:
       ENABLE_CELERY_BEAT: 'no'
       ADMIN_USER: '${ADMIN_USER}'
       ADMIN_EMAIL: '${ADMIN_EMAIL}'
+      POSTGRES_HOST: host.docker.internal
+      POSTGRES_USER: '${POSTGRES_USER}'
+      POSTGRES_PASSWORD: '${POSTGRES_PASSWORD}'
     command: ./deploy/docker/prestart.sh
     restart: on-failure
     depends_on:
@@ -34,6 +37,9 @@ services:
       ENABLE_CELERY_SHORT: 'no'
       ENABLE_CELERY_LONG: 'no'
       ENABLE_MIGRATIONS: 'no'
+      POSTGRES_HOST: host.docker.internal
+      POSTGRES_USER: '${POSTGRES_USER}'
+      POSTGRES_PASSWORD: '${POSTGRES_PASSWORD}'
     depends_on:
       - migrations
   celery_beat:
@@ -49,6 +55,9 @@ services:
       ENABLE_CELERY_SHORT: 'no'
       ENABLE_CELERY_LONG: 'no'
       ENABLE_MIGRATIONS: 'no'
+      POSTGRES_HOST: host.docker.internal
+      POSTGRES_USER: '${POSTGRES_USER}'
+      POSTGRES_PASSWORD: '${POSTGRES_PASSWORD}'
     depends_on:
       - redis
   celery_worker:
@@ -65,6 +74,9 @@ services:
       ENABLE_NGINX: 'no'
       ENABLE_CELERY_BEAT: 'no'
       ENABLE_MIGRATIONS: 'no'
+      POSTGRES_HOST: host.docker.internal
+      POSTGRES_USER: '${POSTGRES_USER}'
+      POSTGRES_PASSWORD: '${POSTGRES_PASSWORD}'
     depends_on:
       - migrations
   redis:
