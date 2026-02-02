@@ -9,7 +9,7 @@
   ansible.builtin.file:
     path: /mnt
     state: directory
-    mode: '0777'
+    mode: '0770'
 
 - name: Create storage box credentials file
   ansible.builtin.copy:
@@ -25,7 +25,7 @@
   ansible.builtin.lineinfile:
     path: /etc/fstab
     regexp: '^//{{ storagebox_user }}\.your-storagebox\.de/backup\s'
-    line: "//{{ storagebox_user }}.your-storagebox.de/backup /mnt cifs iocharset=utf8,rw,credentials=/etc/storage-box-credentials.txt,uid=200,gid=200,file_mode=0666,dir_mode=0777 0 0"
+    line: "//{{ storagebox_user }}.your-storagebox.de/backup /mnt cifs iocharset=utf8,rw,credentials=/etc/storage-box-credentials.txt,uid=200,gid=200,file_mode=0660,dir_mode=0770 0 0"
     state: present
     create: yes
 
@@ -34,5 +34,5 @@
     path: /mnt
     src: "//{{ storagebox_user }}.your-storagebox.de/backup"
     fstype: cifs
-    opts: "iocharset=utf8,rw,credentials=/etc/storage-box-credentials.txt,uid=200,gid=200,file_mode=0666,dir_mode=0777"
+    opts: "iocharset=utf8,rw,credentials=/etc/storage-box-credentials.txt,uid=200,gid=200,file_mode=0660,dir_mode=0770"
     state: mounted
