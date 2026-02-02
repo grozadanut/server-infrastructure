@@ -44,6 +44,9 @@ Database:
 Data:
 - `storagebox_user` - user of the Hetzner storage box; for mounting data as a CIFS share
 - `storagebox_password` - password of storage box
+- `storagebox_video_url` - url of Hetzner storage box for videos subaccount
+- `storagebox_video_user` - user of the Hetzner storage box subaccount; for mounting videos data
+- `storagebox_video_password` - password of video subaccount storage box
 
 example: <br>
 `env EDITOR=nano ansible-vault create host_vars/main-server/vars.yml` <br>

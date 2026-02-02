@@ -36,3 +36,27 @@
     fstype: cifs
     opts: "iocharset=utf8,rw,credentials=/etc/storage-box-credentials.txt,uid=200,gid=200,file_mode=0660,dir_mode=0770"
     state: mounted
+
+- name: Create videos storage box credentials file
+  ansible.builtin.copy:
+    dest: /etc/storage-box-videos-credentials.txt
+    content: |
+      username={{ storagebox_video_user }}
+      password={{ storagebox_video_password }}
+    owner: root
+    group: root
+    mode: '0600'
+- name: Ensure videos mount entry exists in /etc/fstab
+  ansible.builtin.lineinfile:
+    path: /etc/fstab
+    regexp: '^{{ storagebox_video_url }}\s'
+    line: "//{{ storagebox_video_url }} /videos cifs iocharset=utf8,rw,credentials=/etc/storage-box-videos-credentials.txt,file_mode=0666,dir_mode=0777 0 0"
+    state: present
+    create: yes
+- name: Mount videos storage box right now
+  ansible.builtin.mount:
+    path: /videos
+    src: "//{{ storagebox_video_url }}"
+    fstype: cifs
+    opts: "iocharset=utf8,rw,credentials=/etc/storage-box-videos-credentials.txt,file_mode=0666,dir_mode=0777"
+    state: mounted
