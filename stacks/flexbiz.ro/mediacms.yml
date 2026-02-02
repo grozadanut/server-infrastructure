@@ -19,8 +19,6 @@ services:
     depends_on:
       redis:
         condition: service_healthy
-      db:
-        condition: service_healthy
   web:
     image: 'mediacms/mediacms:7'
     extra_hosts:
