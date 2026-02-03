@@ -50,7 +50,7 @@
   ansible.builtin.lineinfile:
     path: /etc/fstab
     regexp: '^{{ storagebox_video_url }}\s'
-    line: "{{ storagebox_video_url }} /videos cifs iocharset=utf8,rw,credentials=/etc/storage-box-videos-credentials.txt,file_mode=0666,dir_mode=0777 0 0"
+    line: "{{ storagebox_video_url }} /videos cifs iocharset=utf8,rw,credentials=/etc/storage-box-videos-credentials.txt,uid=33,gid=1000,file_mode=0665,dir_mode=0775 0 0"
     state: present
     create: yes
 - name: Mount videos storage box right now
@@ -58,5 +58,5 @@
     path: /videos
     src: "{{ storagebox_video_url }}"
     fstype: cifs
-    opts: "iocharset=utf8,rw,credentials=/etc/storage-box-videos-credentials.txt,file_mode=0666,dir_mode=0777"
+    opts: "iocharset=utf8,rw,credentials=/etc/storage-box-videos-credentials.txt,uid=33,gid=1000,file_mode=0665,dir_mode=0775"
     state: mounted

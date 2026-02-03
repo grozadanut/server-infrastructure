@@ -33,6 +33,7 @@ services:
       - '/videos/:/home/mediacms.io/videos/'
     environment:
       SERVICE_FQDN_MEDIA_80: null
+      FRONTEND_HOST: '${SERVICE_URL_MEDIA}'
       ENABLE_CELERY_BEAT: 'no'
       ENABLE_CELERY_SHORT: 'no'
       ENABLE_CELERY_LONG: 'no'
