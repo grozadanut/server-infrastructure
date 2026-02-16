@@ -1,0 +1,9 @@
+services:
+  fmd:
+    image: 'registry.gitlab.com/fmd-foss/fmd-server:0.14.0'
+    container_name: fmd
+    environment:
+      - SERVICE_FQDN_FMD_8080
+    volumes:
+      - '.fmddata/db/:/var/lib/fmd-server/db/'
+    restart: unless-stopped
