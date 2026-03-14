@@ -1,6 +1,6 @@
 services:
   nextcloud:
-    image: 'lscr.io/linuxserver/nextcloud:32.0.5'
+    image: 'lscr.io/linuxserver/nextcloud:33.0.0'
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     environment:
@@ -21,17 +21,8 @@ services:
     depends_on:
       redis:
         condition: service_healthy
-    healthcheck:
-      test:
-        - CMD
-        - curl
-        - '-f'
-        - 'http://127.0.0.1:80'
-      interval: 2s
-      timeout: 10s
-      retries: 15
   redis:
-    image: 'redis:8.0.5-alpine'
+    image: 'redis:8.0.6-alpine'
     volumes:
       - 'nextcloud-redis-data:/data'
     healthcheck:
@@ -43,7 +34,7 @@ services:
       timeout: 10s
       retries: 20
   collabora:
-    image: collabora/code:25.04.8.1.1
+    image: 'collabora/code:25.04.9.2.1'
     container_name: collabora
     restart: always
     environment:
