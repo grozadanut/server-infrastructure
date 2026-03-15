@@ -1,0 +1,7 @@
+services:
+  memos:
+    image: 'neosmemo/memos:stable'
+    volumes:
+      - '/data/memos:/var/opt/memos'
+    environment:
+      - SERVICE_URL_MEMOS_5230
