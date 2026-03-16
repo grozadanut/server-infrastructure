@@ -1,0 +1,48 @@
+services:
+  grafana:
+    image: grafana/grafana
+    user: '0'
+    environment:
+      - SERVICE_URL_GRAFANA_3000
+      - 'GF_SERVER_ROOT_URL=${SERVICE_URL_GRAFANA}'
+      - 'GF_SERVER_DOMAIN=${SERVICE_URL_GRAFANA}'
+      - 'GF_SECURITY_ADMIN_PASSWORD=${SERVICE_PASSWORD_GRAFANA}'
+    volumes:
+      - '/data/grafana:/var/lib/grafana'
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - '-f'
+        - 'http://127.0.0.1:3000/api/health'
+      interval: 5s
+      timeout: 20s
+      retries: 10
+  prometheus:
+    image: prom/prometheus
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    volumes:
+      - '/data/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml'
+      - 'prometheus-data:/prometheus'
+  node_exporter:
+    image: 'quay.io/prometheus/node-exporter:v1.10.2'
+    command:
+      - '--path.rootfs=/host'
+    network_mode: host
+    pid: host
+    restart: unless-stopped
+    volumes:
+      - '/:/host:ro,rslave'
+  cadvisor:
+    image: 'gcr.io/cadvisor/cadvisor:latest'
+    volumes:
+      - '/:/rootfs:ro'
+      - '/var/run:/var/run:rw'
+      - '/sys:/sys:ro'
+      - '/var/lib/docker/:/var/lib/docker:ro'
+    depends_on:
+      - redis
+  redis:
+    image: 'redis:latest'
+    container_name: redis
