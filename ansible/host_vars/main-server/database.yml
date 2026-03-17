@@ -11,6 +11,7 @@ postgresql_hba_entries:
   - {type: local, database: all, user: postgres, auth_method: peer}
   - {type: local, database: all, user: all, auth_method: peer}
   - {type: host, database: all, user: all, address: '127.0.0.1/32', auth_method: "{{ postgresql_auth_method }}"}
+  - {type: host, database: all, user: all, address: '192.168.0.0/16', auth_method: "{{ postgresql_auth_method }}"}
   - {type: host, database: all, user: all, address: '::1/128', auth_method: "{{ postgresql_auth_method }}"}
   - {type: host, database: all, user: flexbiz, address: '172.16.0.0/12', auth_method: "{{ postgresql_auth_method }}"}
   - {type: host, database: zitadel, user: "{{ zitadel_user }}", address: '192.168.0.0/16', auth_method: "{{ postgresql_auth_method }}"}
