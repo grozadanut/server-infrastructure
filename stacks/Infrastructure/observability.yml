@@ -35,3 +35,12 @@ services:
     restart: unless-stopped
     volumes:
       - '/:/host:ro,rslave'
+  postgres-exporter:
+    image: quay.io/prometheuscommunity/postgres-exporter
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    environment:
+      DATA_SOURCE_URI: '${POSTGRES_URL}'
+      DATA_SOURCE_USER: '${POSTGRES_USER}'
+      DATA_SOURCE_PASS: '${POSTGRES_PASS}'
+    restart: unless-stopped
