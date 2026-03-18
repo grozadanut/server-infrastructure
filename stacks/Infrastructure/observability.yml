@@ -24,8 +24,15 @@ services:
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     volumes:
-      - '/data/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml'
+      - '/data/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro'
+      - '/data/prometheus/rules:/etc/prometheus/rules:ro'
       - 'prometheus-data:/prometheus'
+  alertmanager:
+    image: 'prom/alertmanager:v0.31.1'
+    restart: unless-stopped
+    volumes:
+      - '/data/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml'
+      - 'alertmanager-data:/alertmanager'
   node_exporter:
     image: 'quay.io/prometheus/node-exporter:v1.10.2'
     command:
@@ -44,3 +51,24 @@ services:
       DATA_SOURCE_USER: '${POSTGRES_USER}'
       DATA_SOURCE_PASS: '${POSTGRES_PASS}'
     restart: unless-stopped
+  restic-exporter:
+    image: ngosang/restic-exporter
+    environment:
+      - TZ=Europe/Bucharest
+      - 'RESTIC_REPOSITORY=${RESTIC_REPO_URL}'
+      - 'RESTIC_PASSWORD=${restic_repo_pass}'
+      - 'AWS_ACCESS_KEY_ID=${s3_key}'
+      - 'AWS_SECRET_ACCESS_KEY=${s3_secret}'
+      - REFRESH_INTERVAL=86400
+    volumes:
+      - '/root/.cache/restic:/root/.cache/restic'
+    restart: unless-stopped
+  logporter:
+    image: 'lifailon/logporter:latest'
+    restart: unless-stopped
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+    environment:
+      - DOCKER_LOG_METRICS=false
+      - DOCKER_LOG_CUSTOM_METRICS=false
+      - 'DOCKER_LOG_CUSTOM_QUERY=\"(err|error|ERR|ERROR)\"'
