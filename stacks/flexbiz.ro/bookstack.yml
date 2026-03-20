@@ -1,0 +1,60 @@
+services:
+  bookstack:
+    image: 'lscr.io/linuxserver/bookstack:26.03.1'
+    environment:
+      - SERVICE_URL_BOOKSTACK_80
+      - 'APP_URL=${SERVICE_URL_BOOKSTACK}'
+      - 'APP_KEY=${SERVICE_PASSWORD_APPKEY}'
+      - PUID=1000
+      - PGID=1000
+      - 'TZ=${TZ:-Europe/Bucharest}'
+      - DB_HOST=mariadb
+      - DB_PORT=3306
+      - 'DB_USERNAME=${SERVICE_USER_MYSQL}'
+      - 'DB_PASSWORD=${SERVICE_PASSWORD_MYSQL}'
+      - 'DB_DATABASE=${MYSQL_DATABASE:-bookstackapp}'
+      - 'QUEUE_CONNECTION=${QUEUE_CONNECTION}'
+      - 'GITHUB_APP_ID=${GITHUB_APP_ID}'
+      - 'GITHUB_APP_SECRET=${GITHUB_APP_SECRET}'
+      - 'MAIL_DRIVER=${MAIL_DRIVER:-smtp}'
+      - 'MAIL_HOST=${MAIL_HOST}'
+      - 'MAIL_PORT=${MAIL_PORT:-587}'
+      - 'MAIL_ENCRYPTION=${MAIL_ENCRYPTION:-tls}'
+      - 'MAIL_USERNAME=${MAIL_USERNAME}'
+      - 'MAIL_PASSWORD=${MAIL_PASSWORD}'
+      - 'MAIL_FROM=${MAIL_FROM}'
+      - 'MAIL_FROM_NAME=${MAIL_FROM_NAME:-BookStack}'
+    volumes:
+      - '/data/bookstack:/config'
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - 'curl -f http://127.0.0.1:80/'
+      interval: 5s
+      timeout: 20s
+      retries: 10
+    depends_on:
+      mariadb:
+        condition: service_healthy
+  mariadb:
+    image: 'lscr.io/linuxserver/mariadb:latest'
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - 'TZ=${TZ:-Europe/Bucharest}'
+      - 'MYSQL_ROOT_PASSWORD=${SERVICE_PASSWORD_MYSQLROOT}'
+      - 'MYSQL_DATABASE=${MYSQL_DATABASE:-bookstack}'
+      - 'MYSQL_USER=${SERVICE_USER_MYSQL}'
+      - 'MYSQL_PASSWORD=${SERVICE_PASSWORD_MYSQL}'
+    volumes:
+      - 'bookstack-mariadb-data:/config'
+    healthcheck:
+      test:
+        - CMD
+        - mysqladmin
+        - ping
+        - '-h'
+        - 127.0.0.1
+      interval: 5s
+      timeout: 20s
+      retries: 10
