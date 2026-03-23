@@ -32,13 +32,29 @@ pgbackrest_configuration_archive_push_options:
 pgbackrest_backup_cron:
     - stanza: flexbiz
       type: full
+      repo: 1
       weekday: SUN
       hour: 4
       minute: 30
-      name: Full backup
+      name: Full backup local
     - stanza: flexbiz
       type: incr
+      repo: 1
       day: '*'
       hour: '09,12,16,23'
       minute: 0
-      name: Incremental backup
+      name: Incremental backup local
+    - stanza: flexbiz
+      type: full
+      repo: 2
+      weekday: SUN
+      hour: 4
+      minute: 30
+      name: Full backup S3 remote
+    - stanza: flexbiz
+      type: incr
+      repo: 2
+      day: '*'
+      hour: '09,12,16,23'
+      minute: 0
+      name: Incremental backup S3 remote
