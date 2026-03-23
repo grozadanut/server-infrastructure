@@ -1,45 +1,44 @@
-pgbackrest_conf_cluster_stanzas:
-  flexbiz:
-    pg1-path: '/var/lib/postgresql/15/main'
-  global:
-    repo1-path: /var/lib/pgbackrest
-    repo1-retention-full: 1
-    repo1-block: y
-    repo1-bundle: y
-    repo1-cipher-pass: "{{ pgbackrest_cipher_pass }}"
-    repo1-cipher-type: aes-256-cbc
-    repo2-path: /pgbackrest/{{ inventory_hostname }}
-    repo2-retention-full: 4
-    repo2-s3-bucket: "{{ s3_bucket }}"
-    repo2-s3-endpoint: "{{ s3_endpoint }}"
-    repo2-s3-key: "{{ s3_key }}"
-    repo2-s3-key-secret: "{{ s3_secret }}"
-    repo2-s3-region: eu-central-003
-    repo2-type: s3
-    repo2-cipher-pass: "{{ pgbackrest_cipher_pass }}"
-    repo2-cipher-type: aes-256-cbc
-    start-fast: y
-pgbackrest_systemd_timer_enabled: true
-pgbackrest_cron_enabled: false
-pgbackrest_full_backup_systemd_timer_oncalendar: "Sun *-*-* 04:30:00"
-pgbackrest_incr_backup_systemd_timer_oncalendar: "Mon..Sat *-*-* 09,12,16,23:00:00"
-pgbackrest_diff_backup_systemd_timer_oncalendar: null
-pgbackrest_postgresql_conf_path: '/etc/postgresql/15/main/postgresql.conf'
-pgbackrest_postgresql_conf:
-  archive_command: "pgbackrest --config={{ pgbackrest_conf_path }} --stanza=flexbiz archive-push %p"
-  archive_mode: "on"
-  log_filename: "postgresql.log"
-  max_wal_senders: 3
-  wal_level: replica
-
-# This is a convenience script included in this role for restoring from
-# backups. You can set this to null to avoid having it installed.
-pgbackrest_restore_script_path: /usr/local/bin/pgbackrest_restore
-
-# This is a convenience script included in this role for making backups
-# with pgbackrest. It mainly simplifies passing multiple stanzas for backup,
-# and is used by the scheduled systemd or cron jobs, so disabling the
-# installation of this file by setting `pgbackrest_backup_script_path` to
-# null should only happen when you're also not using the timer/cron jobs
-# that come with this role.
-pgbackrest_backup_script_path: /usr/local/bin/pgbackrest_backup
+pgbackrest_version: 2.58.0
+pgbackrest_user: postgres
+pgbackrest_group: postgres
+pgbackrest_configuration_global_options:
+  start-fast: y
+pgbackrest_configuration_stanzas:
+- name: flexbiz
+  hosts:
+    - options:
+        path: '/var/lib/postgresql/15/main'
+pgbackrest_configuration_repositories:
+  - options:
+      path: /var/lib/pgbackrest
+      retention-full: 1
+      block: y
+      bundle: y
+      cipher-pass: "{{ pgbackrest_cipher_pass }}"
+      cipher-type: aes-256-cbc
+  - options:
+      path: /pgbackrest/{{ inventory_hostname }}
+      retention-full: 4
+      s3-bucket: "{{ s3_bucket }}"
+      s3-endpoint: "{{ s3_endpoint }}"
+      s3-key: "{{ s3_key }}"
+      s3-key-secret: "{{ s3_secret }}"
+      s3-region: eu-central-003
+      type: s3
+      cipher-pass: "{{ pgbackrest_cipher_pass }}"
+      cipher-type: aes-256-cbc
+pgbackrest_configuration_archive_push_options:
+  compress-level: 3
+pgbackrest_backup_cron:
+    - stanza: flexbiz
+      type: full
+      weekday: SUN
+      hour: 4
+      minute: 30
+      name: Full backup
+    - stanza: flexbiz
+      type: incr
+      day: '*'
+      hour: '09,12,16,23'
+      minute: 0
+      name: Incremental backup

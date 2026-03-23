@@ -4,7 +4,7 @@
   become: yes
   roles:
     - geerlingguy.postgresql
-    - dudefellah.pgbackrest
+    - mivek.pgbackrest
     - data
     - role: andrewrothstein.restic
       when: restic_repo_pass is defined

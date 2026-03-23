@@ -1,5 +1,5 @@
 ---
 roles:
   - name: geerlingguy.postgresql
-  - name: dudefellah.pgbackrest
+  - name: mivek.pgbackrest
   - name: andrewrothstein.restic
