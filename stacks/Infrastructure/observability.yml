@@ -77,10 +77,11 @@ services:
     restart: unless-stopped
     environment:
       - BACKREST_USER=postgres
-      - BACKREST_UID=1001
+      - BACKREST_UID=102
       - BACKREST_GROUP=postgres
-      - BACKREST_GID=1001
+      - BACKREST_GID=110
       - TZ=Europe/Bucharest
-      - DATABASE_COUNT=true
+      - COLLECT_INTERVAL=86400
     volumes:
       - '/etc/pgbackrest/pgbackrest.conf:/etc/pgbackrest/pgbackrest.conf:ro'
+      - '/var/lib/pgbackrest:/var/lib/pgbackrest:ro'
