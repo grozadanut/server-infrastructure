@@ -72,3 +72,15 @@ services:
       - DOCKER_LOG_METRICS=false
       - DOCKER_LOG_CUSTOM_METRICS=false
       - 'DOCKER_LOG_CUSTOM_QUERY=\"(err|error|ERR|ERROR)\"'
+  pgbackrest-exporter:
+    image: 'ghcr.io/woblerr/pgbackrest_exporter:v0.23.0'
+    restart: unless-stopped
+    environment:
+      - BACKREST_USER=postgres
+      - BACKREST_UID=1001
+      - BACKREST_GROUP=postgres
+      - BACKREST_GID=1001
+      - TZ=Europe/Bucharest
+      - DATABASE_COUNT=true
+    volumes:
+      - '/etc/pgbackrest/pgbackrest.conf:/etc/pgbackrest/pgbackrest.conf:ro'
