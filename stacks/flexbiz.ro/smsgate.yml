@@ -1,0 +1,48 @@
+services:
+  backend:
+    image: 'ghcr.io/android-sms-gateway/server:latest'
+    environment:
+      - CONFIG_PATH=config.yml
+      - 'DATABASE__PASSWORD=${SERVICE_PASSWORD_MYSQL}'
+      - 'GATEWAY__PRIVATE_TOKEN=${SERVICE_PASSWORD_TOKEN}'
+    volumes:
+      - '/data/smsgate/config.yml:/app/config.yml'
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+  worker:
+    image: 'ghcr.io/android-sms-gateway/server:latest'
+    command:
+      - /app/app
+      - worker
+    environment:
+      - CONFIG_PATH=config.yml
+      - 'DATABASE__PASSWORD=${SERVICE_PASSWORD_MYSQL}'
+    volumes:
+      - '/data/smsgate/config.yml:/app/config.yml'
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: 'mariadb:lts'
+    environment:
+      - 'MYSQL_ROOT_PASSWORD=${SERVICE_PASSWORD_MYSQLROOT}'
+      - MYSQL_DATABASE=sms
+      - MYSQL_USER=sms
+      - 'MYSQL_PASSWORD=${SERVICE_PASSWORD_MYSQL}'
+      - MARIADB_AUTO_UPGRADE=1
+    volumes:
+      - 'mariadb-data:/var/lib/mysql'
+    restart: unless-stopped
+    healthcheck:
+      test:
+        - CMD
+        - healthcheck.sh
+        - '--connect'
+        - '--innodb_initialized'
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
