@@ -1,0 +1,12 @@
+services:
+  wildfly:
+    image: grozadanut/wildfly:32.0.1.Final-jdk21
+    container_name: wildfly
+    restart: always
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    ports:
+      - "8090:8080"
+    volumes:
+      - './configuration:/opt/jboss/wildfly/standalone/configuration'
+      - './deployments:/opt/jboss/wildfly/standalone/deployments'
