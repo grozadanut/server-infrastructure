@@ -1,0 +1,14 @@
+services:
+  databasus:
+    container_name: databasus
+    image: databasus/databasus:v3.30.0
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    ports:
+      - "4005:4005"
+    volumes:
+      - databasus-data:/databasus-data
+    restart: unless-stopped
+
+volumes:
+  databasus-data:
