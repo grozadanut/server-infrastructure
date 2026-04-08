@@ -5,12 +5,6 @@
       - cifs-utils
     state: present
 
-- name: Ensure /mnt directory exists
-  ansible.builtin.file:
-    path: /mnt
-    state: directory
-    mode: '0770'
-
 - name: Create storage box credentials file
   ansible.builtin.copy:
     dest: /etc/storage-box-credentials.txt
@@ -20,7 +14,6 @@
     owner: root
     group: root
     mode: '0600'
-
 - name: Ensure mount entry exists in /etc/fstab
   ansible.builtin.lineinfile:
     path: /etc/fstab
@@ -28,7 +21,6 @@
     line: "//{{ storagebox_user }}.your-storagebox.de/backup /mnt cifs iocharset=utf8,rw,credentials=/etc/storage-box-credentials.txt,uid=200,gid=200,file_mode=0660,dir_mode=0770 0 0"
     state: present
     create: yes
-
 - name: Mount storage box right now
   ansible.builtin.mount:
     path: /mnt
