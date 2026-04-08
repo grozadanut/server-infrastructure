@@ -1,0 +1,32 @@
+services:
+  synapse:
+    image: 'matrixdotorg/synapse:v1.151.0'
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    environment:
+      - SERVICE_URL_SYNAPSE_8008
+      - 'SYNAPSE_SERVER_NAME=${SYNAPSE_SERVER_NAME:?}'
+      - 'SYNAPSE_REPORT_STATS=${SYNAPSE_REPORT_STATS:-no}'
+      - 'ENABLE_REGISTRATION=${ENABLE_REGISTRATION:-false}'
+      - 'SERVICE_USER_ADMIN=${SERVICE_USER_ADMIN}'
+      - 'SERVICE_PASSWORD_ADMIN=${SERVICE_PASSWORD_ADMIN}'
+      - 'SERVICE_USER_POSTGRESQL=${SERVICE_USER_POSTGRESQL}'
+      - 'SERVICE_PASSWORD_POSTGRESQL=${SERVICE_PASSWORD_POSTGRESQL}'
+      - 'POSTGRES_DB=${POSTGRES_DB:-synapse-db}'
+    volumes:
+      - '/data/synapse:/data'
+      - '/synapse:/synapse'
+    entrypoint:
+      - /bin/bash
+      - '-c'
+      - /start.py
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - '-f'
+        - 'http://localhost:8008/health'
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
