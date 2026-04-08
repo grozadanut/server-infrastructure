@@ -60,3 +60,27 @@
     fstype: cifs
     opts: "iocharset=utf8,rw,credentials=/etc/storage-box-videos-credentials.txt,uid=33,gid=1000,file_mode=0665,dir_mode=0775"
     state: mounted
+
+- name: Create synapse storage box credentials file
+  ansible.builtin.copy:
+    dest: /etc/storage-box-synapse-credentials.txt
+    content: |
+      username={{ storagebox_synapse_user }}
+      password={{ storagebox_synapse_password }}
+    owner: root
+    group: root
+    mode: '0600'
+- name: Ensure synapse mount entry exists in /etc/fstab
+  ansible.builtin.lineinfile:
+    path: /etc/fstab
+    regexp: '^{{ storagebox_synapse_url }}\s'
+    line: "{{ storagebox_synapse_url }} /synapse cifs iocharset=utf8,rw,credentials=/etc/storage-box-synapse-credentials.txt,uid=991,gid=991,file_mode=0665,dir_mode=0775 0 0"
+    state: present
+    create: yes
+- name: Mount synapse storage box right now
+  ansible.builtin.mount:
+    path: /synapse
+    src: "{{ storagebox_synapse_url }}"
+    fstype: cifs
+    opts: "iocharset=utf8,rw,credentials=/etc/storage-box-synapse-credentials.txt,uid=991,gid=991,file_mode=0665,dir_mode=0775"
+    state: mounted
