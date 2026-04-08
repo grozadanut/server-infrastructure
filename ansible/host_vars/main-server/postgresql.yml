@@ -46,3 +46,6 @@ postgresql_databases:
     owner: "{{ mediacms_db_user }}"
   - name: synapse-db
     owner: "{{ synapse_db_user }}"
+    lc_collate: "C"
+    lc_ctype: "C"
+    encoding: "UTF8"
