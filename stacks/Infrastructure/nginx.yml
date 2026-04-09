@@ -9,4 +9,5 @@ services:
       - TZ=Europe/Bucharest
     volumes:
       - '/mnt/nextcloud/danut/files/p2:/config/www:ro'
+      - '/data/nginx:/config'
     restart: unless-stopped
