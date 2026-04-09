@@ -46,9 +46,8 @@
         </div>
     </div>
 
-    <!-- DYNAMIC CONTENT -->
     <div class="container">
-        <main class="markdown-container" id="content">
+        <main id="content">
             <div class="loading">
                 <div class="loading-spinner"></div>
                 <p>Se încarcă jurnalul de modificări...</p>
@@ -77,10 +76,32 @@
 
         async function loadChangelog() {
             try {
-                const response = await fetch('changelog/changelog.md');
+                // Determine the correct path based on whether the URL has a trailing slash
+                // This ensures it works for both /changelog and /changelog/
+                const isFolderUrl = window.location.pathname.endsWith('/') || window.location.pathname.endsWith('index.html');
+                const fetchPath = isFolderUrl ? 'changelog.md' : 'changelog/changelog.md';
+
+                const response = await fetch(fetchPath);
                 if (!response.ok) throw new Error(`HTTP ${response.status}`);
                 const markdownText = await response.text();
-                document.getElementById('content').innerHTML = marked.parse(markdownText);
+
+                const contentDiv = document.getElementById('content');
+                contentDiv.innerHTML = ''; // Clear loading
+
+                // Split markdown by H2 headers (## Release Name)
+                const releases = markdownText.split(/^## /m).filter(r => r.trim() !== '');
+
+                releases.forEach(releaseMarkdown => {
+                    const card = document.createElement('article');
+                    card.className = 'markdown-container';
+                    card.innerHTML = marked.parse('## ' + releaseMarkdown);
+                    contentDiv.appendChild(card);
+                });
+
+                if (releases.length === 0) {
+                    contentDiv.innerHTML = '<p class="loading">Nu au fost găsite înregistrări în jurnal.</p>';
+                }
+
             } catch (error) {
                 console.error('Eroare la încărcarea fișierului changelog.md:', error);
                 document.getElementById('content').innerHTML = `
