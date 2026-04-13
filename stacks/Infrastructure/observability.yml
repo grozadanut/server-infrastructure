@@ -82,6 +82,7 @@ services:
       - BACKREST_GID=110
       - TZ=Europe/Bucharest
       - COLLECT_INTERVAL=86400
+      - DATABASE_COUNT_LATEST=true
     volumes:
       - '/etc/pgbackrest/pgbackrest.conf:/etc/pgbackrest/pgbackrest.conf:ro'
       - '/var/lib/pgbackrest:/var/lib/pgbackrest:ro'
