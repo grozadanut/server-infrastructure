@@ -1,0 +1,16 @@
+services:
+  uptime-kuma:
+    image: 'louislam/uptime-kuma:2'
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    environment:
+      - SERVICE_URL_UPTIMEKUMA_3001
+    volumes:
+      - '/data/uptime-kuma:/app/data'
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - extra/healthcheck
+      interval: 5s
+      timeout: 5s
+      retries: 10
