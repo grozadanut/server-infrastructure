@@ -1,35 +1,34 @@
-## ro.linic.ui [5.1.0] - 2026-04-09
+## Aplicație Desktop [5.1.1] - 2026-04-14
 
-### 🚀 Features
+### 🚀 Funcționalități 
 
-- Read fiscal receipts from ECR
-- Reconcile ecr receipts
+- Adăugare IBAN specific gestiunii pe facturi
 
-### 💼 Other
+## Aplicație Desktop [5.1.0] - 2026-04-09
 
-- Bundle products together when selling
-- Brother label printing
-- NPE
-- Three sizes for Brother labels
+### 🚀 Funcționalități
 
-### ⚙️ Miscellaneous Tasks
+- Citire bonuri fiscale din casa de marcat
+- Reconciliere bonuri fiscale
 
-- *(release)* Prepare release
+### 💼 Altele
 
-## moqui-linic-legacy [0.1.0] - 2026-04-09
+- Imprimare etichete Brother
+- Trei dimensiuni pentru etichetele Brother
 
-### 🚀 Features
+## Server Linic [0.1.0] - 2026-04-09
 
-- Add customer/supplier role when importing partners
-- Reconcile receipts
-- Add changelog configuration
+### 🚀 Funcționalități
 
-### 🐛 Bug Fixes
+- Reconciliere bonuri de casă
+- Creare pagină de noutăți
 
-- Don't filter out correct counties
-- Add some logging when importing partners
-- Sync nickname to nextcloud
+### 🐛 Corecții
 
-### ⚙️ Miscellaneous Tasks
+- Adăugare rol client/furnizor la importul partenerilor
+- Eliminare filtru care excludea județele corecte
+- Sincronizare corectă a numelui cu contactele din Nextcloud
 
-- Log some info to debug audit channel
+### ⚙️ Diverse
+
+- Înregistrare informații pentru depanarea grupului de Whatsapp de audit
