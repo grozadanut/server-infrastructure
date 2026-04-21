@@ -1,3 +1,13 @@
+## Aplicație Desktop [5.2.1] - 2026-04-21
+
+### 🚀 Funcționalități
+
+- Driver nou ZPFLabServer pentru casele de marcat Tremol
+
+### 🐛 Corecții
+
+- Rezolva erorile care tot apar uneori, desi programul functioneaza
+
 ## Aplicație Desktop [5.1.1] - 2026-04-14
 
 ### 🚀 Funcționalități 
