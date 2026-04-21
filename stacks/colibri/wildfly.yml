@@ -1,0 +1,10 @@
+services:
+  wildfly:
+    image: 'grozadanut/wildfly:32.RO'
+    container_name: wildfly
+    restart: always
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    volumes:
+      - '/data/wildfly32/configuration:/opt/jboss/wildfly/standalone/configuration'
+      - '/data/wildfly32/deployments:/opt/jboss/wildfly/standalone/deployments'
