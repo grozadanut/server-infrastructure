@@ -24,7 +24,7 @@ services:
       - 'MAIL_PASSWORD=${MAIL_PASSWORD}'
       - 'MAIL_FROM=${MAIL_FROM}'
       - 'MAIL_FROM_NAME=${MAIL_FROM_NAME:-BookStack}'
-      - 'ALLOWED_IFRAME_SOURCES=https://*.draw.io https://*.youtube.com https://*.youtube-nocookie.com https://*.vimeo.com https://media.flexbiz.ro'
+      - 'ALLOWED_IFRAME_SOURCES=https://*.draw.io https://*.youtube.com https://*.youtube-nocookie.com https://*.vimeo.com https://*.flexbiz.ro'
     volumes:
       - '/data/bookstack:/config'
     healthcheck:
