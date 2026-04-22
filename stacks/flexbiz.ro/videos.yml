@@ -8,6 +8,6 @@ services:
       - PGID=200
       - TZ=Europe/Bucharest
     volumes:
-      - '/mnt/nextcloud/danut/files/Companies/flexbiz/wiki/videos/www:/config/www:ro'
+      - '/mnt/nextcloud/danut/files/Companies/flexbiz/wiki/videos-www:/config/www:ro'
       - '/data/videos:/config'
     restart: unless-stopped
