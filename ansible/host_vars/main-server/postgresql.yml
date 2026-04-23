@@ -30,8 +30,6 @@ postgresql_users:
     password: "{{ zitadel_password }}"
   - name: "{{ colibri_stat_db_user }}"
     password: "{{ colibri_stat_db_password }}"
-  - name: "{{ mediacms_db_user }}"
-    password: "{{ mediacms_db_password }}"
   - name: "{{ synapse_db_user }}"
     password: "{{ synapse_db_password }}"
 
@@ -42,8 +40,6 @@ postgresql_databases:
     owner: "{{ zitadel_user }}"
   - name: colibri_stat_db
     owner: "{{ colibri_stat_db_user }}"
-  - name: mediacms
-    owner: "{{ mediacms_db_user }}"
   - name: synapse-db
     owner: "{{ synapse_db_user }}"
     lc_collate: "C"

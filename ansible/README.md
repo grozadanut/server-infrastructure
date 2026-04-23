@@ -39,16 +39,11 @@ Database:
 - `zitadel_password` - postgresql password for the auth database
 - `colibri_stat_db_user` - for COLIBRI tenant, database user
 - `colibri_stat_db_password` - for COLIBRI tenant, database password
-- `mediacms_db_user` - postgresql user for the mediacms database
-- `mediacms_db_password` - postgresql password for the mediacms database
 - `synapse_db_user` - postgresql user for the synapse database
 - `synapse_db_password` - postgresql password for the synapse database
 Data:
 - `storagebox_user` - user of the Hetzner storage box; for mounting data as a CIFS share
 - `storagebox_password` - password of storage box
-- `storagebox_video_url` - url of Hetzner storage box for videos subaccount
-- `storagebox_video_user` - user of the Hetzner storage box subaccount; for mounting videos data
-- `storagebox_video_password` - password of video subaccount storage box
 - `storagebox_synapse_url` - url of Hetzner storage box for synapse subaccount
 - `storagebox_synapse_user` - user of the Hetzner storage box subaccount; for mounting synapse data
 - `storagebox_synapse_password` - password of synapse subaccount storage box
