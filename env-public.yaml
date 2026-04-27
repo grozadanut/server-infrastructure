@@ -1,0 +1,3 @@
+local:
+  variables:
+    MOQUI_REST_BASE_URL: "http://localhost:8085/rest/s1"
