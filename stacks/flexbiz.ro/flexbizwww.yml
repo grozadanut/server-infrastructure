@@ -1,0 +1,13 @@
+services:
+  nginx:
+    image: 'lscr.io/linuxserver/nginx:1.28.3'
+    container_name: nginx
+    environment:
+      - SERVICE_FQDN_80
+      - PUID=200
+      - PGID=200
+      - TZ=Europe/Bucharest
+    volumes:
+      - '/mnt/nextcloud/danut/files/Companies/flexbiz/www:/config/www:ro'
+      - '/data/flexbizwww:/config'
+    restart: unless-stopped
