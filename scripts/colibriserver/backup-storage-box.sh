@@ -1,0 +1,1 @@
+sudo rsync -ah [--delete] --progress /mnt/box/ /mnt/D/box
