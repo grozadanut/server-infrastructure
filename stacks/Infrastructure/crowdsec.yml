@@ -1,0 +1,25 @@
+services:
+  crowdsec:
+    image: 'crowdsecurity/crowdsec:v1.7.7'
+    container_name: crowdsec
+    restart: unless-stopped
+    ports:
+      - '127.0.0.1:9876:8080'
+    expose:
+      - 8080
+      - 6060
+      - 7422
+    volumes:
+      - '/data/crowdsec/data:/var/lib/crowdsec/data'
+      - '/data/crowdsec/etc:/etc/crowdsec'
+      - '/var/log/auth.log:/var/log/auth.log:ro'
+      - '/var/log/syslog:/var/log/syslog:ro'
+      - '/var/log/traefik/logs:/var/log/traefik:ro'
+    environment:
+      - GID=1000
+      - 'COLLECTIONS=crowdsecurity/traefik crowdsecurity/http-cve crowdsecurity/base-http-scenarios crowdsecurity/sshd crowdsecurity/linux crowdsecurity/appsec-generic-rules crowdsecurity/appsec-virtual-patching crowdsecurity/appsec-crs'
+    networks:
+      - coolify
+networks:
+  coolify:
+    external: true
