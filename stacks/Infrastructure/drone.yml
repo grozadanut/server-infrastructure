@@ -1,0 +1,14 @@
+services:
+  drone:
+    image: 'drone/drone:2'
+    container_name: drone
+    restart: always
+    volumes:
+      - '/data/drone:/data'
+    environment:
+      - SERVICE_FQDN_DRONE_80
+      - 'DRONE_GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID}'
+      - 'DRONE_GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET}'
+      - 'DRONE_RPC_SECRET=${SERVICE_PASSWORD_SECRET}'
+      - 'DRONE_SERVER_HOST=${SERVICE_FQDN_DRONE}'
+      - DRONE_SERVER_PROTO=https
