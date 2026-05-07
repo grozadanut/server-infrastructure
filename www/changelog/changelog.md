@@ -1,3 +1,27 @@
+## Aplicație Desktop [6.0.0] - 2026-05-07
+
+### 🚀 Funcționalități
+
+- Program de afiliere Partener Colibri
+- Sterge diacriticile din SMS-urile trimise pentru a reduce costul mesajelor
+- Recepție - Arată procentul de TVA la achiziție și vânzare pentru fiecare linie
+- [**Schimbare majoră**] Schimbarea modulului de comunicație între calculatoare
+- Rebranding al aplicației la Flexbiz
+
+### 🐛 Corecții
+
+- Fixează titlul paginii de setări Tremol
+- Arată Jurnalul de Modificări când se face update automat
+- Butonul 'Ajutor' -> 'Manualul utilizatorului' din bara de meniu deschide Manualul Flexbiz corect
+- Eroare la închiderea bonului
+- Setarea NATS URL nu era salvată
+- Nu întrerupe programul dacă sunt erori de comunicație între calculatoare
+- Fereastra de recepție a liniilor de pe eFactura taie din casuțe când numele produsului e prea lung
+
+### 📚 Documente
+
+- Șablon GDPR pentru partenerii Colibri
+
 ## Aplicație Desktop [5.2.1] - 2026-04-21
 
 ### 🚀 Funcționalități
