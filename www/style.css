@@ -189,6 +189,59 @@ nav {
     transform: translateY(-1px);
 }
 
+@media (max-width: 768px) {
+    .nav-inner {
+        flex-wrap: wrap;
+        row-gap: 0.75rem;
+        height: auto;
+        padding: 0.85rem 1rem;
+    }
+
+    .nav-logo {
+        flex: 1 1 100%;
+    }
+
+    .nav-links {
+        flex: 1 1 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 0.5rem;
+    }
+
+    .nav-links a {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.85rem;
+    }
+
+    .nav-cta {
+        width: auto;
+    }
+
+    nav {
+        position: relative;
+        top: auto;
+    }
+
+    .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .footer-links {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        justify-content: flex-start;
+        width: 100%;
+    }
+
+    .footer-links a {
+        flex: 1 1 auto;
+        min-width: 120px;
+    }
+}
+
 /* ======================================================
    SHARED BUTTONS
 ====================================================== */
@@ -897,10 +950,6 @@ h1.hero-title .accent {
    RESPONSIVE
 ====================================================== */
 @media (max-width: 640px) {
-    .nav-links {
-        display: none;
-    }
-
     .hero {
         padding: 5rem 0 3rem;
     }
