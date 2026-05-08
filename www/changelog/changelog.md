@@ -22,6 +22,20 @@
 
 - Șablon GDPR pentru partenerii Colibri
 
+## Server Gestiune/POS [1.0.0] - 2026-05-07
+
+### 🚀 Funcționalități
+
+- Îmbunătățește viteza de încărcare a ferestrei de Încasări
+- Funcții noi pentru căutarea discounturilor
+- [**Schimbare majoră**] Schimbarea modulului de comunicație între calculatoare de la JMS la NATS
+
+### 🐛 Corecții
+
+- Eroare la modificarea conexiunilor pentru un document
+- Discountul de afiliat nu este afișat dacă clientul nu are bonuri neachitate
+- Ștergerea unui document conectat șterge doar conexiunile, nu și documentul
+
 ## Aplicație Desktop [5.2.1] - 2026-04-21
 
 ### 🚀 Funcționalități
