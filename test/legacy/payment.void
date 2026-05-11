@@ -32,7 +32,7 @@ content:
   - type: url
     attrs:
       uid: 4c177d89-40d2-47bb-b41c-4cf6e4456d07
-    content: "{{MOQUI_REST_BASE_URL}}/moqui-linic-legacy/payment"
+    content: "{{MOQUI_REST_BASE_URL}}/s1/moqui-linic-legacy/payment"
 ---
 ```
 ```void

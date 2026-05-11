@@ -22,7 +22,7 @@ content:
   - type: url
     attrs:
       uid: 40e571aa-7056-4ed6-a352-8691cd360aca
-    content: "{{MOQUI_REST_BASE_URL}}/moqui-linic-legacy/reconcile/receipts"
+    content: "{{MOQUI_REST_BASE_URL}}/s1/moqui-linic-legacy/reconcile/receipts"
 ---
 ```
 

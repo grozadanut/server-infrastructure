@@ -32,7 +32,7 @@ content:
   - type: url
     attrs:
       uid: f7bf9c78-1a95-4143-a750-7a4ff9ef6f54
-    content: "{{MOQUI_REST_BASE_URL}}/moqui-linic-legacy/partners"
+    content: "{{MOQUI_REST_BASE_URL}}/s1/moqui-linic-legacy/partners"
 ---
 ```
 ```void
@@ -71,7 +71,7 @@ content:
   - type: url
     attrs:
       uid: 5b2fdb12-b014-429a-b4ed-386df57abdc0
-    content: "{{MOQUI_REST_BASE_URL}}/moqui-linic-legacy/partners"
+    content: "{{MOQUI_REST_BASE_URL}}/s1/moqui-linic-legacy/partners"
 ---
 ```
 ```void

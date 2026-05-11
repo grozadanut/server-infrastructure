@@ -52,3 +52,16 @@ Desktop.ini
 .voiden/.process.env.json
 *.env
 env-private.yaml
+
+# Voiden
+.voiden/*
+!.voiden/env-public.yaml
+!.voiden/env-*-public.yaml
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
