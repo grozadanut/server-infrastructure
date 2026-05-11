@@ -1,0 +1,98 @@
+---
+kind: pipeline
+type: docker
+name: default
+
+services:
+  - name: moqui-search
+    image: opensearchproject/opensearch:3.4.0
+    environment:
+      OPENSEARCH_JAVA_OPTS: -Xms512m -Xmx512m
+      OPENSEARCH_INITIAL_ADMIN_PASSWORD: MoquiElasticChangeMe@2026
+      discovery.type: single-node
+      network.host: _site_
+
+steps:
+  - name: prepare-runtime
+    image: gradle:8-jdk21
+    environment:
+      elasticsearch_url: https://moqui-search:9200
+    commands:
+      - chmod +x gradlew
+      - ./gradlew getComponent -Pcomponent=MarbleERP
+      - ./gradlew getComponent -Pcomponent=PopCommerce
+      - ./gradlew getComponent -Pcomponent=HiveMind
+      - ./gradlew getComponent -Pcomponent=mantle-udm
+      - ./gradlew getComponent -Pcomponent=mantle-usl
+      - ./gradlew getComponent -Pcomponent=PopRestStore
+      - ./gradlew getComponent -Pcomponent=moqui-linic-legacy
+      - ./gradlew gitp
+
+  - name: load-demo-data
+    image: gradle:8-jdk21
+    environment:
+      elasticsearch_url: https://moqui-search:9200
+    commands:
+      - ./gradlew cleanDb cleanLog cleanSessions cleanTempDir cleanOther
+      - ./gradlew load
+    depends_on:
+      - prepare-runtime
+
+  - name: test
+    image: gradle:8-jdk21
+    environment:
+      elasticsearch_url: https://moqui-search:9200
+    commands:
+      - ./gradlew test
+    depends_on:
+      - load-demo-data
+
+  - name: playwright-test
+    image: mcr.microsoft.com/playwright:v1.59.1-noble
+    commands:
+      - npx playwright test
+    depends_on:
+      - load-demo-data
+
+  - name: prepare-docker-context
+    image: gradle:8-jdk21
+    environment:
+      elasticsearch_url: https://moqui-search:9200
+    commands:
+      - ./gradlew cleanDb cleanLog cleanSessions cleanTempDir cleanOther
+      - ./gradlew build
+      - cd docker/simple
+      - rm -rf META-INF WEB-INF execlib runtime Procfile
+      - rm -f ./*.class
+      - jar xf ../../moqui.war
+      - cp -R ../../runtime .
+    depends_on:
+      - test
+    when:
+      branch:
+        - develop
+      event:
+        - push
+
+  # - name: publish-dockerhub
+  #   image: plugins/docker
+  #   settings:
+  #     username:
+  #       from_secret: docker_username
+  #     password:
+  #       from_secret: docker_password
+  #     repo:
+  #       from_secret: docker_repo
+  #     tags:
+  #       - develop
+  #     context: docker/simple
+  #     dockerfile: docker/simple/Dockerfile
+  #     build_args:
+  #       - RUNTIME_IMAGE=eclipse-temurin:21-jdk
+  #   depends_on:
+  #     - prepare-docker-context
+  #   when:
+  #     branch:
+  #       - develop
+  #     event:
+  #       - push
