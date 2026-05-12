@@ -20,10 +20,10 @@ steps:
 
   - name: prepare-runtime
     image: gradle:8-jdk21
-    working_dir: moqui-framework
     environment:
       elasticsearch_url: https://moqui-search:9200
     commands:
+      - cd moqui-framework
       - chmod +x gradlew
       - ./gradlew getComponent -Pcomponent=MarbleERP
       - ./gradlew getComponent -Pcomponent=PopCommerce
@@ -36,10 +36,10 @@ steps:
 
   - name: load-demo-data
     image: gradle:8-jdk21
-    working_dir: moqui-framework
     environment:
       elasticsearch_url: https://moqui-search:9200
     commands:
+      - cd moqui-framework
       - ./gradlew cleanDb cleanLog cleanSessions cleanTempDir cleanOther
       - ./gradlew load
     depends_on:
@@ -47,10 +47,10 @@ steps:
 
   - name: test
     image: gradle:8-jdk21
-    working_dir: moqui-framework
     environment:
       elasticsearch_url: https://moqui-search:9200
     commands:
+      - cd moqui-framework
       - ./gradlew test
     depends_on:
       - load-demo-data
@@ -64,10 +64,11 @@ steps:
 
   - name: prepare-docker-context
     image: gradle:8-jdk21
-    working_dir: moqui-framework
+    working_dir: /drone/src/moqui-framework
     environment:
       elasticsearch_url: https://moqui-search:9200
     commands:
+      - cd moqui-framework
       - ./gradlew cleanDb cleanLog cleanSessions cleanTempDir cleanOther
       - ./gradlew build
       - cd docker/simple
