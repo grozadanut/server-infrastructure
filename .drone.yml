@@ -16,7 +16,12 @@ steps:
   - name: clone-moqui
     image: alpine/git
     commands:
+      - ls -la
+      - pwd
       - git clone --depth 1 https://github.com/grozadanut/moqui-framework.git moqui-framework
+      - ls -la
+      - pwd
+      - ls -la moqui-framework
 
   - name: prepare-runtime
     image: gradle:8-jdk21
