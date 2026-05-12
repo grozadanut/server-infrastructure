@@ -23,16 +23,10 @@ steps:
     environment:
       elasticsearch_url: https://moqui-search:9200
     commands:
-      - ls -la
-      - pwd
       - cd moqui-framework 
-      - ./gradlew getComponent -Pcomponent=MarbleERP
       - ./gradlew getComponent -Pcomponent=PopCommerce
-      - ./gradlew getComponent -Pcomponent=HiveMind
       - ./gradlew getComponent -Pcomponent=mantle-udm
       - ./gradlew getComponent -Pcomponent=mantle-usl
-      - ./gradlew getComponent -Pcomponent=PopRestStore
-      - ./gradlew getComponent -Pcomponent=moqui-linic-legacy
     depends_on:
       - clone-moqui
 
@@ -57,12 +51,24 @@ steps:
     depends_on:
       - load-demo-data
 
+  - name: moqui
+    image: gradle:8-jdk21
+    environment:
+      elasticsearch_url: https://moqui-search:9200
+    commands:
+      - cd moqui-framework
+      - java -jar moqui.war port=8080
+    depends_on:
+      - load-demo-data
+    detach: true
+
   - name: playwright-test
     image: mcr.microsoft.com/playwright:v1.59.1-noble
     commands:
-      - npx playwright test
+      - sleep 5
+      - npx playwright test --workers=1
     depends_on:
-      - load-demo-data
+      - moqui
 
   - name: prepare-docker-context
     image: gradle:8-jdk21
@@ -79,7 +85,7 @@ steps:
       - jar xf ../../moqui.war
       - cp -R ../../runtime .
     depends_on:
-      - test
+      - playwright-test
     when:
       branch:
         - develop
