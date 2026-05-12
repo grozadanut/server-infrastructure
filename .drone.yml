@@ -13,8 +13,14 @@ services:
       network.host: _site_
 
 steps:
+  - name: clone-moqui
+    image: alpine/git
+    commands:
+      - git clone --depth 1 https://github.com/grozadanut/moqui-framework.git moqui-framework
+
   - name: prepare-runtime
     image: gradle:8-jdk21
+    working_dir: moqui-framework
     environment:
       elasticsearch_url: https://moqui-search:9200
     commands:
@@ -30,6 +36,7 @@ steps:
 
   - name: load-demo-data
     image: gradle:8-jdk21
+    working_dir: moqui-framework
     environment:
       elasticsearch_url: https://moqui-search:9200
     commands:
@@ -40,6 +47,7 @@ steps:
 
   - name: test
     image: gradle:8-jdk21
+    working_dir: moqui-framework
     environment:
       elasticsearch_url: https://moqui-search:9200
     commands:
@@ -56,6 +64,7 @@ steps:
 
   - name: prepare-docker-context
     image: gradle:8-jdk21
+    working_dir: moqui-framework
     environment:
       elasticsearch_url: https://moqui-search:9200
     commands:
