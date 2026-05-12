@@ -23,7 +23,8 @@ steps:
     environment:
       elasticsearch_url: https://moqui-search:9200
     commands:
-      - chmod +x moqui-framework/gradlew
+      - ls -la
+      - pwd
       - ./moqui-framework/gradlew getComponent -Pcomponent=MarbleERP
       - ./moqui-framework/gradlew getComponent -Pcomponent=PopCommerce
       - ./moqui-framework/gradlew getComponent -Pcomponent=HiveMind
