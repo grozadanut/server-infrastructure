@@ -16,12 +16,7 @@ steps:
   - name: clone-moqui
     image: alpine/git
     commands:
-      - ls -la
-      - pwd
       - git clone --depth 1 https://github.com/grozadanut/moqui-framework.git moqui-framework
-      - ls -la
-      - pwd
-      - ls -la moqui-framework
 
   - name: prepare-runtime
     image: gradle:8-jdk21
@@ -30,13 +25,14 @@ steps:
     commands:
       - ls -la
       - pwd
-      - ./moqui-framework/gradlew getComponent -Pcomponent=MarbleERP
-      - ./moqui-framework/gradlew getComponent -Pcomponent=PopCommerce
-      - ./moqui-framework/gradlew getComponent -Pcomponent=HiveMind
-      - ./moqui-framework/gradlew getComponent -Pcomponent=mantle-udm
-      - ./moqui-framework/gradlew getComponent -Pcomponent=mantle-usl
-      - ./moqui-framework/gradlew getComponent -Pcomponent=PopRestStore
-      - ./moqui-framework/gradlew getComponent -Pcomponent=moqui-linic-legacy
+      - cd moqui-framework 
+      - ./gradlew getComponent -Pcomponent=MarbleERP
+      - ./gradlew getComponent -Pcomponent=PopCommerce
+      - ./gradlew getComponent -Pcomponent=HiveMind
+      - ./gradlew getComponent -Pcomponent=mantle-udm
+      - ./gradlew getComponent -Pcomponent=mantle-usl
+      - ./gradlew getComponent -Pcomponent=PopRestStore
+      - ./gradlew getComponent -Pcomponent=moqui-linic-legacy
     depends_on:
       - clone-moqui
 
