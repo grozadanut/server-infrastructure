@@ -65,7 +65,6 @@ steps:
   - name: playwright-test
     image: mcr.microsoft.com/playwright:v1.59.1-noble
     commands:
-      - sleep 5
       - npm ci
       - npx playwright install --with-deps
       - npx playwright test --workers=1
@@ -74,45 +73,28 @@ steps:
 
   - name: prepare-docker-context
     image: gradle:8-jdk21
-    working_dir: /drone/src/moqui-framework
-    environment:
-      elasticsearch_url: https://moqui-search:9200
     commands:
       - cd moqui-framework
       - ./gradlew cleanDb cleanLog cleanSessions cleanTempDir cleanOther
       - ./gradlew build
       - cd docker/simple
-      - rm -rf META-INF WEB-INF execlib runtime Procfile
-      - rm -f ./*.class
-      - jar xf ../../moqui.war
+      - unzip -q ../../moqui.war
       - cp -R ../../runtime .
     depends_on:
       - playwright-test
-    when:
-      branch:
-        - develop
-      event:
-        - push
 
-  # - name: publish-dockerhub
-  #   image: plugins/docker
-  #   settings:
-  #     username:
-  #       from_secret: docker_username
-  #     password:
-  #       from_secret: docker_password
-  #     repo:
-  #       from_secret: docker_repo
-  #     tags:
-  #       - develop
-  #     context: docker/simple
-  #     dockerfile: docker/simple/Dockerfile
-  #     build_args:
-  #       - RUNTIME_IMAGE=eclipse-temurin:21-jdk
-  #   depends_on:
-  #     - prepare-docker-context
-  #   when:
-  #     branch:
-  #       - develop
-  #     event:
-  #       - push
+  - name: publish-docker
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      repo: grozadanut/moqui
+      tags: flexbiz
+      dockerfile: moqui-framework/docker/simple/Dockerfile
+      build_args:
+        - RUNTIME_IMAGE=eclipse-temurin:21-jdk
+      context: moqui-framework/docker/simple
+    depends_on:
+      - prepare-docker-context
