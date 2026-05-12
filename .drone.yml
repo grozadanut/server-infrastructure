@@ -23,16 +23,14 @@ steps:
     environment:
       elasticsearch_url: https://moqui-search:9200
     commands:
-      - cd moqui-framework
-      - chmod +x gradlew
-      - ./gradlew getComponent -Pcomponent=MarbleERP
-      - ./gradlew getComponent -Pcomponent=PopCommerce
-      - ./gradlew getComponent -Pcomponent=HiveMind
-      - ./gradlew getComponent -Pcomponent=mantle-udm
-      - ./gradlew getComponent -Pcomponent=mantle-usl
-      - ./gradlew getComponent -Pcomponent=PopRestStore
-      - ./gradlew getComponent -Pcomponent=moqui-linic-legacy
-      - ./gradlew gitp
+      - chmod +x moqui-framework/gradlew
+      - ./moqui-framework/gradlew getComponent -Pcomponent=MarbleERP
+      - ./moqui-framework/gradlew getComponent -Pcomponent=PopCommerce
+      - ./moqui-framework/gradlew getComponent -Pcomponent=HiveMind
+      - ./moqui-framework/gradlew getComponent -Pcomponent=mantle-udm
+      - ./moqui-framework/gradlew getComponent -Pcomponent=mantle-usl
+      - ./moqui-framework/gradlew getComponent -Pcomponent=PopRestStore
+      - ./moqui-framework/gradlew getComponent -Pcomponent=moqui-linic-legacy
 
   - name: load-demo-data
     image: gradle:8-jdk21
