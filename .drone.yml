@@ -37,6 +37,8 @@ steps:
       - ./moqui-framework/gradlew getComponent -Pcomponent=mantle-usl
       - ./moqui-framework/gradlew getComponent -Pcomponent=PopRestStore
       - ./moqui-framework/gradlew getComponent -Pcomponent=moqui-linic-legacy
+    depends_on:
+      - clone-moqui
 
   - name: load-demo-data
     image: gradle:8-jdk21
