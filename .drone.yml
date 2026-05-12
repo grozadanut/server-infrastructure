@@ -59,13 +59,15 @@ steps:
       - cd moqui-framework
       - java -jar moqui.war port=8080
     depends_on:
-      - load-demo-data
+      - test
     detach: true
 
   - name: playwright-test
     image: mcr.microsoft.com/playwright:v1.59.1-noble
     commands:
       - sleep 5
+      - npm ci
+      - npx playwright install --with-deps
       - npx playwright test --workers=1
     depends_on:
       - moqui
