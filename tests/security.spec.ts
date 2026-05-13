@@ -31,9 +31,12 @@ test('login success with 2FA: single use code', async ({ page }) => {
   await page.getByRole('textbox', { name: 'Username' }).fill('john.popc');
   await page.getByRole('textbox', { name: 'Password' }).fill('moqui');
   await page.getByRole('button', { name: 'Sign in' }).click();
-  await page.getByRole('textbox', { name: 'Authentication Code' }).click();
+  await page.getByRole('textbox', { name: 'Authentication Code' }).fill("wrongcode");
+  await page.getByRole('button', { name: 'Sign in' }).click();
+  await expect(page.getByRole('heading')).toContainText('Authentication code is not valid');
   await page.getByRole('textbox', { name: 'Authentication Code' }).fill(code);
   await page.getByRole('button', { name: 'Sign in' }).click();
+  await expect(page.getByText('Choose an Application' )).toBeVisible();
   await page.goto('/Login/logout');
   await page.getByRole('textbox', { name: 'Username' }).fill('john.popc');
   await page.getByRole('textbox', { name: 'Password' }).fill('moqui');
