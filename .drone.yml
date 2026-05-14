@@ -3,6 +3,13 @@ kind: pipeline
 type: docker
 name: default
 
+trigger:
+  paths:
+    include:
+      - test/***
+      - tests/***
+      - .drone.yml
+
 services:
   - name: moqui-search
     image: opensearchproject/opensearch:3.4.0
