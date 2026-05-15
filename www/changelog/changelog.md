@@ -1,3 +1,18 @@
+## Aplicație Desktop [6.0.4] - 2026-05-15
+
+### 🚀 Funcționalități
+
+- Printează declarația de conformitate odată cu factura
+- Exclude produsele care aparțin anumitor raioane configurate să fie calculate la punctele de fidelitate
+- Logo personalizat pe companie
+
+### 🐛 Corecții
+
+- Fereastra de login - arată doar utilizatorii care aparțin de compania ultimului utilizator logat
+- Încărcare foarte lentă a produselor în Catalog Produse
+- Aplicația se oprește dacă URL-ul NATS este configurat dar serverul nu funcționează
+- Eroare care apare la fiecare încărcare de facturi la Urmărire Parteneri sau Contabilitate dacă modulul eFactura nu este instalat
+
 ## Aplicație Desktop [6.0.0] - 2026-05-07
 
 ### 🚀 Funcționalități
