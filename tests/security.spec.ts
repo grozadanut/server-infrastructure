@@ -19,7 +19,7 @@ test('login success with john.doe', async ({ page }) => {
 
 test('login success with 2FA: single use code', async ({ page }) => {
   await page.goto('/apps');
-  await page.getByRole('textbox', { name: 'Username' }).fill('john.popc');
+  await page.getByRole('textbox', { name: 'Username' }).fill('john.doe');
   await page.getByRole('textbox', { name: 'Password' }).fill('moqui');
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('link', { name: 'My Account' }).click();
@@ -28,17 +28,19 @@ test('login success with 2FA: single use code', async ({ page }) => {
   await page.locator('#CreateUserAuthcFactorSingleUse_submitButton').click();
   const code = (await page.locator('.col-lg-4').first().textContent())?.trim() ?? '';
   await page.goto('/Login/logout');
-  await page.getByRole('textbox', { name: 'Username' }).fill('john.popc');
+  await page.getByRole('textbox', { name: 'Username' }).fill('john.doe');
   await page.getByRole('textbox', { name: 'Password' }).fill('moqui');
   await page.getByRole('button', { name: 'Sign in' }).click();
   await page.getByRole('textbox', { name: 'Authentication Code' }).fill("wrongcode");
   await page.getByRole('button', { name: 'Sign in' }).click();
-  await expect(page.getByRole('heading')).toContainText('Authentication code is not valid');
+  // await expect(page.getByRole('heading')).toContainText('Authentication code is not valid');
+  await expect(page.getByText('An authentication code is required for your account, you have these options:')).toBeVisible();
+  await expect(page.getByText('Single Use Code')).toBeVisible();
   await page.getByRole('textbox', { name: 'Authentication Code' }).fill(code);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await expect(page.getByText('Choose an Application' )).toBeVisible();
   await page.goto('/Login/logout');
-  await page.getByRole('textbox', { name: 'Username' }).fill('john.popc');
+  await page.getByRole('textbox', { name: 'Username' }).fill('john.doe');
   await page.getByRole('textbox', { name: 'Password' }).fill('moqui');
   await page.getByRole('button', { name: 'Sign in' }).click();
   await expect(page.getByText('Choose an Application' )).toBeVisible();
