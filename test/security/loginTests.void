@@ -58,13 +58,6 @@ content:
           - body.errors
           - starts-with
           - No username specified
-      - attrs:
-          disabled: false
-        row:
-          - null
-          - body.loggedIn
-          - equals
-          - "false"
 ---
 ```
 ```void
@@ -97,25 +90,13 @@ content:
 ```
 ```void
 ---
-type: auth
+type: json_body
 attrs:
-  uid: f28b0a18-dca6-4797-aba0-bb8c6daee6dc
-  authType: basic
-  importedFrom: ""
-  oauth2Config: ""
-content:
-  - type: table
-    rows:
-      - attrs:
-          disabled: false
-        row:
-          - username
-          - john.doe
-      - attrs:
-          disabled: false
-        row:
-          - password
-          - null
+  uid: 33b697cc-62d6-4006-9340-13a827fea843
+  body: |-
+    {
+      "username": "john.doe"
+    }
 ---
 ```
 ```void
@@ -141,13 +122,6 @@ content:
           - body.errors
           - starts-with
           - No password specified
-      - attrs:
-          disabled: false
-        row:
-          - null
-          - body.loggedIn
-          - equals
-          - "false"
 ---
 ```
 %%EMPTY_LINE%%
@@ -182,25 +156,14 @@ content:
 ```
 ```void
 ---
-type: auth
+type: json_body
 attrs:
-  uid: 845c14cd-80a7-4a6f-8757-d542c81c7a1f
-  authType: basic
-  importedFrom: ""
-  oauth2Config: ""
-content:
-  - type: table
-    rows:
-      - attrs:
-          disabled: false
-        row:
-          - username
-          - notauser
-      - attrs:
-          disabled: false
-        row:
-          - password
-          - moqui
+  uid: bb1f3f92-a171-412b-a28b-788fe11e6b1b
+  body: |-
+    {
+      "username": "notauser",
+      "password": "moqui"
+    }
 ---
 ```
 ```void
@@ -226,13 +189,6 @@ content:
           - body.errors
           - starts-with
           - No account found for username notauser
-      - attrs:
-          disabled: false
-        row:
-          - null
-          - body.loggedIn
-          - equals
-          - "false"
 ---
 ```
 ```void
@@ -253,37 +209,26 @@ content:
   - type: method
     attrs:
       uid: 45b26df3-bfce-43f2-b2b1-fa47eeb69a6a
-      method: GET
+      method: POST
       importedFrom: ""
       visible: true
-    content: GET
+    content: POST
   - type: url
     attrs:
       uid: 42bbbe32-2aaf-4955-89b3-2b67c5ad2e3a
-    content: "{{MOQUI_REST_BASE_URL}}/entity.json/Party"
+    content: "{{MOQUI_REST_BASE_URL}}/login"
 ---
 ```
 ```void
 ---
-type: auth
+type: json_body
 attrs:
-  uid: dc2061c2-caf1-433e-a8ee-0843686fce06
-  authType: basic
-  importedFrom: ""
-  oauth2Config: ""
-content:
-  - type: table
-    rows:
-      - attrs:
-          disabled: false
-        row:
-          - username
-          - john.doe
-      - attrs:
-          disabled: false
-        row:
-          - password
-          - moqui
+  uid: d857a1ed-2129-478d-b365-bd49c32f135e
+  body: |-
+    {
+      "username": "john.doe",
+      "password": "moqui"
+    }
 ---
 ```
 ```void
@@ -311,3 +256,279 @@ content:
           - "true"
 ---
 ```
+```void
+---
+type: request-separator
+attrs:
+  uid: cbba9dd5-f4bb-4895-a191-0f552ecddc4f
+  colorIndex: 1
+  label: Enable 2FA
+---
+```
+```void
+---
+type: request
+attrs:
+  uid: 482576f2-b9fd-4d21-a67c-160fa655fa3d
+content:
+  - type: method
+    attrs:
+      uid: 444c09d0-b450-4c53-834f-119a59bba890
+      method: POST
+      importedFrom: ""
+      visible: true
+    content: POST
+  - type: url
+    attrs:
+      uid: b3aa1712-7f11-4d40-aa50-529097c7eb4f
+    content: "{{MOQUI_REST_BASE_URL}}/s1/moqui/users/EX_JOHN_DOE/singleUseAuthcCodes"
+---
+```
+```void
+---
+type: auth
+attrs:
+  uid: 1b53477d-f6e4-4128-bcde-7028ff8df816
+  authType: basic
+  importedFrom: ""
+  oauth2Config: ""
+content:
+  - type: table
+    rows:
+      - attrs:
+          disabled: false
+        row:
+          - username
+          - john.doe
+      - attrs:
+          disabled: false
+        row:
+          - password
+          - moqui
+---
+```
+```void
+---
+type: json_body
+attrs:
+  uid: 7f641330-cf4e-4546-a54f-840249b61c94
+  body: |-
+    {
+      "numberOfCodes": 1
+    }
+---
+```
+```void
+---
+type: runtime-variables
+attrs:
+  uid: a9fea010-f435-4435-a8d3-65a90a5bf3f2
+  importedFrom: ""
+content:
+  - type: table
+    rows:
+      - attrs:
+          disabled: false
+        row:
+          - singleUseCode
+          - "{{$res.body.singleUseCodes[0]}}"
+---
+```
+```void
+---
+type: request-separator
+attrs:
+  uid: 60d5035b-13bc-4099-84e9-ea44b7f4bf40
+  colorIndex: 4
+  label: 2Fa fail without code
+---
+```
+```void
+---
+type: request
+attrs:
+  uid: d941c559-1938-4fc2-9d3e-a1b0096d5a3f
+content:
+  - type: method
+    attrs:
+      uid: 9a842053-e9ab-43c8-a3cf-e87e107efa13
+      method: POST
+      importedFrom: ""
+      visible: true
+    content: POST
+  - type: url
+    attrs:
+      uid: 074dddf9-952e-40be-8b1c-d9f9d4bdb988
+    content: "{{MOQUI_REST_BASE_URL}}/login"
+---
+```
+```void
+---
+type: json_body
+attrs:
+  uid: 88e0fb8a-ddd0-49ba-bebb-ced0c84d6e1f
+  body: |-
+    {
+      "username": "john.doe",
+      "password": "moqui"
+    }
+---
+```
+```void
+---
+type: assertions-table
+attrs:
+  uid: de10b2d9-f9be-47dc-8874-28dc04fb8bac
+  importedFrom: ""
+content:
+  - type: table
+    rows:
+      - attrs:
+          disabled: false
+        row:
+          - Check status
+          - status
+          - equals
+          - "200"
+      - attrs:
+          disabled: false
+        row:
+          - null
+          - body.secondFactorRequired
+          - equals
+          - "true"
+---
+```
+```void
+---
+type: request-separator
+attrs:
+  uid: 1c09e46a-44e0-424b-b063-35259dc13f70
+  colorIndex: 0
+  label: 2FA Fail with wrong code
+---
+```
+```void
+---
+type: request
+attrs:
+  uid: 60751fad-eab1-41fb-a17e-8a25869c0265
+content:
+  - type: method
+    attrs:
+      uid: b85aba97-7451-44b7-936b-b09b5e8ded6f
+      method: POST
+      importedFrom: ""
+      visible: true
+    content: POST
+  - type: url
+    attrs:
+      uid: 36e37f3a-edf6-41aa-8964-5b306527d49d
+    content: "{{MOQUI_REST_BASE_URL}}/login"
+---
+```
+```void
+---
+type: json_body
+attrs:
+  uid: f35b5350-78ee-4f18-8fbb-7b58049a5c37
+  body: |-
+    {
+      "username": "john.doe",
+      "password": "moqui",
+      "code": "wrongcode"
+    }
+---
+```
+```void
+---
+type: assertions-table
+attrs:
+  uid: b1fd6dd0-1309-4d85-bf76-7724c955ee04
+  importedFrom: ""
+content:
+  - type: table
+    rows:
+      - attrs:
+          disabled: false
+        row:
+          - Check status
+          - status
+          - equals
+          - "200"
+      - attrs:
+          disabled: false
+        row:
+          - null
+          - body.messages
+          - starts-with
+          - Authentication code is not valid
+---
+```
+```void
+---
+type: request-separator
+attrs:
+  uid: 75fb9d77-d70a-47b4-8119-9f942621224a
+  colorIndex: 5
+  label: 2FA success WITH code
+---
+```
+```void
+---
+type: request
+attrs:
+  uid: 1ab36273-6bc4-4d28-a86d-0e84bcf13f97
+content:
+  - type: method
+    attrs:
+      uid: 0562a1b2-0aad-4471-8db1-01ae94f06163
+      method: POST
+      importedFrom: ""
+      visible: true
+    content: POST
+  - type: url
+    attrs:
+      uid: a8fa3c5f-02a2-4595-afe9-b030eed1bb39
+    content: "{{MOQUI_REST_BASE_URL}}/login"
+---
+```
+```void
+---
+type: json_body
+attrs:
+  uid: d0721965-6811-47a0-a476-76534276a4a1
+  body: |-
+    {
+      "username": "john.doe",
+      "password": "moqui",
+      "code": {{process.singleUseCode}}
+    }
+---
+```
+```void
+---
+type: assertions-table
+attrs:
+  uid: 0cc4e6b3-4ed7-42a5-a877-08149eb07b9c
+  importedFrom: ""
+content:
+  - type: table
+    rows:
+      - attrs:
+          disabled: false
+        row:
+          - Check status
+          - status
+          - equals
+          - "200"
+      - attrs:
+          disabled: false
+        row:
+          - null
+          - body
+          - is-empty
+          - null
+---
+```
+Note: this request also clears the 2FA code.
