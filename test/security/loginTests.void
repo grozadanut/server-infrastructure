@@ -50,12 +50,12 @@ content:
           - Check status
           - status
           - equals
-          - "500"
+          - "200"
       - attrs:
           disabled: false
         row:
           - null
-          - body.errors
+          - body.messages
           - starts-with
           - No username specified
 ---
@@ -114,12 +114,12 @@ content:
           - Check status
           - status
           - equals
-          - "500"
+          - "200"
       - attrs:
           disabled: false
         row:
           - null
-          - body.errors
+          - body.messages
           - starts-with
           - No password specified
 ---
@@ -181,12 +181,12 @@ content:
           - Check status
           - status
           - equals
-          - "500"
+          - "200"
       - attrs:
           disabled: false
         row:
           - null
-          - body.errors
+          - body.messages
           - starts-with
           - No account found for username notauser
 ---
@@ -526,9 +526,9 @@ content:
           disabled: false
         row:
           - null
-          - body
-          - is-empty
-          - null
+          - body.loggedIn
+          - is-truthy
+          - "true"
 ---
 ```
 Note: this request also clears the 2FA code.
