@@ -45,3 +45,19 @@ test('login success with 2FA: single use code', async ({ page }) => {
   await page.getByRole('button', { name: 'Sign in' }).click();
   await expect(page.getByText('Choose an Application' )).toBeVisible();
 });
+
+test('dont require email 2FA if not validated', async ({ page }) => {
+  await page.goto('/apps');
+  await page.getByRole('textbox', { name: 'Username' }).fill('john.doe');
+  await page.getByRole('textbox', { name: 'Password' }).fill('moqui');
+  await page.getByRole('button', { name: 'Sign in' }).click();
+  await page.getByRole('link', { name: 'My Account' }).click();
+  await page.getByRole('link', { name: 'Account', exact: true }).click();
+  await page.getByRole('button', { name: 'Add Email Factor' }).click();
+  await page.locator('#CreateUserAuthcFactorEmail_submitButton').click();
+  await page.goto('/Login/logout');
+  await page.getByRole('textbox', { name: 'Username' }).fill('john.doe');
+  await page.getByRole('textbox', { name: 'Password' }).fill('moqui');
+  await page.getByRole('button', { name: 'Sign in' }).click();
+  await expect(page.getByText('Choose an Application' )).toBeVisible();
+});
