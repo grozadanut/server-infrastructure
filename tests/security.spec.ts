@@ -60,4 +60,18 @@ test('dont require email 2FA if not validated', async ({ page }) => {
   await page.getByRole('textbox', { name: 'Password' }).fill('moqui');
   await page.getByRole('button', { name: 'Sign in' }).click();
   await expect(page.getByText('Choose an Application' )).toBeVisible();
+  await page.getByRole('link', { name: 'My Account' }).click();
+  await page.getByRole('link', { name: 'Account', exact: true }).click();
+  await page.getByRole('button', { name: 'Verify' }).click();
+  await page.getByText('Send new code to john.doe@').click();
+  await page.goto('/Login/logout');
+  await page.getByRole('textbox', { name: 'Username' }).fill('john.doe');
+  await page.getByRole('textbox', { name: 'Password' }).fill('moqui');
+  await page.getByRole('button', { name: 'Sign in' }).click();
+  await expect(page.getByText('Choose an Application' )).toBeVisible();
+  // cleanup
+  await page.getByRole('link', { name: 'My Account' }).click();
+  await page.getByRole('link', { name: 'Account', exact: true }).click();
+  await page.locator('#UserAuthcFactorList_delete_1').click();
+  await page.locator('#UserAuthcFactorList_delete_0').click();
 });

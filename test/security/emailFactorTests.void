@@ -11,7 +11,7 @@ generatedAt: 2026-05-19T12:34:02.749Z
 type: request-separator
 attrs:
   uid: 43b97f5b-8a12-4686-b795-a0e21219abab
-  colorIndex: 3
+  colorIndex: 9
   label: Enable Email 2fa But dont activate
 ---
 ```
@@ -71,10 +71,26 @@ attrs:
 ```
 ```void
 ---
+type: runtime-variables
+attrs:
+  uid: b78008de-6909-4e2d-8e2f-fc52812cb272
+  importedFrom: ""
+content:
+  - type: table
+    rows:
+      - attrs:
+          disabled: false
+        row:
+          - factorId
+          - "{{$res.body.factorId}}"
+---
+```
+```void
+---
 type: request-separator
 attrs:
   uid: ca06b969-1ac5-4567-ab6e-972a156c1654
-  colorIndex: 0
+  colorIndex: 2
   label: login success
 ---
 ```
@@ -114,6 +130,149 @@ attrs:
 type: assertions-table
 attrs:
   uid: ded2a419-6c96-4e30-8a81-79fd7fb28198
+  importedFrom: ""
+content:
+  - type: table
+    rows:
+      - attrs:
+          disabled: false
+        row:
+          - Check status
+          - status
+          - equals
+          - "200"
+      - attrs:
+          disabled: false
+        row:
+          - null
+          - body.loggedIn
+          - equals
+          - "true"
+---
+```
+```void
+---
+type: request-separator
+attrs:
+  uid: 38c1b935-3d0e-4cc4-9205-7fb22cf29f63
+  colorIndex: 9
+  label: Send email 2FA code but dont verify
+---
+```
+```void
+---
+type: request
+attrs:
+  uid: 8ed85686-d1d2-4265-949c-445ee39adb44
+content:
+  - type: method
+    attrs:
+      uid: 037be95a-80d6-44a5-ab21-e577ccc57244
+      method: POST
+      importedFrom: ""
+      visible: true
+    content: POST
+  - type: url
+    attrs:
+      uid: 3e22e9f6-138f-4169-a715-62e936dc6228
+    content: "{{MOQUI_BASE_URL}}/Login/sendOtp"
+---
+```
+```void
+---
+type: auth
+attrs:
+  uid: 1b0f75e7-a9cf-442b-8367-2c4f0000e332
+  authType: basic
+  importedFrom: ""
+  oauth2Config: ""
+content:
+  - type: table
+    rows:
+      - attrs:
+          disabled: false
+        row:
+          - username
+          - john.doe
+      - attrs:
+          disabled: false
+        row:
+          - password
+          - moqui
+---
+```
+```void
+---
+type: headers-table
+attrs:
+  uid: 803425f9-b24d-47a5-a7c3-1a4b52a46603
+  importedFrom: ""
+content:
+  - type: table
+    rows:
+      - attrs:
+          disabled: false
+        row:
+          - Accept
+          - application/json
+---
+```
+```void
+---
+type: json_body
+attrs:
+  uid: 193ac615-fe28-4a71-b4ad-21c626fec295
+  body: |-
+    {
+      "factorId": "{{process.factorId}}"
+    }
+---
+```
+```void
+---
+type: request-separator
+attrs:
+  uid: f4fb667a-30e9-43d1-b9cb-9ef3ebf6f082
+  colorIndex: 0
+  label: login success
+---
+```
+```void
+---
+type: request
+attrs:
+  uid: e58b1962-68c5-49ff-9a9c-2b2e8325c98d
+content:
+  - type: method
+    attrs:
+      uid: 134744f6-84f2-4acd-95be-727a622881f1
+      method: POST
+      importedFrom: ""
+      visible: true
+    content: POST
+  - type: url
+    attrs:
+      uid: e713590a-9237-4db5-ac38-c34ff6e30cd2
+    content: "{{MOQUI_REST_BASE_URL}}/login"
+---
+```
+```void
+---
+type: json_body
+attrs:
+  uid: b4d76e63-8c62-4b66-bc4f-3b8731c4a3c1
+  body: |-
+    {
+      "username": "john.doe",
+      "password": "moqui"
+    }
+---
+```
+```void
+---
+type: assertions-table
+attrs:
+  uid: eefe84b7-169c-49b4-be6c-411e3af32dcf
   importedFrom: ""
 content:
   - type: table
