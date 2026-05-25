@@ -502,7 +502,7 @@ attrs:
     {
       "username": "john.doe",
       "password": "moqui",
-      "code": {{process.singleUseCode}}
+      "code": "{{process.singleUseCode}}"
     }
 ---
 ```
