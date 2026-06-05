@@ -30,10 +30,11 @@ steps:
     environment:
       elasticsearch_url: https://moqui-search:9200
     commands:
-      - cd moqui-framework 
+      - cd moqui-framework
       - ./gradlew getComponent -Pcomponent=PopCommerce
       - ./gradlew getComponent -Pcomponent=mantle-udm
       - ./gradlew getComponent -Pcomponent=mantle-usl
+      - ./gradlew getComponent -Pcomponent=CredentialManager
     depends_on:
       - clone-moqui
 
@@ -68,6 +69,14 @@ steps:
     depends_on:
       - test
     detach: true
+
+  - name: go-test
+    image: golang:1.26.3
+    commands:
+      - cd moqui-framework
+      - go test ./...
+    depends_on:
+      - moqui
 
   - name: playwright-test
     image: mcr.microsoft.com/playwright:v1.59.1-noble
