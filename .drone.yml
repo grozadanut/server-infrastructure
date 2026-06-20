@@ -41,12 +41,7 @@ steps:
 
   - name: mockoon
     image: mockoon/cli:latest
-    command: ["--data", "https://raw.githubusercontent.com/grozadanut/moqui-anaf-efactura/refs/heads/master/src/test/resources/efactura_mockoon.json", "--port", "3000"]
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
-      interval: 2s
-      timeout: 5s
-      retries: 5
+    command: ["--data", "https://raw.githubusercontent.com/grozadanut/moqui-anaf-efactura/refs/heads/master/src/test/resources/efactura_mockoon.json", "--port", "3002"]
     depends_on:
       - prepare-runtime
     detach: true
