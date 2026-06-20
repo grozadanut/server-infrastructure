@@ -42,14 +42,13 @@ steps:
   - name: verify-component
     image: alpine:latest
     commands:
-      - cd moqui-framework
-      - find runtime -path "*moqui-anaf-efactura*" -maxdepth 5
+      - find moqui-framework -path "*moqui-anaf-efactura*" -maxdepth 7
     depends_on:
       - prepare-runtime
 
   - name: mockoon
     image: mockoon/cli:latest
-    command: ["--data", "moqui-framework/runtime/component/moqui-anaf-efactura/src/test/resources/efactura_mockoon.json", "--port", "3000"]
+    command: ["--data", "./moqui-framework/runtime/component/moqui-anaf-efactura/src/test/resources/efactura_mockoon.json", "--port", "3000"]
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
       interval: 2s
