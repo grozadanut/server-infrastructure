@@ -39,6 +39,18 @@ steps:
     depends_on:
       - clone-moqui
 
+  - name: mocks
+    image: mockoon/cli:latest
+    command: ["--data", "./moqui-framework/runtime/component/moqui-anaf-efactura/src/test/resources/efactura_mockoon.json", "--port", "3000"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 2s
+      timeout: 5s
+      retries: 5
+    depends_on:
+      - prepare-runtime
+    detach: true
+
   - name: load-demo-data
     image: gradle:8-jdk21
     environment:
@@ -48,7 +60,7 @@ steps:
       - ./gradlew cleanDb cleanLog cleanSessions cleanTempDir cleanOther
       - ./gradlew load
     depends_on:
-      - prepare-runtime
+      - mocks
 
   - name: test
     image: gradle:8-jdk21
