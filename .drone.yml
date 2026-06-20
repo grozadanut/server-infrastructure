@@ -39,17 +39,9 @@ steps:
     depends_on:
       - clone-moqui
 
-  - name: verify-component
-    image: alpine:latest
-    commands:
-      - pwd
-      - find moqui-framework -path "*moqui-anaf-efactura*" -maxdepth 7
-    depends_on:
-      - prepare-runtime
-
   - name: mockoon
     image: mockoon/cli:latest
-    command: ["--data", "./moqui-framework/runtime/component/moqui-anaf-efactura/src/test/resources/efactura_mockoon.json", "--port", "3002"]
+    command: ["--data", "/drone/src/moqui-framework/runtime/component/moqui-anaf-efactura/src/test/resources/efactura_mockoon.json", "--port", "3002"]
     depends_on:
       - prepare-runtime
     detach: true
