@@ -60,7 +60,7 @@ steps:
       - ./gradlew cleanDb cleanLog cleanSessions cleanTempDir cleanOther
       - ./gradlew load
     depends_on:
-      - mocks
+      - mockoon
 
   - name: test
     image: gradle:8-jdk21
