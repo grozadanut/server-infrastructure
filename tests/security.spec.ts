@@ -60,6 +60,7 @@ test('dont require email 2FA if not validated', async ({ page }) => {
   await page.getByRole('textbox', { name: 'Username' }).fill('john.doe');
   await page.getByRole('textbox', { name: 'Password' }).fill('moqui');
   await page.getByRole('button', { name: 'Sign in' }).click();
+  await page.goto('/apps');
   await page.getByRole('link', { name: 'My Account' }).click();
   await page.getByRole('link', { name: 'Account', exact: true }).click();
   await page.getByRole('button', { name: 'Add Email Factor' }).click();
