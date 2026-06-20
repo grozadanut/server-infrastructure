@@ -39,7 +39,7 @@ steps:
     depends_on:
       - clone-moqui
 
-  - name: mocks
+  - name: mockoon
     image: mockoon/cli:latest
     command: ["--data", "./moqui-framework/runtime/component/moqui-anaf-efactura/src/test/resources/efactura_mockoon.json", "--port", "3000"]
     healthcheck:
