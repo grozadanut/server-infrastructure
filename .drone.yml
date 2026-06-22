@@ -36,6 +36,7 @@ steps:
       - ./gradlew getComponent -Pcomponent=mantle-usl
       - ./gradlew getComponent -Pcomponent=CredentialManager
       - ./gradlew getComponent -Pcomponent=moqui-anaf-efactura
+      - ./gradlew getComponent -Pcomponent=moqui-linic-legacy
     depends_on:
       - clone-moqui
 
