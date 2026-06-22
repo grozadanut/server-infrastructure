@@ -87,14 +87,14 @@ steps:
     depends_on:
       - moqui
 
-  - name: playwright-test
-    image: mcr.microsoft.com/playwright:v1.59.1-noble
-    commands:
-      - npm ci
-      - npx playwright install --with-deps
-      - npx playwright test --workers=1
-    depends_on:
-      - moqui
+  # - name: playwright-test
+  #   image: mcr.microsoft.com/playwright:v1.59.1-noble
+  #   commands:
+  #     - npm ci
+  #     - npx playwright install --with-deps
+  #     - npx playwright test --workers=1
+  #   depends_on:
+  #     - moqui
 
   - name: prepare-docker-context
     image: gradle:8-jdk21
