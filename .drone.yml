@@ -106,7 +106,7 @@ steps:
       - unzip -q ../../moqui.war
       - cp -R ../../runtime .
     depends_on:
-      - playwright-test
+      - go-test
 
   - name: publish-docker
     image: plugins/docker
