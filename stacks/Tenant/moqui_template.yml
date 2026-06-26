@@ -13,7 +13,7 @@ services:
      - txlog:/opt/moqui/runtime/txlog
      - sessions:/opt/moqui/runtime/sessions
     environment:
-     - "JAVA_TOOL_OPTIONS=-Xms512m -Xmx512m -Dcolibri_legacy_user=${LEGACY_USER} -Dcolibri_legacy_pass=${LEGACY_PASS}"
+     - "JAVA_TOOL_OPTIONS=-Xms1024m -Xmx1024m -Dcolibri_legacy_user=${LEGACY_USER} -Dcolibri_legacy_pass=${LEGACY_PASS}"
      - SENTRY_SERVERNAME=${TENANT_ID}
      - SENTRY_TAGS_APP=moqui
      - instance_purpose=production

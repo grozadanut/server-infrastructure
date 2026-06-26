@@ -1,3 +1,40 @@
+## Aplicație Desktop [6.1.2] - 2026-06-26
+
+### 🚀 Funcționalități
+
+- Fereastră nouă pentru eFactura
+- *(eFactura)* Trimite facturi la ANAF și descarcă răspunsul
+- *(eFactura)* Recepționează facturile primite prin eFactura
+- Personalizează logo-ul per gestiune
+- *(eFactura)* Afișează toate mesajele primite prin eFactura, nu doar facturile
+- *(eFactura)* Descarcă mesajele prin click pe coloana ID
+- Trimite facturile prin Email
+
+### 🐛 Corecții
+
+- Testare și fixare erori eFactura
+- Diacriticile nu apar când se salvează certificatul de conformitate ca și PDF
+
+## Aplicație Desktop [6.0.5] - 2026-06-09
+
+### 🚀 Funcționalități
+
+- *(securitate)* Salvarea sesiunii de autentificare în locul trimiterii parolei la fiecare operațiune
+- Adaugă autentificarea cu doi factori
+- Adăugat funcționalitate pentru dispozitive de încredere care pot sări peste autentificarea cu doi factori
+- Deschide doar interfața de Vânzare configurată
+- Setare: Printează numărul comenzii cu bonul de casă(Doar pentru driverul FiscalNet)
+
+### 🐛 Corecții
+
+- Rezolvă eroare la logare dacă serverul Moqui nu este configurat
+- Aplicația îngheață când se încearcă actualizarea automată a sesiunii de autentificare
+- Mesaj de notificare pentru încasări a produselor vândute în altă gestiune
+- Adaugă spațiu liber la finalul bonului nefiscal cu numărul de comandă(Doar pentru driverul FiscalNet)
+- Deschide o fereastră cu interfața de Vânzare la prima deschidere după actualizarea programului
+- Eroare la comenzile date la furnizori dacă pentru un anumit produs nu este configurat furnizorul
+- Adăugat iconița pentru printarea etichetelor în interfața standard de Vânzare
+
 ## Aplicație Desktop [6.0.4] - 2026-05-15
 
 ### 🚀 Funcționalități
