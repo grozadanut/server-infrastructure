@@ -34,6 +34,8 @@ postgresql_users:
     password: "{{ synapse_db_password }}"
   - name: "{{ cafe_db_user }}"
     password: "{{ cafe_db_password }}"
+  - name: "{{ fairy_db_user }}"
+    password: "{{ fairy_db_password }}"
 
 postgresql_databases:
   - name: nextcloud
@@ -49,3 +51,5 @@ postgresql_databases:
     encoding: "UTF8"
   - name: cafe_db
     owner: "{{ cafe_db_user }}"
+  - name: fairy_db
+    owner: "{{ fairy_db_user }}"
