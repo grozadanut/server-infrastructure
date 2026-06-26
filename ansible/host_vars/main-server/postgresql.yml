@@ -32,6 +32,8 @@ postgresql_users:
     password: "{{ colibri_stat_db_password }}"
   - name: "{{ synapse_db_user }}"
     password: "{{ synapse_db_password }}"
+  - name: "{{ cafe_db_user }}"
+    password: "{{ cafe_db_password }}"
 
 postgresql_databases:
   - name: nextcloud
@@ -45,3 +47,5 @@ postgresql_databases:
     lc_collate: "C"
     lc_ctype: "C"
     encoding: "UTF8"
+  - name: cafe_db
+    owner: "{{ cafe_db_user }}"
