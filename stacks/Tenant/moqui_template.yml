@@ -1,0 +1,34 @@
+services:
+  moqui-server:
+    image: grozadanut/moqui:flexbiz
+    container_name: moqui-server
+    command: conf=conf/MoquiProductionConf.xml port=80
+    restart: unless-stopped
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    volumes:
+     - /data/${TENANT_ID}/runtime/conf:/opt/moqui/runtime/conf
+     - /data/${TENANT_ID}/runtime/lib:/opt/moqui/runtime/lib
+     - log:/opt/moqui/runtime/log
+     - txlog:/opt/moqui/runtime/txlog
+     - sessions:/opt/moqui/runtime/sessions
+    environment:
+     - "JAVA_TOOL_OPTIONS=-Xms512m -Xmx512m -Dcolibri_legacy_user=${LEGACY_USER} -Dcolibri_legacy_pass=${LEGACY_PASS}"
+     - SENTRY_SERVERNAME=${TENANT_ID}
+     - SENTRY_TAGS_APP=moqui
+     - instance_purpose=production
+     - elasticsearch_url={{server.MOQUI_SEARCH_URL}}
+     - elasticsearch_index_prefix=${TENANT_ELASTIC_PREFIX}
+     - elasticsearch_user=[user]
+     - elasticsearch_password=[pass]
+     - webapp_https_enabled=true
+     - default_locale=ro_RO
+     - default_time_zone=Europe/Bucharest
+     - database_time_zone=Europe/Bucharest
+     - java.naming.provider.url=${LEGACY_APP_URL}
+     - ANAF_AUTHORIZATIONURI=https://logincert.anaf.ro/anaf-oauth2/v1/authorize
+     - ANAF_TOKENURI=https://logincert.anaf.ro/anaf-oauth2/v1/token
+     - ANAF_REVOKEURI=https://logincert.anaf.ro/anaf-oauth2/v1/revoke
+     - ANAF_CLIENT_ID=${ANAF_CLIENT_ID}
+     - ANAF_CLIENT_SECRET=${ANAF_CLIENT_SECRET}
+     - anaf.api.base.url=https://api.anaf.ro/prod/FCTEL
