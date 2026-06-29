@@ -1,3 +1,9 @@
+## Aplicație Desktop [6.1.6] - 2026-06-29
+
+### 🐛 Corecții
+
+- Trimite și certificatul de conformitate pe email odata cu factura
+
 ## Aplicație Desktop [6.1.5] - 2026-06-27
 
 ### 🐛 Corecții
