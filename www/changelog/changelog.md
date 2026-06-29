@@ -3,12 +3,12 @@
 ### 🚀 Funcționalități
 
 - Fereastră nouă pentru eFactura
-- *(eFactura)* Trimite facturi la ANAF și descarcă răspunsul
-- *(eFactura)* Recepționează facturile primite prin eFactura
+- *(eFactura)* Trimite facturi la ANAF și descarcă răspunsul: https://videos.flexbiz.ro/wiki/efactura-raportare/
+- *(eFactura)* Recepționează facturile primite prin eFactura: https://videos.flexbiz.ro/wiki/efactura-receptie/
 - Personalizează logo-ul per gestiune
 - *(eFactura)* Afișează toate mesajele primite prin eFactura, nu doar facturile
 - *(eFactura)* Descarcă mesajele prin click pe coloana ID
-- Trimite facturile prin Email
+- Trimite facturile prin Email: https://videos.flexbiz.ro/wiki/email/
 
 ### 🐛 Corecții
 
