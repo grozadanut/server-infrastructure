@@ -1,3 +1,11 @@
+## Aplicație Desktop [6.1.5] - 2026-06-27
+
+### 🐛 Corecții
+
+- eFactura - Tradu în română coloana 'Tip Mesaj'
+- Funcționare corectă în cazul în care sunt mai multe companii în același program
+- Separă preferințele securizate pentru fiecare companie în parte
+
 ## Aplicație Desktop [6.1.2] - 2026-06-26
 
 ### 🚀 Funcționalități
