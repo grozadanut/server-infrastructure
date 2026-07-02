@@ -59,7 +59,7 @@ services:
       - 'RESTIC_PASSWORD=${restic_repo_pass}'
       - 'AWS_ACCESS_KEY_ID=${s3_key}'
       - 'AWS_SECRET_ACCESS_KEY=${s3_secret}'
-      - REFRESH_INTERVAL=2073600
+      - REFRESH_INTERVAL=86400
     volumes:
       - '/root/.cache/restic:/root/.cache/restic'
     restart: unless-stopped
