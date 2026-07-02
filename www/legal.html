@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlexBiz — Document legal</title>
+    <meta name="description" content="Conținutul documentelor legale FlexBiz, afișat într-o pagină elegantă și ușor de citit.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
+            padding: 3rem 0 4rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            color: var(--brand);
+        }
+
+        .legal-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .legal-title {
+            font-size: clamp(1.8rem, 2.4vw, 2.4rem);
+            font-weight: 800;
+            margin-bottom: 1.25rem;
+            color: var(--text);
+        }
+
+        .markdown-body h1,
+        .markdown-body h2,
+        .markdown-body h3 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+
+        .markdown-body h1 {
+            font-size: 1.6rem;
+        }
+
+        .markdown-body h2 {
+            font-size: 1.25rem;
+        }
+
+        .markdown-body p,
+        .markdown-body li {
+            color: var(--text-muted);
+            margin-bottom: 0.8rem;
+        }
+
+        .markdown-body ul {
+            padding-left: 1.2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .markdown-body a {
+            color: var(--brand);
+            text-decoration: underline;
+        }
+
+        .markdown-body strong {
+            color: var(--text);
+        }
+
+        @media (max-width: 768px) {
+            .legal-card {
+                padding: 1.25rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-canvas"></div>
+
+    <nav>
+        <div class="nav-inner">
+            <a href="/" class="nav-logo">
+                <img src="logo.png" alt="FlexBiz" onerror="this.style.display='none'">
+                <span class="logo-text">Flex</span><span class="logo-accent">Biz</span>
+            </a>
+            <div class="nav-links">
+                <a href="/#servicii">Servicii</a>
+                <a href="/#preturi">Prețuri</a>
+                <a href="/changelog">Noutăți</a>
+                <a href="https://discord.gg/mxXupSfbyb">Comunitate</a>
+                <a href="https://bookstack.flexbiz.ro/books/manual-flexbiz" target="_blank">Documentație</a>
+                <a href="https://status.flexbiz.ro/status/default" target="_blank">Status</a>
+                <a href="mailto:contact@flexbiz.ro" class="nav-cta">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <a href="/" class="back-link">← Înapoi acasă</a>
+            <article class="legal-card">
+                <h1 class="legal-title" id="pageTitle">Se încarcă...</h1>
+                <div id="content" class="markdown-body">Se încarcă conținutul documentului...</div>
+            </article>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-inner">
+                <div>
+                    <div class="footer-brand">Flex<span>Biz</span>.ro</div>
+                    <div class="footer-copy">© <span id="currentYear"></span> FlexBiz. Implicare, Calitate, Flux.</div>
+                </div>
+                <div class="footer-links">
+                    <a href="https://discord.gg/mxXupSfbyb">Comunitate</a>
+                    <a href="https://bookstack.flexbiz.ro/books/manual-flexbiz" target="_blank">Documentație</a>
+                    <a href="https://status.flexbiz.ro/status/default" target="_blank">Status</a>
+                    <a href="https://github.com/grozadanut" target="_blank" rel="noopener">GitHub</a>
+                    <a href="mailto:contact@flexbiz.ro">Contact</a>
+                    <a href="/legal.html?doc=tos">Termeni de utilizare</a>
+                    <a href="/legal.html?doc=confidentialitate">Confidențialitate</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        const params = new URLSearchParams(window.location.search);
+        const docKey = params.get('doc');
+
+        const docs = {
+            confidentialitate: {
+                file: 'confidentialitate.md',
+                title: 'Politică de confidențialitate'
+            },
+            tos: {
+                file: 'tos.md',
+                title: 'Termeni de utilizare'
+            }
+        };
+
+        const selectedDoc = docs[docKey] || docs.tos;
+        document.getElementById('pageTitle').textContent = selectedDoc.title;
+        document.title = `${selectedDoc.title} — FlexBiz`;
+
+        async function loadDocument() {
+            try {
+                const response = await fetch(selectedDoc.file);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                const markdownText = await response.text();
+                document.getElementById('content').innerHTML = marked.parse(markdownText);
+            } catch (error) {
+                console.error('Eroare la încărcarea documentului:', error);
+                document.getElementById('content').innerHTML = '<p>Nu am putut încărca conținutul solicitat.</p>';
+            }
+        }
+
+        loadDocument();
+    </script>
+</body>
+
+</html>
