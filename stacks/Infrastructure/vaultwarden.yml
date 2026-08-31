@@ -1,6 +1,6 @@
 services:
   vaultwarden:
-    image: 'vaultwarden/server:1.37.1'
+    image: 'vaultwarden/server:1.37.2'
     environment:
       - SERVICE_URL_VAULTWARDEN
       - 'DOMAIN=${SERVICE_URL_VAULTWARDEN}'
