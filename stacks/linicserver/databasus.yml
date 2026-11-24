@@ -1,7 +1,7 @@
 services:
   databasus:
     container_name: databasus
-    image: databasus/databasus:v3.30.0
+    image: databasus/databasus:v3.72.0
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     ports:
